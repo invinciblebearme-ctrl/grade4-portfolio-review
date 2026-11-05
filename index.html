@@ -19,6 +19,12 @@ a.card:hover{transform:translateY(-4px);}
 .no{font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:800;opacity:.85;}
 .ico{font-size:2rem;margin:.3rem 0;}
 .t{font-family:'Baloo 2',sans-serif;font-size:1.2rem;font-weight:800;line-height:1.2;}
+a.card.ww{display:flex;align-items:center;gap:1rem;margin-bottom:1.2rem;padding:1.2rem 1.4rem;background:linear-gradient(135deg,#FF7A45 0%,#FF5C8A 50%,#7C63D8 100%);}
+a.card.ww .ico{font-size:2.6rem;margin:0;}
+a.card.ww .txt{flex:1;}
+a.card.ww .sub{font-size:.85rem;opacity:.92;margin-top:.2rem;}
+a.card.ww .go{font-family:'Baloo 2',sans-serif;font-weight:800;font-size:.9rem;background:rgba(255,255,255,.22);border-radius:999px;padding:.45rem 1rem;white-space:nowrap;}
+@media(max-width:520px){a.card.ww .go{display:none;}}
 footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:#5E5A80;}
 /* 단원 보기 (주소창은 그대로) */
 #viewer{position:fixed;inset:0;z-index:1000;background:#fff;display:none;}
@@ -35,6 +41,7 @@ body.viewing{overflow:hidden;}
   <p>단원을 골라 단어 · 표현 · 대화 · 문법 · 퀴즈를 학습해요!</p>
 </div>
 <main>
+  <a class="card ww" href="wordwall_games.html"><div class="ico">🎮</div><div class="txt"><div class="no">Game Zone</div><div class="t">워드월 게임 모음</div><div class="sub">1~10단원 단어 게임을 한곳에서 골라 해요</div></div><div class="go">시작하기 →</div></a>
   <div class="grid">
     <a class="card" style="background:linear-gradient(135deg,#4B3BC4,#B06FE8)" href="lesson1_portfolio_review.html"><div class="no">Lesson 1</div><div class="ico">👋</div><div class="t">My Name Is Amy</div></a>
     <a class="card" style="background:linear-gradient(135deg,#E65C00,#FF6B9D)" href="lesson2_portfolio_review.html"><div class="no">Lesson 2</div><div class="ico">😊</div><div class="t">I'm Happy</div></a>

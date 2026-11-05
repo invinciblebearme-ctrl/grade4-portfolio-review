@@ -861,7 +861,8 @@ let wwCur=-1;
 function wwUrl(g){return 'https://wordwall.net/ko/embed/'+g.g+'?themeId='+g.th+'&templateId='+g.t+'&fontStackId=0';}
 function wwPick(i){
   wwCur=i;var g=wwGames[i];
-  document.getElementById('wwFrame').src=wwUrl(g);
+  var fr=document.getElementById('wwFrame');
+  try{fr.contentWindow.location.replace(wwUrl(g));}catch(e){fr.src=wwUrl(g);}
   document.getElementById('wwOpen').href=wwUrl(g);
   document.querySelectorAll('.ww-chip').forEach(function(c,j){c.classList.toggle('on',j===i);});
 }

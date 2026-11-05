@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>워드월 게임 모음 · 4학년 영어 포트폴리오 학습</title>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Jua&family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'Noto Sans KR',sans-serif;background:#F8F7FF;color:#1A1730;min-height:100vh;}
+.hero{background:linear-gradient(135deg,#FF7A45 0%,#FF5C8A 45%,#7C63D8 100%);padding:2.4rem 1.5rem 2.2rem;text-align:center;color:#fff;}
+.hero h1{font-family:'Baloo 2','Jua',sans-serif;font-size:clamp(2rem,6vw,3rem);font-weight:800;line-height:1.15;}
+.hero h1 span{color:#FFF176;}
+.hero p{margin-top:.5rem;opacity:.9;font-size:.95rem;}
+main{max-width:980px;margin:0 auto;padding:1.6rem 1rem 4rem;}
+.label{font-family:'Baloo 2',sans-serif;font-size:.75rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:#7C63D8;margin:0 0 .7rem;}
+/* 단원 고르기 */
+.units{display:grid;grid-template-columns:repeat(5,1fr);gap:.6rem;margin-bottom:1.6rem;}
+.unit{border:none;border-radius:12px;padding:.7rem .6rem;color:#fff;text-align:left;cursor:pointer;font-family:inherit;box-shadow:0 3px 10px rgba(0,0,0,.08);opacity:.55;transition:opacity .2s,transform .2s,box-shadow .2s;}
+.unit:hover{opacity:.85;transform:translateY(-2px);}
+.unit.on{opacity:1;box-shadow:0 0 0 3px #fff,0 0 0 6px #4B3BC4,0 6px 18px rgba(0,0,0,.15);}
+.unit .no{font-family:'Baloo 2',sans-serif;font-size:.78rem;font-weight:800;opacity:.9;}
+.unit .t{display:block;font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:800;line-height:1.15;margin-top:.15rem;}
+/* 게임 고르기 */
+.head{display:flex;align-items:baseline;justify-content:space-between;gap:1rem;flex-wrap:wrap;margin-bottom:.7rem;}
+.head h2{font-family:'Baloo 2','Jua',sans-serif;font-size:1.35rem;font-weight:800;color:#1A1730;}
+.head .cnt{font-size:.82rem;color:#5E5A80;}
+.chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;}
+.chip{border:1.5px solid #E2DEF5;background:#fff;color:#5E5A80;border-radius:20px;padding:.45rem .95rem;font-family:inherit;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.chip:hover{color:#1A1730;border-color:#7C63D8;}
+.chip.on{background:#7C63D8;border-color:#7C63D8;color:#fff;}
+.chip .n{display:inline-block;min-width:1.2em;font-family:'Baloo 2',sans-serif;opacity:.7;margin-right:.15rem;}
+.frame{position:relative;width:100%;max-width:820px;margin:0 auto;aspect-ratio:500/380;background:#fff;border:1px solid #E2DEF5;border-radius:16px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,.08);}
+.frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.open{text-align:center;margin-top:.8rem;font-size:.82rem;color:#5E5A80;}
+.open a{color:#7C63D8;font-weight:700;}
+.note{max-width:820px;margin:0 auto .9rem;background:#FFF8E1;border-left:3px solid #F9A825;border-radius:0 8px 8px 0;padding:.6rem .9rem;font-size:.83rem;color:#7A5A00;display:none;}
+.note.on{display:block;}
+footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:#5E5A80;}
+@media(max-width:720px){.units{grid-template-columns:repeat(2,1fr);}}
+</style>
+</head>
+<body>
+<div class="hero">
+  <h1>🎮 워드월<br><span>게임 모음</span></h1>
+  <p>단원을 고르고, 게임을 골라 단어를 재미있게 익혀요!</p>
+</div>
+<main>
+  <div class="label">1. 단원 고르기</div>
+  <div class="units" id="units"></div>
+
+  <div class="head"><h2 id="unitTitle"></h2><span class="cnt" id="unitCnt"></span></div>
+  <div class="label">2. 게임 고르기</div>
+  <div class="chips" id="chips"></div>
+  <div class="note" id="note">이 단원은 <b>번호 순서대로</b> 해 보세요.</div>
+  <div class="frame"><iframe id="game" title="Wordwall 게임" allowfullscreen></iframe></div>
+  <div class="open">화면이 작으면 <a id="openLink" href="#" target="_blank" rel="noopener">새 창에서 크게 열기 ↗</a></div>
+</main>
+<footer>4학년 영어 포트폴리오 학습 자료 · 게임 제공 Wordwall</footer>
+
+<script>
+// [이름, 아이콘, 활동 ID, templateId, themeId]
+var GAMES={"1":[["매치업","🧩","f247afadbabc4fb69bb8a7a115ace0fb",3,1],["풍선터트리기","🎈","f247afadbabc4fb69bb8a7a115ace0fb",71,1],["크로스워드","✏️","f247afadbabc4fb69bb8a7a115ace0fb",11,1],["날아다니는 과일","🍉","f247afadbabc4fb69bb8a7a115ace0fb",82,1],["비행기","✈️","f247afadbabc4fb69bb8a7a115ace0fb",48,1],["미로찾기","🌀","f247afadbabc4fb69bb8a7a115ace0fb",49,1]],"2":[["매치업","🧩","061e440128e7464285376745910fd308",3,1],["철자 맞추기","🔤","061e440128e7464285376745910fd308",38,1],["풍선터트리기","🎈","061e440128e7464285376745910fd308",71,1],["크로스워드","✏️","061e440128e7464285376745910fd308",11,1],["날아다니는 과일","🍉","061e440128e7464285376745910fd308",82,1],["비행기","✈️","061e440128e7464285376745910fd308",48,1],["미로찾기","🌀","061e440128e7464285376745910fd308",49,1]],"3":[["매치업","🧩","2d141b76c34342048c83263a578fde31",3,1],["철자 맞추기","🔤","2d141b76c34342048c83263a578fde31",38,1],["풍선터트리기","🎈","2d141b76c34342048c83263a578fde31",71,1],["크로스워드","✏️","2d141b76c34342048c83263a578fde31",11,1],["날아다니는 과일","🍉","2d141b76c34342048c83263a578fde31",82,1],["비행기","✈️","2d141b76c34342048c83263a578fde31",48,1],["미로찾기","🌀","2d141b76c34342048c83263a578fde31",49,1]],"4":[["매치업","🧩","99a7ed68686d45ed9d590a03dfd9d88a",3,1],["철자 맞추기","🔤","99a7ed68686d45ed9d590a03dfd9d88a",79,1],["풍선터트리기","🎈","99a7ed68686d45ed9d590a03dfd9d88a",71,1],["크로스워드","✏️","99a7ed68686d45ed9d590a03dfd9d88a",11,1],["날아다니는 과일","🍉","99a7ed68686d45ed9d590a03dfd9d88a",82,1],["비행기","✈️","99a7ed68686d45ed9d590a03dfd9d88a",48,1],["미로찾기","🌀","99a7ed68686d45ed9d590a03dfd9d88a",49,1]],"5":[["매치업","🧩","b9541f4a732c414eae2cc4167ff4460f",3,65],["철자 맞추기","🔤","b9541f4a732c414eae2cc4167ff4460f",79,65],["풍선터트리기","🎈","b9541f4a732c414eae2cc4167ff4460f",71,65],["크로스워드","✏️","b9541f4a732c414eae2cc4167ff4460f",11,65],["날아다니는 과일","🍉","b9541f4a732c414eae2cc4167ff4460f",82,65],["비행기","✈️","b9541f4a732c414eae2cc4167ff4460f",48,65],["미로찾기","🌀","b9541f4a732c414eae2cc4167ff4460f",49,65]],"6":[["매치업","🧩","bfdeaee8260847c28eca791661cba2d0",3,1],["비행기","✈️","bfdeaee8260847c28eca791661cba2d0",48,1],["문장 배열하기","🔀","8c401386ae1a4052a900fa9eb28fc0f6",72,65],["단어 철자","🔤","bfdeaee8260847c28eca791661cba2d0",79,1],["날아다니는 과일","🍉","bfdeaee8260847c28eca791661cba2d0",82,1],["풍선터트리기","🎈","bfdeaee8260847c28eca791661cba2d0",71,1],["퀴즈 게임","❓","bfdeaee8260847c28eca791661cba2d0",89,1],["미로찾기","🌀","bfdeaee8260847c28eca791661cba2d0",49,1]],"7":[["매치업","🧩","60f68225fb3c43f6944dcf5557000516",3,1],["일치하는 것 찾기","🔗","60f68225fb3c43f6944dcf5557000516",46,1],["게임 퀴즈쇼","📺","60f68225fb3c43f6944dcf5557000516",69,1],["크로스워드","✏️","60f68225fb3c43f6944dcf5557000516",11,1],["단어 철자","🔤","60f68225fb3c43f6944dcf5557000516",79,1],["답 입력하기","⌨️","60f68225fb3c43f6944dcf5557000516",89,1],["이기거나 잃기","⚖️","60f68225fb3c43f6944dcf5557000516",78,1],["풍선터트리기","🎈","60f68225fb3c43f6944dcf5557000516",71,1],["비행기","✈️","60f68225fb3c43f6944dcf5557000516",48,1],["날아다니는 과일","🍉","60f68225fb3c43f6944dcf5557000516",82,1],["미로찾기","🌀","60f68225fb3c43f6944dcf5557000516",49,1]],"8":[["매치업","🧩","ffcb810fb0cc43489256c81c2d73d11b",3,1],["일치하는 것 찾기","🔗","ffcb810fb0cc43489256c81c2d73d11b",46,1],["게임 퀴즈쇼","📺","ffcb810fb0cc43489256c81c2d73d11b",69,1],["크로스워드","✏️","ffcb810fb0cc43489256c81c2d73d11b",11,1],["단어 철자","🔤","ffcb810fb0cc43489256c81c2d73d11b",79,1],["답 입력하기","⌨️","ffcb810fb0cc43489256c81c2d73d11b",89,1],["이기거나 잃기","⚖️","ffcb810fb0cc43489256c81c2d73d11b",78,1],["애너그램","🔠","ffcb810fb0cc43489256c81c2d73d11b",38,1],["랜덤 카드","🃏","ffcb810fb0cc43489256c81c2d73d11b",70,1]],"9":[["매치업","🧩","42d4abbd901d4ed9b730550ff0a3e6e7",3,1],["일치하는 것 찾기","🔗","42d4abbd901d4ed9b730550ff0a3e6e7",46,1],["게임 퀴즈쇼","📺","42d4abbd901d4ed9b730550ff0a3e6e7",69,1],["크로스워드","✏️","42d4abbd901d4ed9b730550ff0a3e6e7",11,1],["단어 철자","🔤","42d4abbd901d4ed9b730550ff0a3e6e7",79,1]],"10":[["매치업","🧩","3bb09302364d4b1984dc8dc2bbfb7cc6",3,1],["일치하는 것 찾기","🔗","3bb09302364d4b1984dc8dc2bbfb7cc6",46,1],["게임 퀴즈쇼","📺","3bb09302364d4b1984dc8dc2bbfb7cc6",69,1],["크로스워드","✏️","3bb09302364d4b1984dc8dc2bbfb7cc6",11,1],["단어 철자","🔤","3bb09302364d4b1984dc8dc2bbfb7cc6",79,1],["답 입력하기","⌨️","3bb09302364d4b1984dc8dc2bbfb7cc6",89,1],["이기거나 잃기","⚖️","3bb09302364d4b1984dc8dc2bbfb7cc6",78,1],["풍선터트리기","🎈","3bb09302364d4b1984dc8dc2bbfb7cc6",71,1],["비행기","✈️","3bb09302364d4b1984dc8dc2bbfb7cc6",48,1],["날아다니는 과일","🍉","3bb09302364d4b1984dc8dc2bbfb7cc6",82,1],["미로찾기","🌀","3bb09302364d4b1984dc8dc2bbfb7cc6",49,1]]};
+var UNITS={
+  1:['My Name Is Amy','👋','#4B3BC4,#B06FE8'],
+  2:["I'm Happy",'😊','#E65C00,#FF6B9D'],
+  3:["Don't Sit Here",'🚫','#1B5E20,#00897B'],
+  4:["Let's Play Basketball",'🏀','#E65100,#F9A825'],
+  5:['I Want Chicken','🍗','#BF360C,#FFA000'],
+  6:["Where's My Cap?",'🧢','#0D47A1,#00838F'],
+  7:["It's Wednesday",'📅','#1B4F80,#5BA3D9'],
+  8:['How Much Is It?','💰','#1B6B3A,#52C97A'],
+  9:['Is This Your Bag?','🎒','#6A1B9A,#CE93D8'],
+  10:['What Time Is It?','⏰','#E65100,#FFB74D']
+};
+var ORDERED={8:true,9:true}; // 패들렛에 "번호 순서대로 할 것"이 붙은 단원
+var cur={u:null,g:null};
+
+function url(g){return 'https://wordwall.net/ko/embed/'+g[2]+'?themeId='+g[4]+'&templateId='+g[3]+'&fontStackId=0';}
+
+function pickGame(i){
+  var g=GAMES[cur.u][i]; cur.g=i;
+  var fr=document.getElementById('game');
+  try{fr.contentWindow.location.replace(url(g));}catch(e){fr.src=url(g);}
+  document.getElementById('openLink').href=url(g);
+  document.querySelectorAll('.chip').forEach(function(c,j){c.classList.toggle('on',j===i);});
+  try{localStorage.setItem('ww-last',cur.u+':'+i);}catch(e){}
+}
+
+function pickUnit(u,gi){
+  cur.u=u;
+  var info=UNITS[u], list=GAMES[u];
+  document.querySelectorAll('.unit').forEach(function(b){b.classList.toggle('on',b.dataset.u==u);});
+  document.getElementById('unitTitle').textContent='Lesson '+u+' · '+info[0];
+  document.getElementById('unitCnt').textContent='게임 '+list.length+'개';
+  document.getElementById('note').classList.toggle('on',!!ORDERED[u]);
+  document.getElementById('chips').innerHTML=list.map(function(g,i){
+    return '<button class="chip" onclick="pickGame('+i+')">'+(ORDERED[u]?'<span class="n">'+(i+1)+'.</span>':'')+g[1]+' '+g[0]+'</button>';
+  }).join('');
+  pickGame(gi||0);
+}
+
+document.getElementById('units').innerHTML=Object.keys(GAMES).map(function(u){
+  var info=UNITS[u];
+  return '<button class="unit" data-u="'+u+'" style="background:linear-gradient(135deg,'+info[2]+')" onclick="pickUnit('+u+')">'
+    +'<span class="no">Lesson '+u+' '+info[1]+'</span><span class="t">'+info[0]+'</span></button>';
+}).join('');
+
+// 지난번에 하던 단원·게임에서 다시 시작해요.
+(function(){
+  var last=null; try{last=(localStorage.getItem('ww-last')||'').split(':');}catch(e){}
+  var u=last&&GAMES[last[0]]?+last[0]:1, g=last&&GAMES[u]&&GAMES[u][+last[1]]?+last[1]:0;
+  pickUnit(u,g);
+})();
+</script>
+</body>
+</html>
