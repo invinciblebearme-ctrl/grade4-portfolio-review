@@ -35,7 +35,7 @@ body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text
 .hero-deco.c{bottom:18%;left:14%;}
 
 .nav-wrap{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(21,101,192,.1);}
-.nav{display:grid;grid-template-columns:repeat(4,1fr);max-width:980px;margin:0 auto;}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);max-width:980px;margin:0 auto;}
 .ntab{padding:.75rem .3rem;border:none;background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:.78rem;font-weight:700;color:var(--sub);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:normal;word-break:keep-all;text-align:center;line-height:1.3;}
 .ntab.on{color:var(--bl);border-bottom-color:var(--bl);background:var(--bl-l);}
 .ntab:hover:not(.on){color:var(--text);background:var(--bg);}
@@ -190,6 +190,16 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
 .tts-dot{width:8px;height:8px;border-radius:50%;background:var(--gn,#2E7D32);animation:blink 1.2s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
 .vcard .vico{font-size:1.8rem;margin:4px 0 2px;line-height:1;display:block;}
+
+/* ── WORDWALL ── */
+.ww-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;}
+.ww-chip{border:1.5px solid var(--border);background:var(--white);color:var(--sub);border-radius:20px;padding:.45rem .95rem;font-family:'Noto Sans KR',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.ww-chip:hover{color:var(--text);border-color:var(--pu);}
+.ww-chip.on{background:var(--pu);border-color:var(--pu);color:#fff;}
+.ww-frame{position:relative;width:100%;max-width:800px;margin:0 auto;aspect-ratio:500/380;background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);}
+.ww-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ww-open{display:block;text-align:center;margin-top:.8rem;font-size:.82rem;color:var(--sub);}
+.ww-open a{color:var(--pu);font-weight:700;}
 </style>
 </head>
 <body>
@@ -213,6 +223,7 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
     <button class="ntab" onclick="go('story',this)">🐦<br>스토리</button>
     <button class="ntab" onclick="go('scramble',this)">🔀<br>문장조합</button>
     <button class="ntab" onclick="go('quiz',this)">✏️<br>퀴즈</button>
+    <button class="ntab" onclick="go('wordwall',this)">🎮<br>워드월</button>
   </div>
 </div>
 
@@ -525,6 +536,14 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
   <div id="quiz-area"></div>
 </div>
 
+<div id="wordwall" class="panel">
+  <div class="sec">
+    <div class="sec-title">Wordwall Games</div>
+    <div class="ww-chips" id="wwChips"></div>
+    <div class="ww-frame"><iframe id="wwFrame" title="Wordwall 게임" allowfullscreen></iframe></div>
+    <div class="ww-open">화면이 작으면 <a id="wwOpen" href="#" target="_blank" rel="noopener">새 창에서 크게 열기 ↗</a></div>
+  </div>
+</div>
 </main>
 <footer>Lesson 6 · Where's My Cap? · 4학년 영어 포트폴리오 학습 자료</footer>
 
@@ -579,6 +598,7 @@ function go(id,btn){
   btn.classList.add('on');
   if(id==='quiz') initQuiz();
   if(id==='scramble') initScramble();
+  if(id==='wordwall') initWW();
   if(id==='grammar' && typeof initGramQ !== 'undefined') initGramQ();
   if(id==='words' && typeof initPosQuiz !== 'undefined') initPosQuiz();
 }
@@ -837,6 +857,24 @@ var quizzes=[
   {q:'"Where is"를 줄이면?',opts:["Where're","Where's","Wher's","Where've"],ans:1,fb:'Where is → Where\'s! 아포스트로피로 줄여요.'},
   {q:'"It\'s on the table."에서 전치사는?',opts:['in','under','on','beside'],ans:2,fb:'"on"은 위에! It\'s on the table. = 탁자 위에 있어.'}
 ];
+</script>
+<script>
+const wwGames=[{"n":"매치업","i":"🧩","g":"bfdeaee8260847c28eca791661cba2d0","t":3,"th":1},{"n":"비행기","i":"✈️","g":"bfdeaee8260847c28eca791661cba2d0","t":48,"th":1},{"n":"문장 배열하기","i":"🔀","g":"8c401386ae1a4052a900fa9eb28fc0f6","t":72,"th":65},{"n":"단어 철자","i":"🔤","g":"bfdeaee8260847c28eca791661cba2d0","t":79,"th":1},{"n":"날아다니는 과일","i":"🍉","g":"bfdeaee8260847c28eca791661cba2d0","t":82,"th":1},{"n":"풍선터트리기","i":"🎈","g":"bfdeaee8260847c28eca791661cba2d0","t":71,"th":1},{"n":"퀴즈 게임","i":"❓","g":"bfdeaee8260847c28eca791661cba2d0","t":89,"th":1},{"n":"미로찾기","i":"🌀","g":"bfdeaee8260847c28eca791661cba2d0","t":49,"th":1}];
+let wwCur=-1;
+function wwUrl(g){return 'https://wordwall.net/ko/embed/'+g.g+'?themeId='+g.th+'&templateId='+g.t+'&fontStackId=0';}
+function wwPick(i){
+  wwCur=i;var g=wwGames[i];
+  document.getElementById('wwFrame').src=wwUrl(g);
+  document.getElementById('wwOpen').href=wwUrl(g);
+  document.querySelectorAll('.ww-chip').forEach(function(c,j){c.classList.toggle('on',j===i);});
+}
+function initWW(){
+  var box=document.getElementById('wwChips');
+  if(!box.children.length){
+    box.innerHTML=wwGames.map(function(g,i){return '<button class="ww-chip" onclick="wwPick('+i+')">'+g.i+' '+g.n+'</button>';}).join('');
+  }
+  if(wwCur<0) wwPick(0);
+}
 </script>
 </body>
 </html>

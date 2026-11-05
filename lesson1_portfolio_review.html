@@ -204,6 +204,16 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
 .tts-dot{width:8px;height:8px;border-radius:50%;background:var(--gn,#2E7D32);animation:blink 1.2s infinite;}
 @keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
 .vcard .vico{font-size:1.8rem;margin:4px 0 2px;line-height:1;display:block;}
+
+/* ── WORDWALL ── */
+.ww-chips{display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:1rem;}
+.ww-chip{border:1.5px solid var(--border);background:var(--white);color:var(--sub);border-radius:20px;padding:.45rem .95rem;font-family:'Noto Sans KR',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.ww-chip:hover{color:var(--text);border-color:var(--pu);}
+.ww-chip.on{background:var(--pu);border-color:var(--pu);color:#fff;}
+.ww-frame{position:relative;width:100%;max-width:800px;margin:0 auto;aspect-ratio:500/380;background:var(--white);border:1px solid var(--border);border-radius:var(--r);overflow:hidden;box-shadow:var(--shadow);}
+.ww-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;}
+.ww-open{display:block;text-align:center;margin-top:.8rem;font-size:.82rem;color:var(--sub);}
+.ww-open a{color:var(--pu);font-weight:700;}
 </style>
 </head>
 <body>
@@ -228,6 +238,7 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
     <button class="ntab" onclick="go('story',this)">🎭<br>스토리</button>
     <button class="ntab" onclick="go('scramble',this)">🔀<br>단어조합</button>
     <button class="ntab" onclick="go('quiz',this)">✏️<br>퀴즈</button>
+    <button class="ntab" onclick="go('wordwall',this)">🎮<br>워드월</button>
   </div>
 </div>
 
@@ -537,6 +548,14 @@ footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
   <div id="quiz-area"></div>
 </div>
 
+<div id="wordwall" class="panel">
+  <div class="sec">
+    <div class="sec-title">Wordwall Games</div>
+    <div class="ww-chips" id="wwChips"></div>
+    <div class="ww-frame"><iframe id="wwFrame" title="Wordwall 게임" allowfullscreen></iframe></div>
+    <div class="ww-open">화면이 작으면 <a id="wwOpen" href="#" target="_blank" rel="noopener">새 창에서 크게 열기 ↗</a></div>
+  </div>
+</div>
 </main>
 <footer>Lesson 1 · My Name Is Amy · 4학년 영어 포트폴리오 학습 자료</footer>
 
@@ -594,6 +613,7 @@ function go(id,btn){
   btn.classList.add('on');
   if(id==='quiz') initQuiz();
   if(id==='scramble') initScramble();
+  if(id==='wordwall') initWW();
 }
 const words=[
   {n:1,en:'afternoon',ko:'오후',ico:'🌇'},
@@ -805,6 +825,24 @@ function pick(i){
   document.getElementById('qnxt').style.display='inline-block';
 }
 function nextQ(){cur++;answered=false;renderQ();}
+</script>
+<script>
+const wwGames=[{"n":"매치업","i":"🧩","g":"f247afadbabc4fb69bb8a7a115ace0fb","t":3,"th":1},{"n":"풍선터트리기","i":"🎈","g":"f247afadbabc4fb69bb8a7a115ace0fb","t":71,"th":1},{"n":"크로스워드","i":"✏️","g":"f247afadbabc4fb69bb8a7a115ace0fb","t":11,"th":1},{"n":"날아다니는 과일","i":"🍉","g":"f247afadbabc4fb69bb8a7a115ace0fb","t":82,"th":1},{"n":"비행기","i":"✈️","g":"f247afadbabc4fb69bb8a7a115ace0fb","t":48,"th":1},{"n":"미로찾기","i":"🌀","g":"f247afadbabc4fb69bb8a7a115ace0fb","t":49,"th":1}];
+let wwCur=-1;
+function wwUrl(g){return 'https://wordwall.net/ko/embed/'+g.g+'?themeId='+g.th+'&templateId='+g.t+'&fontStackId=0';}
+function wwPick(i){
+  wwCur=i;var g=wwGames[i];
+  document.getElementById('wwFrame').src=wwUrl(g);
+  document.getElementById('wwOpen').href=wwUrl(g);
+  document.querySelectorAll('.ww-chip').forEach(function(c,j){c.classList.toggle('on',j===i);});
+}
+function initWW(){
+  var box=document.getElementById('wwChips');
+  if(!box.children.length){
+    box.innerHTML=wwGames.map(function(g,i){return '<button class="ww-chip" onclick="wwPick('+i+')">'+g.i+' '+g.n+'</button>';}).join('');
+  }
+  if(wwCur<0) wwPick(0);
+}
 </script>
 </body>
 </html>
