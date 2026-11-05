@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 5 · I Want Chicken 포트폴리오 복습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --rd:#D84315; --rd-l:#FBE9E7; --rd-d:#BF360C;
+  --or:#FF6F00; --or-l:#FFF3E0; --or-d:#E65100;
+  --ye:#F9A825; --ye-l:#FFF8E1; --ye-d:#6D4C00;
+  --gn:#2E7D32; --gn-l:#E8F5E9; --gn-d:#1B5E20;
+  --tl:#00695C; --tl-l:#E0F2F1; --tl-d:#004D40;
+  --pk:#AD1457; --pk-l:#FCE4EC; --pk-d:#880E4F;
+  --bg:#FFFDF8; --white:#FFFFFF;
+  --text:#1A0E00; --sub:#5C4A2A; --border:#FFE0B2;
+  --r:14px; --r-sm:8px;
+  --shadow:0 2px 12px rgba(216,67,21,.09);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-padding-top:110px;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+.hero{background:linear-gradient(135deg,#BF360C 0%,#E64A19 35%,#FF6F00 70%,#FFA000 100%);padding:3rem 1.5rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 14px;font-size:.75rem;font-weight:700;color:#fff;letter-spacing:.08em;margin-bottom:1rem;}
+.hero h1{font-family:'Baloo 2',sans-serif;font-size:clamp(2rem,7vw,3.4rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:.4rem;}
+.hero h1 span{color:#FFF176;}
+.hero p{font-size:.95rem;color:rgba(255,255,255,.82);}
+.hero-deco{position:absolute;font-size:5rem;opacity:.08;pointer-events:none;}
+.hero-deco.a{top:10%;left:5%;}
+.hero-deco.b{top:20%;right:8%;}
+.hero-deco.c{bottom:18%;left:14%;}
+
+.nav-wrap{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(216,67,21,.1);}
+.nav{display:grid;grid-template-columns:repeat(4,1fr);max-width:980px;margin:0 auto;}
+.ntab{padding:.75rem .3rem;border:none;background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:.78rem;font-weight:700;color:var(--sub);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:normal;word-break:keep-all;text-align:center;line-height:1.3;}
+.ntab.on{color:var(--rd);border-bottom-color:var(--rd);background:var(--rd-l);}
+.ntab:hover:not(.on){color:var(--text);background:var(--bg);}
+
+main{max-width:980px;margin:0 auto;padding:0 1rem 5rem;}
+.panel{display:none;animation:up .3s ease;}
+.panel.on{display:block;padding-top:1rem;}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.sec{margin-bottom:2rem;}
+.sec-title{font-family:'Baloo 2',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--rd);margin-bottom:.9rem;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;box-shadow:var(--shadow);}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em;margin-bottom:.55rem;}
+.tag-rd{background:var(--rd-l);color:var(--rd-d);}
+.tag-or{background:var(--or-l);color:var(--or-d);}
+.tag-gn{background:var(--gn-l);color:var(--gn-d);}
+.tag-tl{background:var(--tl-l);color:var(--tl-d);}
+.tag-ye{background:var(--ye-l);color:var(--ye-d);}
+.en{font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);}
+.ko{font-size:.82rem;color:var(--sub);margin-top:2px;}
+.arrow{color:var(--rd);font-size:.78rem;margin:.45rem 0;}
+
+/* WORD CARDS */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.7rem;}
+.vcard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.9rem .7rem;text-align:center;cursor:pointer;transition:all .22s;position:relative;box-shadow:var(--shadow);}
+.vcard:hover{border-color:var(--rd);transform:translateY(-2px);}
+.vcard.flipped{background:var(--rd-l);border-color:var(--rd);}
+.vcard .num{position:absolute;top:5px;left:8px;font-size:.65rem;font-weight:700;color:var(--rd);opacity:.6;}
+.vcard .ven{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.vcard .vko{font-size:.8rem;color:var(--sub);margin-top:3px;font-family:'Noto Sans KR',sans-serif;}
+.vcard.flipped .vko{color:var(--rd-d);font-weight:700;}
+.vcard .vhint{font-size:.6rem;color:var(--or);margin-top:4px;}
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.4;transition:all .2s;padding:0;line-height:1;}
+.spk-btn:hover{opacity:1;}
+.spk-btn.pop{transform:scale(1.4);opacity:1;}
+
+/* FOOD CARDS */
+.food-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.85rem;}
+.food-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.1rem .85rem;text-align:center;cursor:pointer;transition:all .25s;box-shadow:var(--shadow);}
+.food-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(216,67,21,.15);border-color:var(--rd);}
+.food-ico{font-size:2.3rem;margin-bottom:.4rem;}
+.food-en{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);}
+.food-want{font-family:'Baloo 2',sans-serif;font-size:.78rem;color:var(--rd-d);margin-top:.2rem;}
+.food-ko{font-size:.75rem;color:var(--sub);margin-top:.2rem;font-family:'Noto Sans KR',sans-serif;}
+
+/* DIALOGUE */
+.dlg{background:var(--rd-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.dlg-title{font-size:.7rem;font-weight:700;letter-spacing:.07em;color:var(--rd-d);margin-bottom:.75rem;text-transform:uppercase;}
+.line{display:flex;gap:.65rem;margin-bottom:.45rem;align-items:flex-start;}
+.line:last-child{margin-bottom:0;}
+.spkr{min-width:64px;font-size:.72rem;font-weight:700;color:var(--rd-d);padding-top:2px;font-family:'Noto Sans KR',sans-serif;}
+.said{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);}
+.said small{display:block;font-size:.76rem;font-weight:400;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.said .want{color:var(--rd-d);font-weight:800;}
+.said .help{color:var(--gn-d);font-weight:800;}
+
+/* CHANT */
+.chant-box{background:var(--or-l);border-left:4px solid var(--or);border-radius:0 var(--r) var(--r) 0;padding:1.1rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.92rem;line-height:2;color:var(--text);}
+.chant-box .hl{color:var(--rd-d);font-weight:800;}
+.chant-box .ok{color:var(--gn-d);font-weight:700;}
+
+/* GRAMMAR */
+.gram-box{background:var(--tl-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.gram-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--tl-d);margin-bottom:.8rem;text-transform:uppercase;}
+.gram-big{font-family:'Baloo 2',sans-serif;font-size:1.3rem;font-weight:800;color:var(--tl-d);margin-bottom:.6rem;}
+.gram-rule{font-size:.85rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;line-height:1.75;background:var(--white);border-radius:var(--r-sm);padding:.85rem 1rem;border:1px solid var(--border);}
+.gram-row{display:flex;align-items:center;gap:.7rem;margin-bottom:.4rem;flex-wrap:wrap;}
+.gram-badge{font-family:'Baloo 2',sans-serif;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+.gb-ok{background:var(--gn-l);color:var(--gn-d);}
+.gram-ex{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;}
+
+/* STORY FILL */
+.story-scene{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scene-num{display:inline-block;background:var(--rd);color:#fff;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:.7rem;}
+.story-line{font-family:'Baloo 2',sans-serif;font-size:.95rem;color:var(--text);line-height:1.9;}
+.blank{display:inline-block;border-bottom:2px solid var(--rd);min-width:64px;text-align:center;color:var(--rd);font-weight:700;cursor:pointer;padding:0 4px;transition:background .2s;border-radius:3px 3px 0 0;}
+.blank:hover{background:var(--rd-l);}
+.blank.revealed{background:var(--rd-l);color:var(--rd-d);}
+
+/* SCRAMBLE */
+.scramble-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scramble-words{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.85rem;}
+.word-chip{background:var(--ye-l);border:1.5px solid var(--ye);border-radius:20px;padding:.35rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--ye-d);transition:all .2s;user-select:none;}
+.word-chip:hover{background:var(--ye);color:#fff;}
+.word-chip.used{opacity:.28;cursor:default;pointer-events:none;}
+.answer-area{min-height:44px;border:2px dashed var(--border);border-radius:var(--r-sm);padding:.5rem .75rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.75rem;background:var(--bg);}
+.placed-chip{background:var(--rd-l);border:1.5px solid var(--rd);border-radius:20px;padding:.3rem .85rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:var(--rd-d);}
+.placed-chip:hover{background:var(--pk-l);border-color:var(--pk);color:var(--pk-d);}
+.scr-btns{display:flex;gap:.5rem;}
+.btn-check{background:var(--rd);color:#fff;border:none;border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-reset{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.scr-fb{font-size:.82rem;margin-top:.5rem;font-family:'Noto Sans KR',sans-serif;padding:.45rem .75rem;border-radius:var(--r-sm);}
+.fb-ok{background:var(--gn-l);border-left:3px solid var(--gn);color:var(--gn-d);}
+.fb-ng{background:var(--rd-l);border-left:3px solid var(--rd);color:var(--rd-d);}
+
+/* ALPHA SCRAMBLE */
+.alpha-chips{display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.6rem;}
+.alpha-chip{background:var(--or-l);border:1.5px solid var(--or);border-radius:20px;padding:.3rem .85rem;font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;cursor:pointer;color:var(--or-d);transition:all .2s;}
+.alpha-chip:hover{background:var(--or);color:#fff;}
+.alpha-chip.used{opacity:.25;cursor:default;pointer-events:none;}
+
+/* QUIZ */
+.quiz-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-bottom:1.5rem;overflow:hidden;}
+.quiz-bar{height:100%;background:linear-gradient(90deg,var(--rd),var(--or));border-radius:3px;transition:width .4s ease;}
+.quiz-num{font-size:.78rem;color:var(--sub);margin-bottom:.4rem;}
+.quiz-q{font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.1rem;}
+.opts{display:flex;flex-direction:column;gap:.55rem;}
+.opt{padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:all .18s;}
+.opt:hover:not(:disabled){border-color:var(--rd);background:var(--rd-l);}
+.opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.qfb{padding:.7rem 1rem;border-radius:var(--r-sm);font-size:.85rem;margin-top:.6rem;display:none;font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+.qfb.show{display:block;}
+.qfb.fb-ok{background:var(--gn-l);border-left:3px solid var(--gn);color:var(--gn-d);}
+.qfb.fb-ng{background:var(--rd-l);border-left:3px solid var(--rd);color:var(--rd-d);}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;}
+.qscore{font-size:.82rem;color:var(--sub);}
+.btn-nxt{background:var(--rd);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;display:none;}
+.result{text-align:center;padding:2.5rem 1rem;}
+.res-emoji{font-size:4rem;margin-bottom:.5rem;}
+.res-score{font-family:'Baloo 2',sans-serif;font-size:3rem;font-weight:800;color:var(--rd);}
+.res-msg{font-size:.95rem;color:var(--sub);margin:.4rem 0 1.2rem;}
+.btn-retry{background:var(--rd-l);color:var(--rd-d);border:1.5px solid var(--rd);border-radius:var(--r-sm);padding:.65rem 1.5rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+
+/* FURTHERMORE */
+.fur-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:.85rem;}
+.fur-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1rem .85rem;text-align:center;box-shadow:var(--shadow);cursor:pointer;transition:all .22s;}
+.fur-card:hover{transform:translateY(-2px);border-color:var(--rd);}
+.fur-ico{font-size:2.2rem;margin-bottom:.4rem;}
+.fur-en{font-family:'Baloo 2',sans-serif;font-size:.92rem;font-weight:700;color:var(--text);}
+.fur-want{font-family:'Baloo 2',sans-serif;font-size:.78rem;color:var(--rd-d);margin-top:.2rem;}
+.fur-ko{font-size:.75rem;color:var(--sub);margin-top:2px;font-family:'Noto Sans KR',sans-serif;}
+
+footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
+@media(max-width:640px){.nav{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:520px){
+  .grid2{grid-template-columns:1fr;}
+  .vgrid{grid-template-columns:repeat(3,1fr);}
+  .food-grid,.fur-grid{grid-template-columns:repeat(3,1fr);}
+}
+
+/* 발음 버튼 향상 */
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.9rem;cursor:pointer;opacity:.45;transition:all .2s;padding:2px;line-height:1;border-radius:50%;}
+.spk-btn:hover{opacity:1;background:rgba(0,0,0,.07);}
+.spk-btn.pop{transform:scale(1.5);opacity:1;}
+.tts-bar{display:flex;align-items:center;gap:.5rem;background:var(--bl-l,#E3F2FD);border-radius:var(--r-sm,8px);padding:.55rem .85rem;margin-bottom:.85rem;font-size:.8rem;color:var(--bl-d,#0D47A1);font-family:'Noto Sans KR',sans-serif;}
+.tts-dot{width:8px;height:8px;border-radius:50%;background:var(--gn,#2E7D32);animation:blink 1.2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.vcard .vico{font-size:1.8rem;margin:4px 0 2px;line-height:1;display:block;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-deco a">🍗</span>
+  <span class="hero-deco b">🍕</span>
+  <span class="hero-deco c">🍜</span>
+  <div class="hero-badge">📋 Portfolio · 4학년 영어</div>
+  <h1>Lesson 5<br><span>I Want Chicken</span></h1>
+  <p>음식 단어 · 원하는 것 묻고 답하기 · 대화 · 퀴즈</p>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="ntab on" onclick="go('words',this)">📖<br>단어</button>
+    <button class="ntab" onclick="go('expr',this)">💬<br>핵심표현</button>
+    <button class="ntab" onclick="go('dlgs',this)">🗣️<br>대화문</button>
+    <button class="ntab" onclick="go('chant',this)">🎵<br>찬트·노래</button>
+    <button class="ntab" onclick="go('grammar',this)">📐<br>문법</button>
+    <button class="ntab" onclick="go('story',this)">🧺<br>스토리</button>
+    <button class="ntab" onclick="go('scramble',this)">🔀<br>단어조합</button>
+    <button class="ntab" onclick="go('quiz',this)">✏️<br>퀴즈</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══ 단어 ══ -->
+<div id="words" class="panel on">
+  <div class="sec">
+    <div class="sec-title">New Words — 신출 어휘 12개</div>
+    <div class="tts-bar"><span class="tts-dot"></span>🔊 단어 카드를 탭하거나 🔊 버튼을 눌러 영어 발음을 들어보세요 (Chrome · Edge · Whale 지원)</div>
+    <div class="vgrid" id="vcards"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">음식 카드 — 탭하면 "I want ___!" 발음이 나와요</div>
+    <div class="food-grid" id="foodcards"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Furthermore — 추가 음식 단어</div>
+    <div class="fur-grid">
+      <div class="fur-card" onclick="speak('I want a hamburger.')">
+        <div class="fur-ico">🍔</div>
+        <div class="fur-en">hamburger</div>
+        <div class="fur-want">I want a hamburger.</div>
+        <div class="fur-ko">햄버거</div>
+      </div>
+      <div class="fur-card" onclick="speak('I want a sandwich.')">
+        <div class="fur-ico">🥪</div>
+        <div class="fur-en">sandwich</div>
+        <div class="fur-want">I want a sandwich.</div>
+        <div class="fur-ko">샌드위치</div>
+      </div>
+      <div class="fur-card" onclick="speak('I want steak.')">
+        <div class="fur-ico">🥩</div>
+        <div class="fur-en">steak</div>
+        <div class="fur-want">I want steak.</div>
+        <div class="fur-ko">스테이크</div>
+      </div>
+      <div class="fur-card" onclick="speak('I want fried rice.')">
+        <div class="fur-ico">🍳</div>
+        <div class="fur-en">fried rice</div>
+        <div class="fur-want">I want fried rice.</div>
+        <div class="fur-ko">볶음밥</div>
+      </div>
+      <div class="fur-card" onclick="speak('I want spaghetti.')">
+        <div class="fur-ico">🍝</div>
+        <div class="fur-en">spaghetti</div>
+        <div class="fur-want">I want spaghetti.</div>
+        <div class="fur-ko">스파게티</div>
+      </div>
+      <div class="fur-card" onclick="speak('I want orange juice.')">
+        <div class="fur-ico">🍊</div>
+        <div class="fur-en">orange juice</div>
+        <div class="fur-want">I want orange juice.</div>
+        <div class="fur-ko">오렌지 주스</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 핵심표현 ══ -->
+<div id="expr" class="panel">
+  <div class="sec">
+    <div class="sec-title">Key Expressions — 핵심 의사소통 표현</div>
+    <div class="grid2">
+      <div class="card">
+        <span class="tag tag-rd">① 원하는 것 묻기</span>
+        <div class="en" style="color:var(--rd-d);">What do you want?</div>
+        <div class="ko">너는 무엇을 원하니?</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="en" style="color:var(--or-d);font-size:.95rem;">I want chicken.</div>
+        <div class="ko">나는 치킨을 원해.</div>
+        <div style="margin-top:.65rem;display:flex;flex-wrap:wrap;gap:.35rem;">
+          <span style="background:var(--rd-l);border-radius:20px;padding:3px 9px;font-family:'Baloo 2',sans-serif;font-size:.8rem;color:var(--rd-d);">I want pizza.</span>
+          <span style="background:var(--rd-l);border-radius:20px;padding:3px 9px;font-family:'Baloo 2',sans-serif;font-size:.8rem;color:var(--rd-d);">I want noodles.</span>
+          <span style="background:var(--rd-l);border-radius:20px;padding:3px 9px;font-family:'Baloo 2',sans-serif;font-size:.8rem;color:var(--rd-d);">I want bread.</span>
+          <span style="background:var(--rd-l);border-radius:20px;padding:3px 9px;font-family:'Baloo 2',sans-serif;font-size:.8rem;color:var(--rd-d);">I want salad.</span>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag tag-gn">② 음식 권하기</span>
+        <div class="en" style="color:var(--gn-d);">Help yourself.</div>
+        <div class="ko">많이 먹어. / 마음껏 드세요.</div>
+        <div class="arrow">+ 감사 표현</div>
+        <div class="en" style="color:var(--gn-d);font-size:.92rem;">Thank you very much.</div>
+        <div class="ko">정말 감사합니다.</div>
+        <div class="en" style="color:var(--gn-d);font-size:.88rem;margin-top:.3rem;">Here you are.</div>
+        <div class="ko">자, 여기 있어요.</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-or">③ 반응 표현</span>
+        <div class="en" style="color:var(--or-d);">Me, too!</div>
+        <div class="ko">나도!</div>
+        <div class="arrow">+ 맛 표현</div>
+        <div class="en" style="color:var(--or-d);font-size:.92rem;">Mmm... It's good.</div>
+        <div class="ko">음... 맛있다.</div>
+        <div class="en" style="color:var(--or-d);font-size:.88rem;margin-top:.3rem;">Wow, I like it!</div>
+        <div class="ko">와, 이거 좋아!</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-tl">④ 무엇인지 묻기</span>
+        <div class="en" style="color:var(--tl-d);">What's that?</div>
+        <div class="ko">저게 뭐야?</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="en" style="color:var(--tl-d);font-size:.92rem;">It's japchae.</div>
+        <div class="ko">잡채야.</div>
+        <div style="margin-top:.5rem;font-size:.82rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;">
+          💡 <strong>It's + 음식명</strong>으로 대답해요!
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 대화문 ══ -->
+<div id="dlgs" class="panel">
+  <div class="sec">
+    <div class="sec-title">Fun Talk 1 (교과서 50p) — 음식점</div>
+    <div class="dlg">
+      <div class="dlg-title">음식점에서 주문하기</div>
+      <div class="line"><span class="spkr">Sam</span><div class="said">Look! <span class="want">I want chicken.</span> <small>봐봐! 나는 치킨을 원해.</small></div></div>
+      <div class="line"><span class="spkr">보라</span><div class="said">Me, too! Let's go! <small>나도! 가자!</small></div></div>
+      <div class="line"><span class="spkr">보라 엄마</span><div class="said"><span class="want">What do you want?</span> <small>무엇을 원하니?</small></div></div>
+      <div class="line"><span class="spkr">Kate</span><div class="said"><span class="want">I want pizza.</span> What do you want, Juno? <small>나는 피자를 원해. 준오, 너는?</small></div></div>
+      <div class="line"><span class="spkr">준오</span><div class="said">Mmm... <span class="want">I want noodles.</span> <small>음... 나는 국수를 원해.</small></div></div>
+      <div class="line"><span class="spkr">보라</span><div class="said">Oh, Momo! It's hot. <small>아, 모모! 뜨거워.</small></div></div>
+      <div class="line"><span class="spkr">Momo</span><div class="said">It's okay. Oh, water, please! <small>괜찮아. 아, 물 주세요!</small></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Fun Talk 2 (교과서 52p) — 준오네 집 식사</div>
+    <div class="dlg" style="background:var(--tl-l);">
+      <div class="dlg-title" style="color:var(--tl-d);">할머니·할아버지 댁에서</div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">할아버지</span><div class="said">Come here, please. <small>이리 와.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">할머니</span><div class="said"><span class="help">Help yourself.</span> <small>많이 먹어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">모두</span><div class="said">Wow, thank you very much. <small>와, 정말 감사합니다.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">준오</span><div class="said"><span class="want">What do you want?</span> <small>무엇을 원하니?</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">Eric</span><div class="said"><span class="want">I want bulgogi.</span> <small>나는 불고기를 원해.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">준오</span><div class="said">Here you are. <small>자, 여기 있어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">Hoa</span><div class="said">I like salad! <small>나는 샐러드가 좋아!</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">Kate</span><div class="said">Me, too. Mmm... It's good. <small>나도. 음... 맛있다.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">Hoa</span><div class="said">What's that? <small>저게 뭐야?</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">준오</span><div class="said">It's japchae. <span class="help">Help yourself.</span> <small>잡채야. 많이 먹어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl-d);">Hoa</span><div class="said">Thanks. Wow, I like it! <small>고마워. 와, 맛있다!</small></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Talk Like This (교과서 53p)</div>
+    <div class="grid2">
+      <div class="dlg" style="margin-bottom:0;">
+        <div class="dlg-title">영상 1</div>
+        <div class="line"><span class="spkr">민우</span><div class="said"><span class="want">What do you want, Paul?</span> <small>폴, 무엇을 원하니?</small></div></div>
+        <div class="line"><span class="spkr">Paul</span><div class="said"><span class="want">I want ice cream.</span> <small>나는 아이스크림을 원해.</small></div></div>
+        <div class="line"><span class="spkr">민우</span><div class="said">Come here. <small>이리 와.</small></div></div>
+      </div>
+      <div class="dlg" style="margin-bottom:0;">
+        <div class="dlg-title">영상 2</div>
+        <div class="line"><span class="spkr">Alice</span><div class="said"><span class="want">What do you want, Hana?</span> <small>하나, 무엇을 원하니?</small></div></div>
+        <div class="line"><span class="spkr">하나</span><div class="said"><span class="want">I want bread.</span> <small>나는 빵을 원해.</small></div></div>
+        <div class="line"><span class="spkr">Alice</span><div class="said"><span class="help">Help yourself.</span> <small>많이 먹어.</small></div></div>
+        <div class="line"><span class="spkr">하나</span><div class="said">Thanks. <small>고마워.</small></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 찬트·노래 ══ -->
+<div id="chant" class="panel">
+  <div class="sec">
+    <div class="sec-title">Chant and Do (교과서 50p)</div>
+    <div class="grid2">
+      <div class="chant-box">
+        <span class="hl">What do you want?</span><br>
+        <span class="hl">What do you want?</span><br>
+        Bread, bread. <span class="ok">I want bread.</span><br>
+        Chicken, chicken. <span class="ok">I want chicken.</span><br>
+        Milk, milk. <span class="ok">I want milk.</span><br>
+        Noodles, noodles. <span class="ok">I want noodles.</span>
+      </div>
+      <div class="chant-box">
+        <span class="hl">What do you want?</span><br>
+        <span class="hl">What do you want?</span><br>
+        Pizza, pizza. <span class="ok">I want pizza.</span><br>
+        Salad, salad. <span class="ok">I want salad.</span><br>
+        Ice cream, ice cream.<br>
+        <span class="ok">I want ice cream.</span>
+      </div>
+    </div>
+    <div style="margin-top:.9rem;background:var(--rd-l);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;color:var(--rd-d);font-family:'Noto Sans KR',sans-serif;">
+      💡 <strong>찬트 포인트</strong>: 음식 이름을 두 번 반복한 후 <span style="font-weight:700;">I want ___.</span>로 대답해요!
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Song (교과서 53p) — What Do You Want?</div>
+    <div class="chant-box" style="background:var(--tl-l);border-left-color:var(--tl);">
+      <span class="hl" style="color:var(--tl-d);">What, what do you want?</span><br>
+      Bread. <span class="ok">I want bread.</span><br>
+      <span class="ok">Help, help yourself.</span><br>
+      Thank you. Thank you very much.<br><br>
+      <span class="hl" style="color:var(--tl-d);">What, what do you want?</span><br>
+      Ice cream. <span class="ok">I want ice cream.</span><br>
+      <span class="ok">Help, help yourself.</span><br>
+      Thank you. Thank you very much.
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문법 ══ -->
+<div id="grammar" class="panel">
+  <div class="sec">
+    <div class="sec-title">Grammar — Help yourself. 관용 표현</div>
+    <div class="gram-box">
+      <div class="gram-title">관용 표현 Help yourself.</div>
+      <div class="gram-big" style="color:var(--gn-d);">Help yourself.</div>
+      <div class="gram-rule">
+        직역하면 <strong>'스스로 돕다'</strong>이지만, 관용적 표현으로<br>
+        <strong>✅ "편하게, 마음껏 드세요."</strong>라는 의미로 쓰입니다.<br>
+        또는 물건 등을 자유롭게 이용하라고 권유할 때<br>
+        <strong>"마음껏 사용하세요."</strong>라는 의미로도 쓰입니다.
+      </div>
+      <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.5rem;">
+        <div class="gram-row"><span class="gram-badge gb-ok">음식</span><span class="gram-ex" style="color:var(--gn-d);">Help yourself. 🍽️</span><span style="font-size:.82rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;">많이 드세요!</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">물건</span><span class="gram-ex" style="color:var(--gn-d);">Help yourself. 📚</span><span style="font-size:.82rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;">마음껏 사용하세요!</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">What do you want? — 묻고 답하기 연습</div>
+    <div id="gram-q-area"></div>
+  </div>
+</div>
+
+<!-- ══ 스토리 ══ -->
+<div id="story" class="panel">
+  <div class="sec">
+    <div class="sec-title">Listen to the Story (교과서 46p) — 나그네 스프</div>
+    <div style="font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;">빈칸을 탭하면 정답이 나타나요!</div>
+    <div class="story-scene">
+      <div class="scene-num">#1 · 스프 등장</div>
+      <div class="story-line">
+        남자: What's this?<br>
+        나그네: It's <span class="blank" onclick="reveal(this,'soup')">____</span>.<br>
+        남자, 여자: <span class="blank" onclick="reveal(this,'Soup')">____</span>?
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#2 · 재료 모으기</div>
+      <div class="story-line">
+        나그네: Do you have some potatoes?<br>
+        남자: Yes, I do.<br>
+        여자: I have carrots.<br>
+        나그네: Nice.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#3 · 원하는 것 묻기</div>
+      <div class="story-line">
+        나그네: Thank you.<br>
+        여자: What do you <span class="blank" onclick="reveal(this,'want')">____</span>?<br>
+        나그네: I want <span class="blank" onclick="reveal(this,'chicken')">_______</span>.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#4 · 마무리</div>
+      <div class="story-line">
+        여자: Here's chicken.<br>
+        나그네: Mmm, it's good.<br>
+        <span class="blank" onclick="reveal(this,'Help')">____</span> <span class="blank" onclick="reveal(this,'yourself!')">________</span>
+      </div>
+    </div>
+    <div style="margin-top:.75rem;display:flex;gap:.5rem;">
+      <button onclick="revealAll()" style="background:var(--rd);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;">전체 정답 보기</button>
+      <button onclick="resetBlanks()" style="background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;">다시 도전</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 단어 조합 ══ -->
+<div id="scramble" class="panel">
+  <div class="sec">
+    <div class="sec-title">문장 조합 — 단어를 순서대로 배열하세요!</div>
+    <div style="font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;">단어 칩을 눌러 배열하고 ✓ 확인을 눌러요.</div>
+    <div id="scramble-area"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">알파벳 조합 퀴즈 — 철자를 배열해 단어를 만들어요!</div>
+    <div id="alpha-area"></div>
+  </div>
+</div>
+
+<!-- ══ 퀴즈 ══ -->
+<div id="quiz" class="panel">
+  <div class="quiz-bar-wrap"><div class="quiz-bar" id="qbar" style="width:0%"></div></div>
+  <div id="quiz-area"></div>
+</div>
+
+</main>
+<footer>Lesson 5 · I Want Chicken · 4학년 영어 포트폴리오 복습 자료</footer>
+
+<script>function adjustMainPadding(){
+  var n=document.querySelector('.nav-wrap'),m=document.querySelector('main');
+  if(n&&m) m.style.paddingTop=(n.offsetHeight+16)+'px';
+}
+window.addEventListener('load', adjustMainPadding);
+window.addEventListener('resize', adjustMainPadding);
+
+var _ttsV=[],_ttsR=false;
+function _ttsL(){
+  var vs=window.speechSynthesis?window.speechSynthesis.getVoices():[];
+  if(vs.length){_ttsV=vs;_ttsR=true;}
+}
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=function(){_ttsL();};
+  _ttsL();
+}
+function _ttsP(){
+  return _ttsV.find(function(v){return v.lang==='en-US'&&v.localService;})
+      || _ttsV.find(function(v){return v.lang==='en-US';})
+      || _ttsV.find(function(v){return v.lang==='en-GB';})
+      || _ttsV.find(function(v){return v.lang.startsWith('en');})
+      || null;
+}
+function speak(text,rate){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  function _d(){
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US'; u.rate=rate||0.85; u.pitch=1;
+    var v=_ttsP(); if(v) u.voice=v;
+    u.onstart=function(){ window.speechSynthesis.resume(); };
+    window.speechSynthesis.speak(u);
+  }
+  if(!_ttsR){ _ttsL(); }
+  if(!_ttsR){ setTimeout(function(){ _ttsL(); _d(); }, 400); return; }
+  _d();
+}
+function popSpk(btn,word){
+  speak(word);
+  btn.classList.add('pop');
+  setTimeout(function(){ btn.classList.remove('pop'); }, 600);
+}
+
+function go(id,btn){
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='quiz') initQuiz();
+  if(id==='scramble') initScramble();
+  if(id==='grammar' && typeof initGramQ !== 'undefined') initGramQ();
+  if(id==='words' && typeof initPosQuiz !== 'undefined') initPosQuiz();
+}
+
+function reveal(el,ans){ el.textContent=ans; el.classList.add('revealed'); }
+function revealAll(){
+  document.querySelectorAll('.blank:not(.revealed)').forEach(function(b){
+    var oc=b.getAttribute('onclick');
+    var m=oc.match(/reveal\(this,'([^']+)'\)/)||oc.match(/reveal\(this,`([^`]+)`\)/);
+    if(m){ b.textContent=m[1]; b.classList.add('revealed'); }
+  });
+}
+function resetBlanks(){
+  document.querySelectorAll('.blank').forEach(function(b){
+    var oc=b.getAttribute('onclick');
+    var m=oc.match(/reveal\(this,'([^']+)'\)/)||oc.match(/reveal\(this,`([^`]+)`\)/);
+    if(m){ b.textContent='_'.repeat(m[1].length); b.classList.remove('revealed'); }
+  });
+}
+
+function initScramble(){
+  var area=document.getElementById('scramble-area');
+  if(!area) return;
+  area.innerHTML='';
+  scrambles.forEach(function(s,i){
+    var sh=s.words.slice();
+    var orig=s.words.join('\t');
+    var attempt=0;
+    do {
+      for(var k=sh.length-1;k>0;k--){
+        var j=Math.floor(Math.random()*(k+1));
+        var tmp=sh[k]; sh[k]=sh[j]; sh[j]=tmp;
+      }
+      attempt++;
+    } while(sh.join('\t')===orig && attempt<20 && s.words.length>1);
+    var div=document.createElement('div');
+    div.className='scramble-box';
+    var chips='';
+    sh.forEach(function(w){
+      chips+='<button class="word-chip" onclick="placeWord('+i+',this)">'+w+'</button>';
+    });
+    div.innerHTML=
+      '<div style="font-size:.8rem;color:var(--sub,#666);margin-bottom:.55rem">'+(i+1)+' &middot; '+s.hint+'</div>'+
+      '<div class="scramble-words" id="chips-'+i+'">'+chips+'</div>'+
+      '<div class="answer-area" id="ans-'+i+'"></div>'+
+      '<div class="scr-btns">'+
+      '<button class="btn-check" onclick="checkScr('+i+')">&#10003; 확인</button>'+
+      '<button class="btn-reset" onclick="resetScr('+i+')">&#8634; 다시</button>'+
+      '</div>'+
+      '<div id="fb-'+i+'" class="scr-fb" style="display:none"></div>';
+    area.appendChild(div);
+    var chipEls=div.querySelectorAll('.word-chip');
+    chipEls.forEach(function(el,j){ el.dataset.w=sh[j]; });
+  });
+}
+
+function placeWord(qi,btn){
+  if(btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  var pc=document.createElement('button');
+  pc.className='placed-chip';
+  pc.textContent=btn.dataset.w;
+  pc.onclick=function(){ btn.classList.remove('used'); pc.remove(); document.getElementById('fb-'+qi).style.display='none'; };
+  document.getElementById('ans-'+qi).appendChild(pc);
+}
+function checkScr(qi){
+  var chips=[].slice.call(document.querySelectorAll('#ans-'+qi+' .placed-chip'));
+  var placed=chips.map(function(c){return c.textContent;}).join(' ');
+  var fb=document.getElementById('fb-'+qi); fb.style.display='block';
+  var norm=function(s){ return s.toLowerCase().replace(/[^a-z0-9\uAC00-\uD7A3]/g,' ').replace(/\s+/g,' ').trim(); };
+  if(norm(placed)===norm(scrambles[qi].answer)){
+    fb.className='scr-fb fb-ok'; fb.textContent='\uD83C\uDF89 \uc815\ub2f5! "'+scrambles[qi].answer+'"';
+  } else {
+    fb.className='scr-fb fb-ng'; fb.textContent='"'+placed+'" \u2192 \ub2e4\uc2dc \uc870\ud569\ud574\ubc10\uc694!';
+  }
+}
+
+function resetScr(qi){
+  document.querySelectorAll('#chips-'+qi+' .word-chip').forEach(function(b){ b.classList.remove('used'); });
+  document.getElementById('ans-'+qi).innerHTML='';
+  document.getElementById('fb-'+qi).style.display='none';
+}
+
+var _qC=0,_qS=0,_qA=false;
+function initQuiz(){ _qC=0; _qS=0; _qA=false; renderQ(); }
+function renderQ(){
+  var a=document.getElementById('quiz-area'), b=document.getElementById('qbar');
+  if(!a||!b) return;
+  b.style.width=(_qC/quizzes.length*100)+'%';
+  if(_qC>=quizzes.length){
+    var p=Math.round(_qS/quizzes.length*100);
+    var e=p>=80?'🎉':p>=50?'😊':'💪';
+    var msg=p>=80?'완벽해요! 훌륭합니다!':p>=50?'잘했어요! 조금만 더 연습해요.':'틀린 표현을 다시 복습해봐요!';
+    a.innerHTML='<div class="result"><div class="res-emoji">'+e+'</div>'+
+      '<div class="res-score">'+_qS+' / '+quizzes.length+'</div>'+
+      '<div class="res-msg">'+msg+'</div>'+
+      '<button class="btn-retry" onclick="initQuiz()">다시 도전하기 🔄</button></div>';
+    b.style.width='100%'; return;
+  }
+  var q=quizzes[_qC];
+  var qtext=q.q.split('\n').join('<br>');
+  var opts=q.opts.map(function(o,i){ return '<button class="opt" onclick="pick('+i+')">'+o+'</button>'; }).join('');
+  a.innerHTML='<div class="quiz-num">'+(_qC+1)+' / '+quizzes.length+' 문제</div>'+
+    '<div class="quiz-q">'+qtext+'</div>'+
+    '<div class="opts">'+opts+'</div>'+
+    '<div class="qfb" id="qfb"></div>'+
+    '<div class="qnav"><div class="qscore">현재 점수 '+_qS+'점</div>'+
+    '<button class="btn-nxt" id="qnxt" onclick="nextQ()">다음 →</button></div>';
+  _qA=false;
+}
+function pick(i){
+  if(_qA) return; _qA=true;
+  var q=quizzes[_qC];
+  document.querySelectorAll('.opt').forEach(function(o,j){
+    o.disabled=true;
+    if(j===q.ans) o.classList.add('ok');
+    else if(j===i) o.classList.add('ng');
+  });
+  var fb=document.getElementById('qfb');
+  if(i===q.ans){ _qS++; fb.className='qfb fb-ok show'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.className='qfb fb-ng show'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  document.getElementById('qnxt').style.display='inline-block';
+}
+function nextQ(){ _qC++; _qA=false; renderQ(); }
+
+function initGramQ(){ _gqI=0; _gqD=false; renderGQ(); }
+function renderGQ(){
+  var area=document.getElementById('gram-q-area');
+  if(!area) return;
+  if(_gqI>=gramQs.length){
+    area.innerHTML='<div class="card" style="text-align:center;padding:1.5rem">'+
+      '<div style="font-size:2rem;margin-bottom:.4rem">🎉</div>'+
+      '<div style="font-family:\'Baloo 2\',sans-serif;font-size:1.3rem;font-weight:800">모두 맞혔어요!</div>'+
+      '<button onclick="initGramQ()" style="margin-top:.8rem;padding:.5rem 1.2rem;cursor:pointer;border-radius:8px;border:1.5px solid #ccc">다시 풀기</button></div>';
+    return;
+  }
+  var q=gramQs[_gqI];
+  var btns=q.opts.map(function(o,i){
+    return '<button onclick="pickGQ('+i+')" style="flex:1;min-width:80px;padding:.6rem .5rem;border:1.5px solid #ccc;border-radius:8px;background:#fff;font-size:.9rem;font-weight:700;cursor:pointer">'+o+'</button>';
+  }).join('');
+  area.innerHTML='<div class="card">'+
+    '<div style="font-size:.78rem;color:#666;margin-bottom:.4rem">'+(_gqI+1)+' / '+gramQs.length+'</div>'+
+    '<div style="font-size:1.05rem;font-weight:700;margin-bottom:1rem">'+q.q+'</div>'+
+    '<div style="display:flex;gap:.5rem;flex-wrap:wrap">'+btns+'</div>'+
+    '<div id="gq-fb" style="display:none;margin-top:.7rem;padding:.6rem .85rem;border-radius:8px;font-size:.83rem"></div></div>';
+  _gqD=false;
+}
+function pickGQ(i){
+  if(_gqD) return; _gqD=true;
+  var q=gramQs[_gqI];
+  document.querySelectorAll('#gram-q-area .card button').forEach(function(b,j){
+    b.disabled=true;
+    if(j===q.ans) b.style.background='#E8F5E9';
+    else if(j===i) b.style.background='#FFEBEE';
+  });
+  var fb=document.getElementById('gq-fb'); fb.style.display='block';
+  if(i===q.ans){ fb.style.background='#E8F5E9'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.style.background='#FFEBEE'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  setTimeout(function(){ _gqI++; renderGQ(); }, 1700);
+}
+
+var words=[
+  {n:1,en:'bread',ko:'빵',ico:'🍞'},
+  {n:2,en:'cream',ko:'크림',ico:'🍦'},
+  {n:3,en:'help',ko:'돕다',ico:'🙏'},
+  {n:4,en:'hot',ko:'매운 뜨거운',ico:'🌶️'},
+  {n:5,en:'ice',ko:'얼음',ico:'🧊'},
+  {n:6,en:'milk',ko:'우유',ico:'🥛'},
+  {n:7,en:'much',ko:'많은',ico:'📦'},
+  {n:8,en:'noodles',ko:'국수',ico:'🍜'},
+  {n:9,en:'salad',ko:'샐러드',ico:'🥗'},
+  {n:10,en:'soup',ko:'수프',ico:'🍲'},
+  {n:11,en:'want',ko:'원하다',ico:'🙋'},
+  {n:12,en:'chicken',ko:'치킨',ico:'🍗'}
+];
+var vc=document.getElementById('vcards');
+if(vc){ words.forEach(function(w){
+  var d=document.createElement('div'); d.className='vcard';
+  d.innerHTML='<button class="spk-btn" onclick="event.stopPropagation();popSpk(this,\''+w.en+'\')">🔊</button>'
+    +'<span class="num">'+w.n+'</span>'
+    +'<div class="vico">'+w.ico+'</div>'
+    +'<div class="ven">'+w.en+'</div>'
+    +'<div class="vko">'+w.ko+'</div>'
+    +'<div class="vhint">탭 → 뜻 확인</div>';
+  d.onclick=function(){
+    d.classList.toggle('flipped');
+    d.querySelector('.vhint').style.display=d.classList.contains('flipped')?'none':'block';
+    speak(w.en);
+  };
+  vc.appendChild(d);
+}); }
+
+var foodDat=[
+  {ico:'🍗',en:'chicken',ko:'치킨'},{ico:'🍕',en:'pizza',ko:'피자'},
+  {ico:'🍜',en:'noodles',ko:'국수'},{ico:'🍞',en:'bread',ko:'빵'},
+  {ico:'🥗',en:'salad',ko:'샐러드'},{ico:'🍦',en:'ice cream',ko:'아이스크림'},
+  {ico:'🥛',en:'milk',ko:'우유'},{ico:'🍲',en:'soup',ko:'수프'}
+];
+var fc=document.getElementById('foodcards');
+if(fc){ foodDat.forEach(function(f){
+  var el=document.createElement('div'); el.className='food-card';
+  el.innerHTML='<div class="food-ico">'+f.ico+'</div><div class="food-en">'+f.en+'</div>'
+    +'<div class="food-want">I want '+f.en+'.</div><div class="food-ko">'+f.ko+'</div>';
+  el.onclick=function(){ speak('I want '+f.en+'.'); };
+  fc.appendChild(el);
+}); }
+
+var alphaQs=[
+  {letters:['e','h','n','i','k','c','c'],answer:'chicken',hint:'치킨 🍗'},
+  {letters:['i','k','m','l'],answer:'milk',hint:'우유 🥛'},
+  {letters:['a','a','d','s','l'],answer:'salad',hint:'샐러드 🥗'}
+];
+var aaEl=document.getElementById('alpha-area');
+if(aaEl){ alphaQs.forEach(function(q,qi){
+  var sh=q.letters.slice().sort(function(){ return Math.random()-.5; });
+  var div=document.createElement('div'); div.className='scramble-box';
+  var chips=''; sh.forEach(function(l,j){ chips+='<button class="word-chip alpha-chip" onclick="placeAlpha('+qi+',this)">'+l+'</button>'; });
+  div.innerHTML='<div style="font-size:.8rem;color:var(--sub,#666);margin-bottom:.55rem">알파벳 조합 '+(qi+1)+' &middot; '+q.hint+'</div>'
+    +'<div class="alpha-chips" id="achips-'+qi+'">'+chips+'</div>'
+    +'<div class="answer-area" id="aans-'+qi+'"></div>'
+    +'<div class="scr-btns"><button class="btn-check" onclick="checkAlpha('+qi+')">✓ 확인</button>'
+    +'<button class="btn-reset" onclick="resetAlpha('+qi+')">↺ 다시</button></div>'
+    +'<div id="afb-'+qi+'" class="scr-fb" style="display:none"></div>';
+  aaEl.appendChild(div);
+  div.querySelectorAll('.alpha-chip').forEach(function(el,j){ el.dataset.l=sh[j]; });
+}); }
+function placeAlpha(qi,btn){
+  if(btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  var pc=document.createElement('button'); pc.className='placed-chip'; pc.textContent=btn.dataset.l;
+  pc.onclick=function(){ btn.classList.remove('used'); pc.remove(); document.getElementById('afb-'+qi).style.display='none'; };
+  document.getElementById('aans-'+qi).appendChild(pc);
+}
+function checkAlpha(qi){
+  var placed=[].slice.call(document.querySelectorAll('#aans-'+qi+' .placed-chip')).map(function(c){ return c.textContent; }).join('');
+  var fb=document.getElementById('afb-'+qi); fb.style.display='block';
+  if(placed.toLowerCase()===alphaQs[qi].answer.toLowerCase()){
+    fb.className='scr-fb fb-ok'; fb.textContent='🎉 정답! "'+alphaQs[qi].answer+'"';
+  } else {
+    fb.className='scr-fb fb-ng'; fb.textContent='"'+placed+'" → 다시 조합해봐요! (힌트: '+alphaQs[qi].hint+')';
+  }
+}
+function resetAlpha(qi){
+  document.querySelectorAll('#achips-'+qi+' .alpha-chip').forEach(function(b){ b.classList.remove('used'); });
+  document.getElementById('aans-'+qi).innerHTML='';
+  document.getElementById('afb-'+qi).style.display='none';
+}
+
+var scrambles=[
+  {words:['do','you','want','What','?'],answer:'What do you want?',hint:'너는 무엇을 원하니?'},
+  {words:['chicken','.','I','want'],answer:'I want chicken.',hint:'나는 치킨을 원해.'},
+  {words:['yourself','.','Help'],answer:'Help yourself.',hint:'많이 먹어.'},
+  {words:['you','very','much','.','Thank'],answer:'Thank you very much.',hint:'정말 감사합니다.'},
+  {words:['are','.','Here','you'],answer:'Here you are.',hint:'자, 여기 있어.'}
+];
+var gramQs=[
+  {q:'무엇을 원하는지 물을 때 쓰는 표현은?',opts:['What do you like?','What do you want?','What do you have?','What do you eat?'],ans:1,fb:'"What do you want?"는 "무엇을 원하니?"예요!'},
+  {q:'"I want ___."에 들어갈 수 없는 것은?',opts:['chicken','pizza','soccer','noodles'],ans:2,fb:'soccer는 운동 종목이에요! 음식을 써야 해요.'},
+  {q:'"Help yourself."의 뜻은?',opts:['도와줘.','마음껏 드세요.','여기 있어.','감사합니다.'],ans:1,fb:'"Help yourself."는 관용 표현으로 "마음껏 드세요."예요!'},
+  {q:'"Here you are."의 뜻은?',opts:['많이 먹어.','저게 뭐야?','자, 여기 있어.','나도!'],ans:2,fb:'"Here you are."는 무언가를 건네줄 때 "자, 여기 있어."예요!'}
+];
+var _gqI=0,_gqD=false;
+var quizzes=[
+  {q:'"너는 무엇을 원하니?"를 영어로?',opts:['What do you like?','What do you want?','What do you have?',"What's that?"],ans:1,fb:'"What do you want?"이 맞아요!'},
+  {q:'"I want ___."에 들어갈 알맞은 음식은?',opts:['soccer','tennis','basketball','pizza'],ans:3,fb:'pizza는 음식이에요! I want pizza.'},
+  {q:'"Help yourself."의 올바른 뜻은?',opts:['도와줘.','마음껏 드세요.','여기 있어.','잘 먹겠습니다.'],ans:1,fb:'"Help yourself."는 관용 표현으로 "마음껏 드세요."라는 뜻이에요!'},
+  {q:'Fun Talk 1에서 Momo가 마지막에 원한 것은?',opts:['chicken','pizza','noodles','water'],ans:3,fb:'Momo: Oh, water, please! 물을 달라고 했어요.'},
+  {q:'Fun Talk 2에서 Hoa가 무엇인지 물어본 음식은?',opts:['bulgogi','japchae','salad','kimchi'],ans:1,fb:'Hoa: What\'s that? / 준오: It\'s japchae. 잡채가 뭔지 물어봤어요!'},
+  {q:'"Here you are."의 뜻은?',opts:['여기 있어.','마음껏 드세요.','나도!','정말 감사합니다.'],ans:0,fb:'"Here you are."는 건네줄 때 "자, 여기 있어."예요!'},
+  {q:'알파벳 e,h,n,i,k,c,c를 조합하면?',opts:['chicken','kitchen','thicken','checkin'],ans:0,fb:'c-h-i-c-k-e-n → chicken 🍗'},
+  {q:'"Me, too!"의 뜻은?',opts:['나도!','나는 아니야.','좋아!','안됐구나.'],ans:0,fb:'"Me, too!"는 동의할 때 쓰는 "나도!"예요!'},
+  {q:'노래에서 등장하는 음식이 아닌 것은?',opts:['bread','ice cream','noodles','water'],ans:2,fb:'노래에는 bread와 ice cream이 나와요. noodles는 찬트에 나와요!'},
+  {q:'"Thank you very much."의 뜻은?',opts:['조금 감사해.','괜찮아.','정말 감사합니다.','미안해.'],ans:2,fb:'"very much"는 "매우, 정말"이에요. Thank you very much. = 정말 감사합니다!'}
+];
+</script>
+</body>
+</html>

@@ -1,0 +1,810 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 1 · My Name Is Amy 포트폴리오 복습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pk:#FF6B9D; --pk-l:#FFE4EF; --pk-d:#C2185B;
+  --pu:#7C63D8; --pu-l:#EEE9FF; --pu-d:#3C2A9A;
+  --tl:#1DB9A0; --tl-l:#E0F8F5; --tl-d:#0A5E53;
+  --ye:#F5A623; --ye-l:#FEF3DF; --ye-d:#7A5000;
+  --bg:#F8F7FF; --white:#FFFFFF;
+  --text:#1A1730; --sub:#5E5A80; --border:#E4E0F8;
+  --r:14px; --r-sm:8px;
+  --shadow:0 2px 12px rgba(124,99,216,.1);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-padding-top:110px;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#4B3BC4 0%,#7C63D8 45%,#B06FE8 100%);padding:3rem 1.5rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.hero::after{display:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 14px;font-size:.75rem;font-weight:700;color:#fff;letter-spacing:.08em;margin-bottom:1rem;}
+.hero h1{font-family:'Baloo 2',sans-serif;font-size:clamp(2.2rem,7vw,3.6rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:.4rem;}
+.hero h1 span{color:#FAC775;}
+.hero p{font-size:.95rem;color:rgba(255,255,255,.78);}
+.hero-deco{position:absolute;font-size:5rem;opacity:.07;pointer-events:none;}
+.hero-deco.a{top:10%;left:5%;}
+.hero-deco.b{top:20%;right:8%;}
+.hero-deco.c{bottom:20%;left:12%;}
+
+/* ── NAV ── */
+.nav-wrap{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(76,59,196,.08);}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);max-width:980px;margin:0 auto;}
+.nav::-webkit-scrollbar{display:none;}
+.ntab{padding:.75rem .3rem;border:none;background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:.78rem;font-weight:700;color:var(--sub);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:normal;word-break:keep-all;text-align:center;line-height:1.3;}
+.ntab.on{color:var(--pu);border-bottom-color:var(--pu);background:var(--pu-l);}
+.ntab:hover:not(.on){color:var(--text);background:var(--bg);}
+
+/* ── MAIN ── */
+main{max-width:980px;margin:0 auto;padding:0 1rem 5rem;}
+.panel{display:none;animation:up .3s ease;}
+.panel.on{display:block;padding-top:1rem;}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── UTIL ── */
+.sec{margin-bottom:2rem;}
+.sec-title{font-family:'Baloo 2',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--pu);margin-bottom:.9rem;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.85rem;}
+.grid4{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.85rem;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;box-shadow:var(--shadow);}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em;margin-bottom:.55rem;}
+.tag-pu{background:var(--pu-l);color:var(--pu-d);}
+.tag-tl{background:var(--tl-l);color:var(--tl-d);}
+.tag-ye{background:var(--ye-l);color:var(--ye-d);}
+.tag-pk{background:var(--pk-l);color:var(--pk-d);}
+.en{font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);}
+.ko{font-size:.82rem;color:var(--sub);margin-top:2px;}
+.arrow{color:var(--pu);font-size:.78rem;margin:.45rem 0;}
+.resp .en{color:var(--pu-d);font-size:1rem;}
+
+/* ── WORD CARDS ── */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.7rem;}
+.vcard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.9rem .7rem;text-align:center;cursor:pointer;transition:all .22s;position:relative;box-shadow:var(--shadow);}
+.vcard:hover{border-color:var(--pu);transform:translateY(-2px);}
+.vcard.flipped{background:var(--pu-l);border-color:var(--pu);}
+.vcard .num{position:absolute;top:5px;left:8px;font-size:.65rem;font-weight:700;color:var(--pu);opacity:.6;}
+.vcard .ven{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.vcard .vko{font-size:.8rem;color:var(--sub);margin-top:3px;font-family:'Noto Sans KR',sans-serif;}
+.vcard.flipped .vko{color:var(--pu-d);font-weight:700;}
+.vcard .vhint{font-size:.6rem;color:var(--pk);margin-top:4px;}
+.spk-btn{position:absolute;top:4px;right:6px;background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.4;transition:all .2s;padding:0;line-height:1;}
+.spk-btn:hover{opacity:1;}
+.spk-btn.pop{transform:scale(1.4);opacity:1;}
+
+/* ── DIALOGUE ── */
+.dlg{background:var(--pu-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.dlg-title{font-size:.7rem;font-weight:700;letter-spacing:.07em;color:var(--pu-d);margin-bottom:.75rem;text-transform:uppercase;}
+.line{display:flex;gap:.65rem;margin-bottom:.45rem;align-items:flex-start;}
+.line:last-child{margin-bottom:0;}
+.spkr{min-width:62px;font-size:.72rem;font-weight:700;color:var(--pu);padding-top:2px;font-family:'Noto Sans KR',sans-serif;}
+.said{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);}
+.said small{display:block;font-size:.76rem;font-weight:400;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+
+/* ── TIME CARDS ── */
+.tcard{border-radius:var(--r);padding:1.3rem 1rem;text-align:center;}
+.tcard.mo{background:#FFF8E1;}
+.tcard.af{background:#E3F2FD;}
+.tcard.ev{background:#EDE7F6;}
+.tcard.ni{background:#1A1730;color:#fff;}
+.ticon{font-size:2.2rem;margin-bottom:.4rem;}
+.tlabel{font-size:.68rem;font-weight:700;letter-spacing:.08em;margin-bottom:.3rem;}
+.tcard.mo .tlabel{color:#F57F17;}
+.tcard.af .tlabel{color:#0D47A1;}
+.tcard.ev .tlabel{color:#4527A0;}
+.tcard.ni .tlabel{color:#B0BEC5;}
+.ten{font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;}
+.tcard.mo .ten{color:#7B5800;}
+.tcard.af .ten{color:#0D47A1;}
+.tcard.ev .ten{color:#311B92;}
+.tcard.ni .ten{color:#E8E4FF;}
+.tko{font-size:.78rem;}
+.tcard.mo .tko{color:#9E7A00;}
+.tcard.af .tko{color:#1565C0;}
+.tcard.ev .tko{color:#4527A0;}
+.tcard.ni .tko{color:#90A4AE;}
+
+/* ── CHANT ── */
+.chant-box{background:var(--pk-l);border-left:4px solid var(--pk);border-radius:0 var(--r) var(--r) 0;padding:1.1rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.92rem;line-height:2;color:var(--text);}
+.chant-box .hl{color:var(--pk-d);font-weight:700;}
+
+/* ── PHONICS ── */
+.ph-big{font-family:'Baloo 2',sans-serif;font-size:5.5rem;font-weight:800;color:var(--pu);text-align:center;line-height:1;}
+.ph-sub{text-align:center;font-size:.88rem;color:var(--sub);margin:.3rem 0 1.2rem;}
+.ph-pills{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:1.2rem;}
+.ph-pill{background:var(--pu-l);border:1px solid var(--pu);border-radius:20px;padding:.45rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--pu-d);}
+.ph-pill span{color:var(--pk);font-weight:800;}
+.ph-note{background:var(--ye-l);border-left:3px solid var(--ye);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:.75rem 1rem;font-size:.83rem;color:var(--ye-d);line-height:1.65;}
+.ph-pick-wrap{display:flex;flex-wrap:wrap;gap:.5rem;margin-top:.85rem;}
+.ph-pick{padding:.45rem 1rem;border-radius:20px;border:1.5px solid var(--border);background:var(--white);font-family:'Baloo 2',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;}
+.ph-pick:hover{border-color:var(--pu);}
+.ph-pick.ok{background:var(--tl-l);border-color:var(--tl);color:var(--tl-d);}
+.ph-pick.ng{background:var(--pk-l);border-color:var(--pk);color:var(--pk-d);}
+
+/* ── GRAMMAR ── */
+.gram-box{background:var(--tl-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.gram-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--tl-d);margin-bottom:.8rem;text-transform:uppercase;}
+.gram-row{display:flex;align-items:baseline;gap:.6rem;margin-bottom:.4rem;}
+.gram-plus{font-size:1rem;color:var(--tl);font-weight:700;}
+.gram-word{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;}
+.gram-word.pu{color:var(--pu);}
+.gram-word.ye{color:var(--ye-d);}
+.gram-ko{font-size:.82rem;color:var(--sub);}
+
+/* ── STORY FILL ── */
+.story-scene{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scene-num{display:inline-block;background:var(--pu);color:#fff;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:.7rem;}
+.story-line{font-family:'Baloo 2',sans-serif;font-size:.95rem;color:var(--text);line-height:1.7;}
+.blank{display:inline-block;border-bottom:2px solid var(--pu);min-width:60px;text-align:center;color:var(--pu);font-weight:700;cursor:pointer;padding:0 4px;transition:background .2s;border-radius:3px 3px 0 0;}
+.blank:hover{background:var(--pu-l);}
+.blank.revealed{background:var(--pu-l);color:var(--pu-d);}
+
+/* ── QUIZ ── */
+.quiz-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-bottom:1.5rem;overflow:hidden;}
+.quiz-bar{height:100%;background:linear-gradient(90deg,var(--pu),var(--pk));border-radius:3px;transition:width .4s ease;}
+.quiz-num{font-size:.78rem;color:var(--sub);margin-bottom:.4rem;}
+.quiz-q{font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.1rem;}
+.opts{display:flex;flex-direction:column;gap:.55rem;}
+.opt{padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:all .18s;}
+.opt:hover:not(:disabled){border-color:var(--pu);background:var(--pu-l);}
+.opt.ok{background:var(--tl-l);border-color:var(--tl);color:var(--tl-d);}
+.opt.ng{background:var(--pk-l);border-color:var(--pk);color:var(--pk-d);}
+.qfb{padding:.7rem 1rem;border-radius:var(--r-sm);font-size:.85rem;margin-top:.6rem;display:none;font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+.qfb.show{display:block;}
+.fb-ok{background:var(--tl-l);border-left:3px solid var(--tl);color:var(--tl-d);}
+.fb-ng{background:var(--pk-l);border-left:3px solid var(--pk);color:var(--pk-d);}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;}
+.qscore{font-size:.82rem;color:var(--sub);}
+.btn-nxt{background:var(--pu);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;display:none;transition:background .2s;}
+.btn-nxt:hover{background:var(--pu-d);}
+.result{text-align:center;padding:2.5rem 1rem;}
+.res-emoji{font-size:4rem;margin-bottom:.5rem;}
+.res-score{font-family:'Baloo 2',sans-serif;font-size:3rem;font-weight:800;color:var(--pu);}
+.res-msg{font-size:.95rem;color:var(--sub);margin:.4rem 0 1.2rem;}
+.btn-retry{background:var(--pu-l);color:var(--pu-d);border:1.5px solid var(--pu);border-radius:var(--r-sm);padding:.65rem 1.5rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+
+/* ── WORD SCRAMBLE ── */
+.scramble-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scramble-words{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.85rem;}
+.word-chip{background:var(--ye-l);border:1.5px solid var(--ye);border-radius:20px;padding:.35rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--ye-d);transition:all .2s;user-select:none;}
+.word-chip:hover{background:var(--ye);color:#fff;}
+.word-chip.used{opacity:.3;cursor:default;pointer-events:none;}
+.answer-area{min-height:42px;border:2px dashed var(--border);border-radius:var(--r-sm);padding:.5rem .75rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.75rem;background:var(--bg);}
+.placed-chip{background:var(--pu-l);border:1.5px solid var(--pu);border-radius:20px;padding:.3rem .85rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:var(--pu-d);}
+.placed-chip:hover{background:var(--pk-l);border-color:var(--pk);color:var(--pk-d);}
+.scr-btns{display:flex;gap:.5rem;}
+.btn-check{background:var(--pu);color:#fff;border:none;border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-reset{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.scr-fb{font-size:.82rem;margin-top:.5rem;font-family:'Noto Sans KR',sans-serif;padding:.45rem .75rem;border-radius:var(--r-sm);}
+
+/* FOOTER */
+footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
+
+@media(max-width:640px){
+  .nav{grid-template-columns:repeat(5,1fr);}
+}
+@media(max-width:520px){
+  .grid2,.grid3{grid-template-columns:1fr;}
+  .grid4{grid-template-columns:1fr 1fr;}
+  .vgrid{grid-template-columns:repeat(3,1fr);}
+}
+
+/* 발음 버튼 향상 */
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.9rem;cursor:pointer;opacity:.45;transition:all .2s;padding:2px;line-height:1;border-radius:50%;}
+.spk-btn:hover{opacity:1;background:rgba(0,0,0,.07);}
+.spk-btn.pop{transform:scale(1.5);opacity:1;}
+.tts-bar{display:flex;align-items:center;gap:.5rem;background:var(--bl-l,#E3F2FD);border-radius:var(--r-sm,8px);padding:.55rem .85rem;margin-bottom:.85rem;font-size:.8rem;color:var(--bl-d,#0D47A1);font-family:'Noto Sans KR',sans-serif;}
+.tts-dot{width:8px;height:8px;border-radius:50%;background:var(--gn,#2E7D32);animation:blink 1.2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.vcard .vico{font-size:1.8rem;margin:4px 0 2px;line-height:1;display:block;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-deco a">📚</span>
+  <span class="hero-deco b">🌟</span>
+  <span class="hero-deco c">✏️</span>
+  <div class="hero-badge">📋 Portfolio · 4학년 영어</div>
+  <h1>Lesson 1<br><span>My Name Is Amy</span></h1>
+  <p>단어 · 핵심표현 · 대화 · 파닉스 · 문법 · 퀴즈</p>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="ntab on" onclick="go('words',this)">📖<br>단어</button>
+    <button class="ntab" onclick="go('expr',this)">💬<br>핵심표현</button>
+    <button class="ntab" onclick="go('dlgs',this)">🗣️<br>대화문</button>
+    <button class="ntab" onclick="go('chant',this)">🎵<br>찬트</button>
+    <button class="ntab" onclick="go('phonics',this)">🔤<br>파닉스</button>
+    <button class="ntab" onclick="go('grammar',this)">📐<br>문법</button>
+    <button class="ntab" onclick="go('story',this)">🎭<br>스토리</button>
+    <button class="ntab" onclick="go('scramble',this)">🔀<br>단어조합</button>
+    <button class="ntab" onclick="go('quiz',this)">✏️<br>퀴즈</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══ 단어 ══ -->
+<div id="words" class="panel on">
+  <div class="sec">
+    <div class="sec-title">New Words — 신출 어휘 12개</div>
+    <div class="tts-bar"><span class="tts-dot"></span>🔊 단어 카드를 탭하거나 🔊 버튼을 눌러 영어 발음을 들어보세요 (Chrome · Edge · Whale 지원)</div>
+    <div class="vgrid" id="vcards"></div>
+  </div>
+</div>
+
+<!-- ══ 핵심표현 ══ -->
+<div id="expr" class="panel">
+  <div class="sec">
+    <div class="sec-title">Key Expressions — 핵심 의사소통 표현</div>
+    <div class="grid2">
+      <div class="card">
+        <span class="tag tag-pu">① 이름 묻기</span>
+        <div class="en">What's your name?</div>
+        <div class="ko">너의 이름은 무엇이니?</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="resp">
+          <div class="en" style="color:var(--pu-d);">My name is <em style="color:var(--pk);">Sam</em>.</div>
+          <div class="ko">내 이름은 Sam이야.</div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag tag-tl">② 자기소개</span>
+        <div class="en">Hello, I'm <em style="color:var(--pk);">Juno</em>.</div>
+        <div class="ko">안녕, 나는 준오야.</div>
+        <div class="arrow">↓ 반응</div>
+        <div class="resp">
+          <div class="en" style="color:var(--pu-d);">Hi, Juno. My name is Amy.</div>
+          <div class="ko">안녕, 준오. 내 이름은 에이미야.</div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag tag-pk">③ 소개에 답하기</span>
+        <div class="en">Nice to meet you.</div>
+        <div class="ko">만나서 반가워.</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="resp">
+          <div class="en" style="color:var(--pu-d);">Nice to meet you, <em style="color:var(--pk);">too</em>.</div>
+          <div class="ko">나도 만나서 반가워.</div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag tag-ye">④ 때에 알맞은 인사</span>
+        <div class="en">Good <em style="color:var(--pk);">morning / afternoon / evening</em>!</div>
+        <div class="ko">좋은 아침 / 오후 / 저녁이야!</div>
+        <div style="margin-top:.9rem;">
+          <div class="grid4" style="gap:.5rem;">
+            <div class="tcard mo"><div class="ticon">🌅</div><div class="tlabel">아침</div><div class="ten" style="font-size:.85rem;">Good morning.</div></div>
+            <div class="tcard af"><div class="ticon">☀️</div><div class="tlabel">오후</div><div class="ten" style="font-size:.85rem;">Good afternoon.</div></div>
+            <div class="tcard ev"><div class="ticon">🌆</div><div class="tlabel">저녁</div><div class="ten" style="font-size:.85rem;">Good evening.</div></div>
+            <div class="tcard ni"><div class="ticon">🌙</div><div class="tlabel">밤</div><div class="ten" style="font-size:.85rem;">Good night.</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 대화문 ══ -->
+<div id="dlgs" class="panel">
+  <div class="sec">
+    <div class="sec-title">Fun Talk 1 (교과서 14p) — 등교 첫날</div>
+    <div class="dlg">
+      <div class="dlg-title">Scene 1 · 신발장 앞</div>
+      <div class="line"><span class="spkr">준오</span><div class="said">Hi, Kate. <small>안녕, 케이트.</small></div></div>
+      <div class="line"><span class="spkr">Kate</span><div class="said">Hi, Juno. <small>안녕, 준오.</small></div></div>
+      <div class="line"><span class="spkr">준오</span><div class="said">Hello, I'm Juno. What's your name? <small>안녕, 나는 준오야. 이름이 뭐야?</small></div></div>
+      <div class="line"><span class="spkr">Amy</span><div class="said">Hi, Juno. My name is Amy. <small>안녕, 준오. 내 이름은 에이미야.</small></div></div>
+      <div class="line"><span class="spkr">준오</span><div class="said">Nice to meet you, Amy. <small>에이미, 만나서 반가워.</small></div></div>
+      <div class="line"><span class="spkr">Amy</span><div class="said">Nice to meet you, too. <small>나도 만나서 반가워.</small></div></div>
+    </div>
+    <div class="dlg" style="background:var(--pk-l);">
+      <div class="dlg-title" style="color:var(--pk-d);">Scene 2 · 모모 등장</div>
+      <div class="line"><span class="spkr" style="color:var(--pk);">Momo</span><div class="said">Hello, Amy. My name is Momo. <small>안녕, 에이미. 내 이름은 모모야.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--pk);">Amy</span><div class="said">Wow, Momo! I like your bag. <small>와, 모모! 네 가방 정말 마음에 들어.</small></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Fun Talk 2 (교과서 16p) — 국제 도서전</div>
+    <div class="dlg" style="background:var(--tl-l);">
+      <div class="dlg-title" style="color:var(--tl-d);">Scene 1 · 사인회 줄</div>
+      <div class="line"><span class="spkr" style="color:var(--tl);">Jane Green</span><div class="said">Good morning! <small>좋은 아침이에요!</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl);">Sam</span><div class="said">Good morning, Ms. Green! <small>좋은 아침이에요, 그린 선생님!</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl);">Jane Green</span><div class="said">What's your name? <small>이름이 뭐니?</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl);">Sam</span><div class="said">My name is Sam. <small>제 이름은 샘이에요.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl);">Jane Green</span><div class="said">Nice to meet you, Sam. <small>만나서 반가워, 샘.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl);">Sam</span><div class="said">Nice to meet you, too. <small>저도 반가워요.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl);">Jane Green</span><div class="said">Here you are. <small>(책을 건네며) 자, 여기 있어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--tl);">Sam</span><div class="said">Oh, thank you. <small>오, 감사합니다.</small></div></div>
+    </div>
+    <div class="dlg" style="background:var(--ye-l);">
+      <div class="dlg-title" style="color:var(--ye-d);">Scene 2 · 단상 인사</div>
+      <div class="line"><span class="spkr" style="color:var(--ye-d);">Jane Green</span><div class="said">Good afternoon, everyone! My name is Jane Green. <small>좋은 오후예요, 여러분! 제 이름은 제인 그린이에요.</small></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Talk Like This (교과서 17p)</div>
+    <div class="grid2">
+      <div class="dlg" style="margin-bottom:0;">
+        <div class="dlg-title">영상 1 · 친구 소개</div>
+        <div class="line"><span class="spkr">하나</span><div class="said">Hi, I'm Hana. What's your name? <small>안녕, 나는 하나야. 이름이 뭐야?</small></div></div>
+        <div class="line"><span class="spkr">Alice</span><div class="said">My name is Alice. <small>내 이름은 앨리스야.</small></div></div>
+        <div class="line"><span class="spkr">하나</span><div class="said">Nice to meet you, Alice. <small>앨리스, 만나서 반가워.</small></div></div>
+        <div class="line"><span class="spkr">Alice</span><div class="said">Nice to meet you, too. <small>나도 반가워.</small></div></div>
+      </div>
+      <div class="dlg" style="margin-bottom:0;">
+        <div class="dlg-title">영상 2 · 전학생 소개</div>
+        <div class="line"><span class="spkr">Ms. Evans</span><div class="said">Good morning, everyone. <small>좋은 아침이에요, 여러분.</small></div></div>
+        <div class="line"><span class="spkr">Danny 외</span><div class="said">Good morning, Ms. Evans. <small>좋은 아침이에요, 에반스 선생님.</small></div></div>
+        <div class="line"><span class="spkr">Ms. Evans</span><div class="said">We have a new friend. <small>새로운 친구가 왔어요.</small></div></div>
+        <div class="line"><span class="spkr">Lily</span><div class="said">Hello, my name is Lily. <small>안녕하세요, 제 이름은 릴리예요.</small></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 찬트·노래 ══ -->
+<div id="chant" class="panel">
+  <div class="sec">
+    <div class="sec-title">Chant and Do (교과서 14p)</div>
+    <div class="grid2">
+      <div class="chant-box">
+        Hello, hello. <span class="hl">What's your name?</span><br>
+        Amy, Amy. <span class="hl">My name is Amy.</span><br>
+        Juno, Juno. My name is Juno.<br>
+        Bora, Bora. My name is Bora.<br>
+        Sam, Sam. My name is Sam.<br>
+        <span class="hl">Nice to meet you.</span><br>
+        <span class="hl">Nice to meet you.</span><br>
+        <span class="hl">Nice to meet you, too.</span>
+      </div>
+      <div class="chant-box">
+        Hello, hello. <span class="hl">What's your name?</span><br>
+        Eric, Eric. <span class="hl">My name is Eric.</span><br>
+        Kate, Kate. My name is Kate.<br>
+        Momo, Momo. My name is Momo.<br>
+        Hoa, Hoa. My name is Hoa.<br>
+        <span class="hl">Nice to meet you.</span><br>
+        <span class="hl">Nice to meet you.</span><br>
+        <span class="hl">Nice to meet you, too.</span>
+      </div>
+    </div>
+    <div style="margin-top:.9rem;background:var(--pu-l);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;color:var(--pu-d);font-family:'Noto Sans KR',sans-serif;">
+      💡 <strong>찬트 활동법</strong>: 분홍색 표현을 집중해서 따라 읽어요. 친구 이름을 넣어서 바꾸어 불러봐요!
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Song · Good Morning (교과서 17p)</div>
+    <div class="chant-box" style="background:var(--tl-l);border-left-color:var(--tl);">
+      <span class="hl" style="color:var(--tl-d);">Good morning. Good morning.</span><br>
+      What, what's your name?<br>
+      Good morning. What's your name?<br>
+      <span class="hl" style="color:var(--tl-d);">My name is Juno.</span><br><br>
+      Good morning. What's your name?<br>
+      <span class="hl" style="color:var(--tl-d);">My name is Amy.</span><br>
+      Oh, nice to meet you, Amy.<br>
+      Nice to meet you, too.<br><br>
+      <span style="color:var(--ye-d);font-weight:700;">Good afternoon. Good afternoon.</span><br>
+      What, what's your name?<br>
+      Good afternoon. What's your name?<br>
+      My name is Kate. … My name is Eric.<br>
+      Oh, nice to meet you, Eric.<br>
+      Nice to meet you, too.
+    </div>
+    <div style="margin-top:.9rem;background:var(--ye-l);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;color:var(--ye-d);font-family:'Noto Sans KR',sans-serif;">
+      🎵 <strong>노래 팁</strong>: "Puff the Magic Dragon" 멜로디에 맞춰 불러요! 이름을 내 친구 이름으로 바꿔서 불러봐도 좋아요.
+    </div>
+  </div>
+</div>
+
+<!-- ══ 파닉스 ══ -->
+<div id="phonics" class="panel">
+  <div class="sec">
+    <div class="card" style="text-align:center;padding:1.8rem;">
+      <div class="ph-big">t</div>
+      <div class="ph-sub">단어 끝에서 /t/ 소리가 나요 (약하게!)</div>
+      <div class="ph-pills">
+        <div class="ph-pill">mee<span>t</span></div>
+        <div class="ph-pill">ha<span>t</span></div>
+        <div class="ph-pill">si<span>t</span></div>
+        <div class="ph-pill">ca<span>t</span></div>
+        <div class="ph-pill">nigh<span>t</span></div>
+        <div class="ph-pill">carro<span>t</span></div>
+      </div>
+      <div class="ph-note">
+        💡 끝소리 /t/는 첫소리 /t/보다 <strong>약하게</strong> 소리내요.<br>
+        /t/ 뒤에 모음을 추가해서 "트"처럼 발음하지 않도록 주의하세요!<br>
+        ✅ ha<strong>t</strong> &nbsp;&nbsp; ❌ ha<strong>트</strong>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">확인 문제 — /t/로 끝나는 단어를 모두 골라보세요</div>
+    <div class="card">
+      <div class="ph-pick-wrap" id="ph-picks"></div>
+      <div id="ph-res" style="margin-top:.75rem;font-size:.83rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;"></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Quiz 정답 철자 — 'n,m,g,o,r,i,n' 조합 → ?</div>
+    <div class="card">
+      <div style="font-size:.88rem;color:var(--sub);margin-bottom:.5rem;font-family:'Noto Sans KR',sans-serif;">알파벳을 조합해서 단어를 맞춰보세요!</div>
+      <div id="alpha-quiz"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문법 ══ -->
+<div id="grammar" class="panel">
+  <div class="sec">
+    <div class="sec-title">Grammar — Good + 시간대</div>
+    <div class="gram-box">
+      <div class="gram-title">Good + _________ !</div>
+      <div class="gram-row"><span class="gram-plus">Good</span><span class="gram-word pu">+ morning</span><span class="gram-ko">= 좋은 아침. 🌅</span></div>
+      <div class="gram-row"><span class="gram-plus">Good</span><span class="gram-word pu">+ afternoon</span><span class="gram-ko">= 좋은 오후. ☀️</span></div>
+      <div class="gram-row"><span class="gram-plus">Good</span><span class="gram-word pu">+ evening</span><span class="gram-ko">= 좋은 저녁. 🌆</span></div>
+      <div class="gram-row"><span class="gram-plus">Good</span><span class="gram-word pu">+ night</span><span class="gram-ko">= 잘 자. 🌙</span></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Grammar — 소유격 my / your</div>
+    <div class="gram-box" style="background:var(--pk-l);">
+      <div class="gram-title" style="color:var(--pk-d);">누군가의 것을 나타낼 때 쓰는 말</div>
+      <div style="font-size:.85rem;color:var(--pk-d);margin-bottom:.9rem;font-family:'Noto Sans KR',sans-serif;line-height:1.7;">
+        누군가가 가지고 있는 것을 가리키는 말을 <strong>소유격</strong>이라고 합니다.<br>
+        '나의 이름', '너의 이름', '나의 책', '너의 연필' 등을 표현할 때 써요.
+      </div>
+      <div class="gram-row"><span class="gram-word" style="color:var(--pk-d);">my</span><span class="gram-ko">= 나의</span><span style="font-family:'Baloo 2',sans-serif;font-size:.95rem;color:var(--pk);margin-left:.5rem;">my name</span><span class="gram-ko">(나의 이름)</span></div>
+      <div class="gram-row" style="margin-top:.4rem;"><span class="gram-word" style="color:var(--pk-d);">your</span><span class="gram-ko">= 너의</span><span style="font-family:'Baloo 2',sans-serif;font-size:.95rem;color:var(--pk);margin-left:.5rem;">your name</span><span class="gram-ko">(너의 이름)</span></div>
+      <div style="margin-top:.9rem;display:flex;flex-wrap:wrap;gap:.5rem;">
+        <span style="background:var(--white);border:1px solid var(--pk);border-radius:20px;padding:.3rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;color:var(--pk-d);">my bag</span>
+        <span style="background:var(--white);border:1px solid var(--pk);border-radius:20px;padding:.3rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;color:var(--pk-d);">your book</span>
+        <span style="background:var(--white);border:1px solid var(--pk);border-radius:20px;padding:.3rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;color:var(--pk-d);">my pencil</span>
+        <span style="background:var(--white);border:1px solid var(--pk);border-radius:20px;padding:.3rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;color:var(--pk-d);">your friend</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 스토리 빈칸 ══ -->
+<div id="story" class="panel">
+  <div class="sec">
+    <div class="sec-title">Listen to the Story (교과서 20p) — 해리 포터</div>
+    <div style="font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;">빈칸을 탭하면 정답이 나타나요!</div>
+
+    <div class="story-scene">
+      <div class="scene-num">#1</div>
+      <div class="story-line">
+        론, 헤르미온느: Good <span class="blank" onclick="reveal(this,'morning')">________</span>.<br>
+        해리: Good morning.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#2</div>
+      <div class="story-line">
+        론: I'm Ron. What's your <span class="blank" onclick="reveal(this,'name')">_____</span>?<br>
+        해리: <span class="blank" onclick="reveal(this,'My')">___</span> name is Harry.<br>
+        론: <span class="blank" onclick="reveal(this,'Nice')">____</span> to meet you, Harry.<br>
+        해리: Nice to meet you, <span class="blank" onclick="reveal(this,'too')">___</span>.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#3</div>
+      <div class="story-line">
+        론: Harry, come here.<br>
+        해리: One, two, three.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#4</div>
+      <div class="story-line">
+        해리: Oops, I'm sorry.<br>
+        헤르미온느: That's okay. <span class="blank" onclick="reveal(this,'Look!')">_____</span><br>
+        해리: Wow, great!
+      </div>
+    </div>
+    <div id="story-all-btn" style="margin-top:.75rem;">
+      <button onclick="revealAll()" style="background:var(--pu);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;">전체 정답 보기</button>
+      <button onclick="resetBlanks()" style="background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;margin-left:.5rem;">다시 도전</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 단어 조합 ══ -->
+<div id="scramble" class="panel">
+  <div class="sec">
+    <div class="sec-title">Quiz — 단어를 조합해 문장을 완성하세요!</div>
+    <div style="font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;">단어 칩을 눌러 순서대로 배열하고 ✓ 확인 버튼을 눌러요. 답이 아니면 다시 조합해봐요!</div>
+    <div id="scramble-area"></div>
+  </div>
+</div>
+
+<!-- ══ 퀴즈 ══ -->
+<div id="quiz" class="panel">
+  <div class="quiz-bar-wrap"><div class="quiz-bar" id="qbar" style="width:0%"></div></div>
+  <div id="quiz-area"></div>
+</div>
+
+</main>
+<footer>Lesson 1 · My Name Is Amy · 4학년 영어 포트폴리오 복습 자료</footer>
+
+<script>
+function adjustMainPadding(){
+  var n=document.querySelector('.nav-wrap'),m=document.querySelector('main');
+  if(n&&m) m.style.paddingTop=(n.offsetHeight+16)+'px';
+}
+window.addEventListener('load', adjustMainPadding);
+window.addEventListener('resize', adjustMainPadding);
+
+var _ttsV=[],_ttsR=false;
+function _ttsL(){
+  if(!window.speechSynthesis) return;
+  var vs=window.speechSynthesis.getVoices();
+  if(vs.length){_ttsV=vs;_ttsR=true;}
+}
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=function(){_ttsL();};
+  _ttsL();
+}
+function _ttsP(){
+  return _ttsV.find(function(v){return v.lang==='en-US'&&v.localService;})
+      || _ttsV.find(function(v){return v.lang==='en-US';})
+      || _ttsV.find(function(v){return v.lang==='en-GB';})
+      || _ttsV.find(function(v){return v.lang.startsWith('en');})
+      || null;
+}
+function speak(text,rate){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  function _d(){
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US'; u.rate=rate||0.85; u.pitch=1;
+    var v=_ttsP(); if(v) u.voice=v;
+    u.onstart=function(){window.speechSynthesis.resume();};
+    window.speechSynthesis.speak(u);
+  }
+  if(!_ttsR){ _ttsL(); }
+  if(!_ttsR){ setTimeout(function(){_ttsL();_d();},400); return; }
+  _d();
+}
+function popSpk(btn,word){
+  speak(word);
+  btn.classList.add('pop');
+  setTimeout(function(){btn.classList.remove('pop');},600);
+}
+
+
+function go(id,btn){
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.panel').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.ntab').forEach(function(t){t.classList.remove('on');});
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='quiz') initQuiz();
+  if(id==='scramble') initScramble();
+}
+const words=[
+  {n:1,en:'afternoon',ko:'오후',ico:'🌇'},
+  {n:2,en:'bag',ko:'가방',ico:'🎒'},
+  {n:3,en:'evening',ko:'저녁',ico:'🌆'},
+  {n:4,en:'everyone',ko:'모두',ico:'👥'},
+  {n:5,en:'friend',ko:'친구',ico:'🤝'},
+  {n:6,en:'meet',ko:'만나다',ico:'🙋'},
+  {n:7,en:'morning',ko:'아침',ico:'🌅'},
+  {n:8,en:'name',ko:'이름',ico:'📛'},
+  {n:9,en:'new',ko:'새로운',ico:'✨'},
+  {n:10,en:'night',ko:'밤',ico:'🌙'},
+  {n:11,en:'to',ko:'~에게',ico:'👉'},
+  {n:12,en:'we',ko:'우리',ico:'👫'}
+];
+var vc=document.getElementById('vcards');
+if(vc){ words.forEach(function(w){
+  var d=document.createElement('div'); d.className='vcard';
+  d.innerHTML='<button class="spk-btn" onclick="event.stopPropagation();popSpk(this,\''+w.en+'\')">🔊</button>'
+    +'<span class="num">'+w.n+'</span>'
+    +'<div class="vico">'+w.ico+'</div>'
+    +'<div class="ven">'+w.en+'</div>'
+    +'<div class="vko">'+w.ko+'</div>'
+    +'<div class="vhint">탭 → 뜻 확인</div>';
+  d.onclick=function(){
+    d.classList.toggle('flipped');
+    d.querySelector('.vhint').style.display=d.classList.contains('flipped')?'none':'block';
+    speak(w.en);
+  };
+  vc.appendChild(d);
+}); }
+var phWords=[
+  {w:'meet',t:true},{w:'hand',t:false},{w:'hat',t:true},
+  {w:'bag',t:false},{w:'sit',t:true},{w:'name',t:false},
+  {w:'night',t:true},{w:'friend',t:false}
+];
+var pp=document.getElementById('ph-picks');
+if(pp){
+  phWords.forEach(function(pw){
+    var b=document.createElement('button');
+    b.className='ph-pick'; b.textContent=pw.w;
+    b.onclick=function(){
+      if(b.classList.contains('ok')||b.classList.contains('ng')) return;
+      b.classList.add(pw.t?'ok':'ng');
+      var got=document.querySelectorAll('.ph-pick.ok').length;
+      var bad=document.querySelectorAll('.ph-pick.ng').length;
+      document.getElementById('ph-res').textContent='✓ '+got+'개 맞춤 · ✗ '+bad+'개 틀림 (정답: meet, hat, sit, night)';
+    };
+    pp.appendChild(b);
+  });
+}
+var aqEl=document.getElementById('alpha-quiz');
+if(aqEl){
+  aqEl.innerHTML='<div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-bottom:.6rem;" id="alpha-chips"></div>'
+    +'<div class="answer-area" id="alpha-answer"></div>'
+    +'<div style="display:flex;gap:.5rem;margin-top:.4rem;">'
+    +'<button class="btn-check" onclick="checkAlpha()">확인</button>'
+    +'<button class="btn-reset" onclick="resetAlpha()">다시</button></div>'
+    +'<div id="alpha-fb" class="scr-fb" style="display:none;"></div>';
+  ['n','m','g','o','r','i','n'].forEach(function(l,i){
+    var b=document.createElement('button');
+    b.className='word-chip'; b.textContent=l; b.dataset.idx=i;
+    b.onclick=function(){
+      if(b.classList.contains('used')) return;
+      b.classList.add('used');
+      var pc=document.createElement('button');
+      pc.className='placed-chip'; pc.textContent=l; pc.dataset.src=i;
+      pc.onclick=function(){ b.classList.remove('used'); pc.remove(); document.getElementById('alpha-fb').style.display='none'; };
+      document.getElementById('alpha-answer').appendChild(pc);
+    };
+    document.getElementById('alpha-chips').appendChild(b);
+  });
+}
+function checkAlpha(){
+  var placed=[].slice.call(document.querySelectorAll('#alpha-answer .placed-chip')).map(function(c){return c.textContent;}).join('');
+  var fb=document.getElementById('alpha-fb');
+  fb.style.display='block';
+  if(placed.toLowerCase()==='morning'){ fb.className='scr-fb fb-ok'; fb.textContent='🎉 정답! morning = 아침'; }
+  else { fb.className='scr-fb fb-ng'; fb.textContent='"'+placed+'" → 다시 조합해봐요! (힌트: 아침)'; }
+}
+function resetAlpha(){
+  document.querySelectorAll('#alpha-chips .word-chip').forEach(function(b){b.classList.remove('used');});
+  document.getElementById('alpha-answer').innerHTML='';
+  document.getElementById('alpha-fb').style.display='none';
+}
+function reveal(el,ans){el.textContent=ans;el.classList.add('revealed');}
+function revealAll(){
+  document.querySelectorAll('.blank:not(.revealed)').forEach(function(b){
+    var a=b.getAttribute('onclick').match(/'([^']+)'/)[1];
+    b.textContent=a; b.classList.add('revealed');
+  });
+}
+function resetBlanks(){
+  document.querySelectorAll('.blank').forEach(function(b){
+    var a=b.getAttribute('onclick').match(/'([^']+)'/)[1];
+    b.textContent='_'.repeat(a.length); b.classList.remove('revealed');
+  });
+}
+var scrambles=[
+  {words:['Nice','to','meet','you','.'],answer:'Nice to meet you.',hint:'만나서 반가워.'},
+  {words:['My','name','is','Alice','.'],answer:'My name is Alice.',hint:'내 이름은 앨리스야.'},
+  {words:["What's",'your','name','?'],answer:"What's your name?",hint:'이름이 뭐야?'},
+  {words:['Good','afternoon','.'],answer:'Good afternoon.',hint:'좋은 오후야.'},
+];
+function initScramble(){
+  var area=document.getElementById('scramble-area');
+  if(!area) return;
+  area.innerHTML='';
+  scrambles.forEach(function(s,i){
+    var sh=s.words.slice();
+    var orig=s.words.join('\t');
+    var attempt=0;
+    do {
+      for(var k=sh.length-1;k>0;k--){
+        var j=Math.floor(Math.random()*(k+1));
+        var tmp=sh[k]; sh[k]=sh[j]; sh[j]=tmp;
+      }
+      attempt++;
+    } while(sh.join('\t')===orig && attempt<20 && s.words.length>1);
+    var div=document.createElement('div');
+    div.className='scramble-box';
+    var chips='';
+    sh.forEach(function(w){
+      chips+='<button class="word-chip" onclick="placeWord('+i+',this)">'+w+'</button>';
+    });
+    div.innerHTML=
+      '<div style="font-size:.8rem;color:var(--sub,#666);margin-bottom:.55rem">'+(i+1)+' &middot; '+s.hint+'</div>'+
+      '<div class="scramble-words" id="chips-'+i+'">'+chips+'</div>'+
+      '<div class="answer-area" id="ans-'+i+'"></div>'+
+      '<div class="scr-btns">'+
+      '<button class="btn-check" onclick="checkScr('+i+')">&#10003; 확인</button>'+
+      '<button class="btn-reset" onclick="resetScr('+i+')">&#8634; 다시</button>'+
+      '</div>'+
+      '<div id="fb-'+i+'" class="scr-fb" style="display:none"></div>';
+    area.appendChild(div);
+    var chipEls=div.querySelectorAll('.word-chip');
+    chipEls.forEach(function(el,j){ el.dataset.w=sh[j]; });
+  });
+}
+
+function placeWord(qi,btn){
+  if(btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  var pc=document.createElement('button'); pc.className='placed-chip'; pc.textContent=btn.dataset.w;
+  pc.onclick=function(){btn.classList.remove('used');pc.remove();document.getElementById('fb-'+qi).style.display='none';};
+  document.getElementById('ans-'+qi).appendChild(pc);
+}
+function checkScr(qi){
+  var chips=[].slice.call(document.querySelectorAll('#ans-'+qi+' .placed-chip'));
+  var placed=chips.map(function(c){return c.textContent;}).join(' ');
+  var fb=document.getElementById('fb-'+qi); fb.style.display='block';
+  var norm=function(s){ return s.toLowerCase().replace(/[^a-z0-9\uAC00-\uD7A3]/g,' ').replace(/\s+/g,' ').trim(); };
+  if(norm(placed)===norm(scrambles[qi].answer)){
+    fb.className='scr-fb fb-ok'; fb.textContent='\uD83C\uDF89 \uc815\ub2f5! "'+scrambles[qi].answer+'"';
+  } else {
+    fb.className='scr-fb fb-ng'; fb.textContent='"'+placed+'" \u2192 \ub2e4\uc2dc \uc870\ud569\ud574\ubc10\uc694!';
+  }
+}
+
+function resetScr(qi){
+  document.querySelectorAll('#chips-'+qi+' .word-chip').forEach(function(b){b.classList.remove('used');});
+  document.getElementById('ans-'+qi).innerHTML='';
+  document.getElementById('fb-'+qi).style.display='none';
+}
+var quizzes=[
+  {q:'아침에 친구를 만났을 때 하는 인사는?',opts:['Good night.','Good morning.','Good evening.','Good afternoon.'],ans:1,fb:'아침(morning)에는 "Good morning."이라고 인사해요!'},
+  {q:'"What\'s your name?"에 대한 알맞은 대답은?',opts:['Nice to meet you.','Good morning!','My name is Amy.','What\'s your bag?'],ans:2,fb:'"My name is ___."로 이름을 말해요!'},
+  {q:'"Nice to meet you."에 대한 알맞은 대답은?',opts:['Good night.','What\'s your name?','Nice to meet you, too.','My name is Juno.'],ans:2,fb:'"too"를 붙여서 "나도 만나서 반가워!"라고 대답해요.'},
+  {q:'저녁에 하는 인사로 알맞은 것은?',opts:['Good morning.','Good night.','Good evening.','Good afternoon.'],ans:2,fb:'저녁(evening)에는 "Good evening."이에요.'},
+  {q:'"t"로 끝나는 단어가 아닌 것은?',opts:['meet','hat','name','sit'],ans:2,fb:'"name"은 e로 끝나요. meet, hat, sit 모두 t로 끝나요!'},
+  {q:'빈칸에 알맞은 말은?\n"Hello, I\'m Juno. ___________ your name?"\n',opts:["What's","Nice to meet","My name is","Good morning"],ans:0,fb:'"What\'s your name?"으로 이름을 물어봐요!'},
+  {q:'소유격 "my"의 뜻은?',opts:['너의','나의','우리의','그의'],ans:1,fb:'"my"는 나의, "your"는 너의 를 뜻해요.'},
+  {q:'Fun Talk 2에서 Sam이 Jane Green에게 사인을 받은 때는?',opts:['저녁','점심','오후','아침'],ans:3,fb:'Jane Green이 "Good morning!"이라고 인사했으니까 아침이에요!'},
+  {q:'다음 중 찬트에 나오지 않는 이름은?',opts:['Bora','Hoa','Alice','Sam'],ans:2,fb:'Alice는 Talk Like This에 나오는 이름이에요!'},
+  {q:'알파벳 n,m,g,o,r,i,n을 조합하면?',opts:['evening','morning','meeting','morning'],ans:1,fb:'n-m-g-o-r-i-n → morning (아침)!'},
+];
+var cur=0,score=0,answered=false;
+function initQuiz(){cur=0;score=0;answered=false;renderQ();}
+function renderQ(){
+  var area=document.getElementById('quiz-area');
+  var bar=document.getElementById('qbar');
+  bar.style.width=(cur/quizzes.length*100)+'%';
+  if(cur>=quizzes.length){
+    var pct=Math.round(score/quizzes.length*100);
+    var e=pct>=80?'🎉':pct>=50?'😊':'💪';
+    var msg=pct>=80?'완벽해요!':pct>=50?'잘했어요!':'다시 복습해봐요!';
+    area.innerHTML='<div class="result"><div class="res-emoji">'+e+'</div><div class="res-score">'+score+' / '+quizzes.length+'</div><div class="res-msg">'+msg+'</div><button class="btn-retry" onclick="initQuiz()">다시 도전 🔄</button></div>';
+    bar.style.width='100%'; return;
+  }
+  var q=quizzes[cur];
+  area.innerHTML='<div class="quiz-num">'+(cur+1)+' / '+quizzes.length+' 문제</div>'
+    +'<div class="quiz-q">'+q.q.replace(/\n/g,'<br>')+'</div>'
+    +'<div class="opts">'+q.opts.map(function(o,i){return '<button class="opt" onclick="pick('+i+')">'+o+'</button>';}).join('')+'</div>'
+    +'<div class="qfb" id="qfb"></div>'
+    +'<div class="qnav"><div class="qscore">현재 점수 '+score+'점</div><button class="btn-nxt" id="qnxt" onclick="nextQ()">다음 →</button></div>';
+  answered=false;
+}
+function pick(i){
+  if(answered) return; answered=true;
+  var q=quizzes[cur];
+  document.querySelectorAll('.opt').forEach(function(o,j){
+    o.disabled=true;
+    if(j===q.ans) o.classList.add('ok');
+    else if(j===i) o.classList.add('ng');
+  });
+  var fb=document.getElementById('qfb');
+  if(i===q.ans){score++;fb.className='qfb fb-ok show';fb.textContent='✓ 정답! '+q.fb;}
+  else{fb.className='qfb fb-ng show';fb.textContent='✗ 틀렸어요. '+q.fb;}
+  document.getElementById('qnxt').style.display='inline-block';
+}
+function nextQ(){cur++;answered=false;renderQ();}
+</script>
+</body>
+</html>

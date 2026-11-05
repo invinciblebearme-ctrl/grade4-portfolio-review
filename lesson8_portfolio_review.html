@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 8 · How Much Is It? 포트폴리오 복습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --m:#2E8B4E; --m-l:#E6F5EC; --m-d:#1B5E34;
+  --s:#E68A00; --s-l:#FFF3E0; --s-d:#8A4B00;
+  --gn:#2E7D32; --gn-l:#E8F5E9; --gn-d:#1B5E20;
+  --rd:#C62828; --rd-l:#FFEBEE; --rd-d:#7F0000;
+  --ye:#F57F17; --ye-l:#FFF8E1; --ye-d:#6D4C00;
+  --pk:#D81B60; --pk-l:#FCE4EC; --pk-d:#880E4F;
+  --bg:#F6FCF8; --white:#FFFFFF;
+  --text:#0F2418; --sub:#3F5A48; --border:#C8E6D2;
+  --r:14px; --r-sm:8px;
+  --shadow:0 2px 12px rgba(46,139,78,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-padding-top:110px;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#1B6B3A 0%,#2E9B56 45%,#52C97A 100%);padding:3rem 1.5rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 14px;font-size:.75rem;font-weight:700;color:#fff;letter-spacing:.08em;margin-bottom:1rem;}
+.hero h1{font-family:'Baloo 2',sans-serif;font-size:clamp(2rem,7vw,3.4rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:.4rem;}
+.hero h1 span{color:#FFF176;}
+.hero p{font-size:.95rem;color:rgba(255,255,255,.82);}
+.hero-deco{position:absolute;font-size:5rem;opacity:.08;pointer-events:none;}
+.hero-deco.a{top:10%;left:5%;}
+.hero-deco.b{top:20%;right:8%;}
+.hero-deco.c{bottom:18%;left:14%;}
+
+/* ── NAV ── */
+.nav-wrap{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(46,139,78,.10);}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);max-width:980px;margin:0 auto;}
+.ntab{padding:.75rem .3rem;border:none;background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:.78rem;font-weight:700;color:var(--sub);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:normal;word-break:keep-all;text-align:center;line-height:1.3;}
+.ntab.on{color:var(--m);border-bottom-color:var(--m);background:var(--m-l);}
+.ntab:hover:not(.on){color:var(--text);background:var(--bg);}
+
+/* ── MAIN ── */
+main{max-width:980px;margin:0 auto;padding:0 1rem 5rem;}
+.panel{display:none;animation:up .3s ease;}
+.panel.on{display:block;padding-top:1rem;}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── UTIL ── */
+.sec{margin-bottom:2rem;}
+.sec-title{font-family:'Baloo 2',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:.9rem;}
+.sec-desc{font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;box-shadow:var(--shadow);}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em;margin-bottom:.55rem;}
+.tag-m{background:var(--m-l);color:var(--m-d);}
+.tag-s{background:var(--s-l);color:var(--s-d);}
+.tag-gn{background:var(--gn-l);color:var(--gn-d);}
+.tag-rd{background:var(--rd-l);color:var(--rd-d);}
+.tag-ye{background:var(--ye-l);color:var(--ye-d);}
+.tag-pk{background:var(--pk-l);color:var(--pk-d);}
+.en{font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);}
+.en.m{color:var(--m-d);} .en.s{color:var(--s-d);} .en.gn{color:var(--gn-d);} .en.rd{color:var(--rd-d);} .en.sm{font-size:.92rem;}
+.ko{font-size:.82rem;color:var(--sub);margin-top:2px;}
+.arrow{color:var(--m);font-size:.78rem;margin:.45rem 0;}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem;}
+.chip{background:var(--m-l);border-radius:20px;padding:3px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;font-weight:700;color:var(--m-d);}
+.chip.s{background:var(--s-l);color:var(--s-d);} .chip.ye{background:var(--ye-l);color:var(--ye-d);}
+.chip.pk{background:var(--pk-l);color:var(--pk-d);} .chip.gn{background:var(--gn-l);color:var(--gn-d);} .chip.rd{background:var(--rd-l);color:var(--rd-d);}
+.tip{margin-top:.9rem;background:var(--m-l);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;color:var(--m-d);font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+
+/* ── WORD CARDS ── */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.7rem;}
+.vcard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.9rem .7rem;text-align:center;cursor:pointer;transition:all .22s;position:relative;box-shadow:var(--shadow);}
+.vcard:hover{border-color:var(--m);transform:translateY(-2px);}
+.vcard.flipped{background:var(--m-l);border-color:var(--m);}
+.vcard .num{position:absolute;top:5px;left:8px;font-size:.65rem;font-weight:700;color:var(--m);opacity:.6;}
+.vcard .vico{font-size:1.8rem;margin:4px 0 2px;line-height:1;display:block;}
+.vcard .ven{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.vcard .vko{font-size:.8rem;color:var(--sub);margin-top:3px;font-family:'Noto Sans KR',sans-serif;}
+.vcard.flipped .vko{color:var(--m-d);font-weight:700;}
+.vcard .vhint{font-size:.6rem;color:var(--s);margin-top:4px;}
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.9rem;cursor:pointer;opacity:.45;transition:all .2s;padding:2px;line-height:1;border-radius:50%;}
+.spk-btn:hover{opacity:1;background:rgba(0,0,0,.07);}
+.spk-btn.pop{transform:scale(1.5);opacity:1;}
+.tts-bar{display:flex;align-items:center;gap:.5rem;background:#E3F2FD;border-radius:var(--r-sm);padding:.55rem .85rem;margin-bottom:.85rem;font-size:.8rem;color:#0D47A1;font-family:'Noto Sans KR',sans-serif;}
+.tts-dot{width:8px;height:8px;border-radius:50%;background:#2E7D32;animation:blink 1.2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+/* ── THEME CARDS ── */
+.th-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.85rem;}
+.th-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.1rem .9rem;text-align:center;cursor:pointer;transition:all .25s;box-shadow:var(--shadow);}
+.th-card:hover{transform:translateY(-3px);border-color:var(--m);}
+.th-ico{font-size:2.3rem;margin-bottom:.4rem;}
+.th-en{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.th-phrase{font-family:'Baloo 2',sans-serif;font-size:.8rem;color:var(--m-d);margin-top:.25rem;}
+.th-ko{font-size:.76rem;color:var(--sub);margin-top:.2rem;font-family:'Noto Sans KR',sans-serif;}
+
+/* ── DIALOGUE ── */
+.dlg{background:var(--m-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.dlg-title{font-size:.7rem;font-weight:700;letter-spacing:.07em;color:var(--m-d);margin-bottom:.75rem;text-transform:uppercase;}
+.dlg.alt{background:var(--s-l);}
+.dlg.alt .dlg-title,.dlg.alt .spkr{color:var(--s-d);}
+.line{display:flex;gap:.65rem;margin-bottom:.45rem;align-items:flex-start;}
+.line:last-child{margin-bottom:0;}
+.spkr{min-width:64px;font-size:.72rem;font-weight:700;color:var(--m-d);padding-top:2px;font-family:'Noto Sans KR',sans-serif;}
+.said{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);}
+.said small{display:block;font-size:.76rem;font-weight:400;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.said .key{color:var(--m-d);font-weight:800;}
+.said .ans{color:var(--s-d);font-weight:800;}
+.dlg.alt .said .key{color:var(--s-d);}
+
+/* ── CHANT ── */
+.chant-box{background:var(--s-l);border-left:4px solid var(--s);border-radius:0 var(--r) var(--r) 0;padding:1.1rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.92rem;line-height:2;color:var(--text);}
+.chant-box .hl{color:var(--m-d);font-weight:800;}
+.chant-box .ans{color:var(--s-d);font-weight:700;}
+.chant-box.song{background:var(--ye-l);border-left-color:var(--ye);}
+.chant-box.song .hl{color:var(--ye-d);}
+
+/* ── PHONICS ── */
+.ph-big{font-family:'Baloo 2',sans-serif;font-size:5rem;font-weight:800;color:var(--m);text-align:center;line-height:1;}
+.ph-sub{text-align:center;font-size:.88rem;color:var(--sub);margin:.3rem 0 1.2rem;}
+.ph-pills{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:1.2rem;}
+.ph-pill{background:var(--m-l);border:1px solid var(--m);border-radius:20px;padding:.45rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--m-d);cursor:pointer;}
+.ph-pill span{color:var(--pk);font-weight:800;}
+.ph-note{background:var(--ye-l);border-left:3px solid var(--ye);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:.75rem 1rem;font-size:.83rem;color:var(--ye-d);line-height:1.65;text-align:left;}
+.ph-pick-wrap{display:flex;flex-wrap:wrap;gap:.5rem;}
+.ph-pick{padding:.45rem 1rem;border-radius:20px;border:1.5px solid var(--border);background:var(--white);font-family:'Baloo 2',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;color:var(--text);}
+.ph-pick:hover{border-color:var(--m);}
+.ph-pick.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.ph-pick.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+
+/* ── GRAMMAR ── */
+.gram-box{background:var(--s-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.gram-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--s-d);margin-bottom:.8rem;text-transform:uppercase;}
+.gram-big{font-family:'Baloo 2',sans-serif;font-size:1.25rem;font-weight:800;color:var(--s-d);margin-bottom:.6rem;}
+.gram-big span{color:var(--m-d);}
+.gram-rule{font-size:.85rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;line-height:1.75;background:var(--white);border-radius:var(--r-sm);padding:.85rem 1rem;border:1px solid var(--border);}
+.gram-rule .o{color:var(--gn-d);} .gram-rule .x{color:var(--rd-d);}
+.gram-ex-wrap{margin-top:1rem;display:flex;flex-direction:column;gap:.45rem;}
+.gram-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.gram-badge{font-family:'Baloo 2',sans-serif;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+.gb-ok{background:var(--gn-l);color:var(--gn-d);}
+.gb-no{background:var(--rd-l);color:var(--rd-d);}
+.gram-ex{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;}
+.gram-ex.no{color:var(--rd-d);text-decoration:line-through;}
+.gram-ko{font-size:.82rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.gq-opts{display:flex;gap:.5rem;flex-wrap:wrap;}
+.gq-opt{flex:1;min-width:110px;padding:.6rem .6rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--text);transition:all .18s;}
+.gq-opt:hover:not(:disabled){border-color:var(--m);background:var(--m-l);}
+.gq-opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.gq-opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+
+/* ── STORY FILL ── */
+.story-scene{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scene-num{display:inline-block;background:var(--m);color:#fff;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:.7rem;}
+.story-line{font-family:'Baloo 2',sans-serif;font-size:.95rem;color:var(--text);line-height:1.9;}
+.blank{display:inline-block;border-bottom:2px solid var(--m);min-width:64px;text-align:center;color:var(--m);font-weight:700;cursor:pointer;padding:0 4px;transition:background .2s;border-radius:3px 3px 0 0;}
+.blank:hover{background:var(--m-l);}
+.blank.revealed{background:var(--m-l);color:var(--m-d);}
+.story-btns{margin-top:.75rem;display:flex;gap:.5rem;}
+.btn-main{background:var(--m);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;}
+.btn-sub{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;}
+
+/* ── SCRAMBLE ── */
+.scramble-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scramble-words{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.85rem;}
+.word-chip{background:var(--ye-l);border:1.5px solid var(--ye);border-radius:20px;padding:.35rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--ye-d);transition:all .2s;user-select:none;}
+.word-chip:hover{background:var(--ye);color:#fff;}
+.word-chip.used{opacity:.28;cursor:default;pointer-events:none;}
+.answer-area{min-height:44px;border:2px dashed var(--border);border-radius:var(--r-sm);padding:.5rem .75rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.75rem;background:var(--bg);}
+.placed-chip{background:var(--m-l);border:1.5px solid var(--m);border-radius:20px;padding:.3rem .85rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:var(--m-d);}
+.placed-chip:hover{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.scr-btns{display:flex;gap:.5rem;}
+.btn-check{background:var(--m);color:#fff;border:none;border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-reset{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.scr-fb{font-size:.82rem;margin-top:.5rem;font-family:'Noto Sans KR',sans-serif;padding:.45rem .75rem;border-radius:var(--r-sm);}
+.fb-ok{background:var(--gn-l);border-left:3px solid var(--gn);color:var(--gn-d);}
+.fb-ng{background:var(--rd-l);border-left:3px solid var(--rd);color:var(--rd-d);}
+
+/* ── QUIZ ── */
+.quiz-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-bottom:1.5rem;overflow:hidden;}
+.quiz-bar{height:100%;background:linear-gradient(90deg,var(--m),var(--s));border-radius:3px;transition:width .4s ease;}
+.quiz-num{font-size:.78rem;color:var(--sub);margin-bottom:.4rem;}
+.quiz-q{font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.1rem;}
+.opts{display:flex;flex-direction:column;gap:.55rem;}
+.opt{padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:all .18s;}
+.opt:hover:not(:disabled){border-color:var(--m);background:var(--m-l);}
+.opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.qfb{padding:.7rem 1rem;border-radius:var(--r-sm);font-size:.85rem;margin-top:.6rem;display:none;font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+.qfb.show{display:block;}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;}
+.qscore{font-size:.82rem;color:var(--sub);}
+.btn-nxt{background:var(--m);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;display:none;}
+.result{text-align:center;padding:2.5rem 1rem;}
+.res-emoji{font-size:4rem;margin-bottom:.5rem;}
+.res-score{font-family:'Baloo 2',sans-serif;font-size:3rem;font-weight:800;color:var(--m);}
+.res-msg{font-size:.95rem;color:var(--sub);margin:.4rem 0 1.2rem;}
+.btn-retry{background:var(--m-l);color:var(--m-d);border:1.5px solid var(--m);border-radius:var(--r-sm);padding:.65rem 1.5rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+
+footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
+@media(max-width:520px){
+  .grid2{grid-template-columns:1fr;}
+  .vgrid{grid-template-columns:repeat(3,1fr);}
+  .th-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-deco a">💰</span>
+  <span class="hero-deco b">🛒</span>
+  <span class="hero-deco c">💵</span>
+  <div class="hero-badge">📋 Portfolio · 4학년 영어</div>
+  <h1>Lesson 8<br><span>How Much Is It?</span></h1>
+  <p>물건 값 묻고 답하기 · 숫자 hundred · 대화 · 파닉스 · 문법 · 퀴즈</p>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="ntab on" onclick="go('words',this)">📖<br>단어</button>
+    <button class="ntab" onclick="go('expr',this)">💬<br>핵심표현</button>
+    <button class="ntab" onclick="go('dlgs',this)">🗣️<br>대화문</button>
+    <button class="ntab" onclick="go('chant',this)">🎵<br>찬트·노래</button>
+    <button class="ntab" onclick="go('phonics',this)">🔤<br>파닉스</button>
+    <button class="ntab" onclick="go('grammar',this)">📐<br>문법</button>
+    <button class="ntab" onclick="go('story',this)">🐿️<br>스토리</button>
+    <button class="ntab" onclick="go('scramble',this)">🔀<br>문장조합</button>
+    <button class="ntab" onclick="go('quiz',this)">✏️<br>퀴즈</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══ 단어 ══ -->
+<div id="words" class="panel on">
+  <div class="sec">
+    <div class="sec-title">New Words — 신출 어휘 12개</div>
+    <div class="tts-bar"><span class="tts-dot"></span>🔊 단어 카드를 탭하거나 🔊 버튼을 눌러 영어 발음을 들어보세요 (Chrome · Edge · Whale 지원)</div>
+    <div class="vgrid" id="vcards"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">가격표 카드 — 탭하면 "It's ___ won." 발음이 나와요</div>
+    <div class="th-grid" id="themecards"></div>
+  </div>
+</div>
+
+<!-- ══ 핵심표현 ══ -->
+<div id="expr" class="panel">
+  <div class="sec">
+    <div class="sec-title">Key Expressions — 핵심 의사소통 표현</div>
+    <div class="grid2">
+      <div class="card">
+        <span class="tag tag-m">① 가격 묻기</span>
+        <div class="en m">How much is it?</div>
+        <div class="ko">이것은 얼마예요?</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="en s sm">It's five hundred won.</div>
+        <div class="ko">500원이에요.</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-s">② 물건 사기</span>
+        <div class="en s">I'll take it.</div>
+        <div class="ko">그걸로 살게요.</div>
+        <div class="arrow">+ 돈을 건넬 때</div>
+        <div class="en s sm">Here you are.</div>
+        <div class="ko">여기 있어요.</div>
+        <div class="en s sm" style="margin-top:.3rem;">Thank you.</div>
+        <div class="ko">감사합니다.</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-pk">③ 숫자 + hundred</span>
+        <div class="chips"><span class="chip">100 one hundred</span><span class="chip">200 two hundred</span><span class="chip">300 three hundred</span><span class="chip">400 four hundred</span><span class="chip">500 five hundred</span><span class="chip">600 six hundred</span><span class="chip">700 seven hundred</span><span class="chip">800 eight hundred</span><span class="chip">900 nine hundred</span></div>
+        <div class="ko" style="margin-top:.6rem;">💡 hundred 뒤에는 <strong>s를 붙이지 않아요</strong>! five hundred (O) / five hundreds (X)</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-ye">④ 가게 물건 단어</span>
+        <div class="chips"><span class="chip rd">🍎 apple</span><span class="chip ye">🍌 banana</span><span class="chip s">🍞 bread</span><span class="chip pk">🎂 cake</span><span class="chip pk">🍬 candy</span><span class="chip s">🍪 cookie</span><span class="chip gn">🧃 juice</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 대화문 ══ -->
+<div id="dlgs" class="panel">
+  <div class="sec">
+    <div class="sec-title">Fun Talk 1 — 과일 가게에서</div>
+    <div class="dlg">
+      <div class="dlg-title">과일 가게</div>
+      <div class="line"><span class="spkr">Eric</span><div class="said">Wow, apples! <span class="key">How much is it?</span> <small>와, 사과다! 얼마예요?</small></div></div>
+      <div class="line"><span class="spkr">가게 주인</span><div class="said"><span class="ans">It's five hundred won.</span> <small>500원이에요.</small></div></div>
+      <div class="line"><span class="spkr">Eric</span><div class="said"><span class="key">I'll take it.</span> Here you are. <small>그걸로 살게요. 여기 있어요.</small></div></div>
+      <div class="line"><span class="spkr">가게 주인</span><div class="said">Thank you. <small>고마워요.</small></div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Fun Talk 2 — 빵집에서</div>
+    <div class="dlg alt">
+      <div class="dlg-title">빵집</div>
+      <div class="line"><span class="spkr">Kate</span><div class="said">Look at the cake! It looks good. <small>저 케이크 봐! 맛있겠다.</small></div></div>
+      <div class="line"><span class="spkr">보라</span><div class="said"><span class="key">How much is it?</span> <small>얼마예요?</small></div></div>
+      <div class="line"><span class="spkr">빵집 주인</span><div class="said"><span class="ans">It's nine hundred won.</span> <small>900원이에요.</small></div></div>
+      <div class="line"><span class="spkr">Kate</span><div class="said">Hmm... <span class="key">How much is the cookie?</span> <small>음... 쿠키는 얼마예요?</small></div></div>
+      <div class="line"><span class="spkr">빵집 주인</span><div class="said"><span class="ans">It's three hundred won.</span> <small>300원이에요.</small></div></div>
+      <div class="line"><span class="spkr">Kate</span><div class="said"><span class="key">I'll take it.</span> Here you are. <small>그걸로 살게요. 여기 있어요.</small></div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Talk Like This</div>
+    <div class="grid2">
+    <div class="dlg" style="margin-bottom:0">
+      <div class="dlg-title">영상 1</div>
+      <div class="line"><span class="spkr">하나</span><div class="said"><span class="key">How much is the candy?</span> <small>사탕은 얼마예요?</small></div></div>
+      <div class="line"><span class="spkr">주인</span><div class="said"><span class="ans">It's one hundred won.</span> <small>100원이에요.</small></div></div>
+      <div class="line"><span class="spkr">하나</span><div class="said"><span class="key">I'll take it.</span> <small>그걸로 살게요.</small></div></div>
+    </div>
+    <div class="dlg" style="margin-bottom:0">
+      <div class="dlg-title">영상 2</div>
+      <div class="line"><span class="spkr">민우</span><div class="said"><span class="key">How much is the juice?</span> <small>주스는 얼마예요?</small></div></div>
+      <div class="line"><span class="spkr">주인</span><div class="said"><span class="ans">It's eight hundred won.</span> <small>800원이에요.</small></div></div>
+      <div class="line"><span class="spkr">민우</span><div class="said">Here you are. <small>여기 있어요.</small></div></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 찬트·노래 ══ -->
+<div id="chant" class="panel">
+  <div class="sec">
+    <div class="sec-title">Chant and Do</div>
+    <div class="grid2">
+      <div class="chant-box">
+        Apple, apple. <span class="hl">How much is it?</span><br>
+        <span class="ans">Five hundred won. Five hundred won.</span><br>
+        Banana, banana. <span class="hl">How much is it?</span><br>
+        <span class="ans">Seven hundred won. Seven hundred won.</span>
+      </div>
+      <div class="chant-box">
+        Cookie, cookie. <span class="hl">How much is it?</span><br>
+        <span class="ans">Three hundred won. Three hundred won.</span><br>
+        Okay, okay. <span class="hl">I'll take it!</span><br>
+        Here you are. Thank you!
+      </div>
+    </div>
+    <div class="tip">💡 <strong>찬트 포인트</strong>: 물건 이름을 두 번 → <strong>How much is it?</strong> → 가격으로 대답! 손가락으로 숫자를 표시하며 불러 봐요.</div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Song — How Much Is It?</div>
+    <div class="chant-box song">
+      <span class="hl">How much, how much, how much is it?</span><br>
+      It's one hundred won. One hundred won.<br>
+      <span class="hl">How much, how much, how much is it?</span><br>
+      It's nine hundred won. Nine hundred won.<br>
+      I'll take it. I'll take it. Here you are!
+    </div>
+  </div>
+</div>
+
+<!-- ══ 파닉스 ══ -->
+<div id="phonics" class="panel">
+  <div class="sec">
+    <div class="sec-title">Phonics — /w/ 소리</div>
+    <div class="card" style="text-align:center;padding:1.8rem;">
+      <div class="ph-big">w</div>
+      <div class="ph-sub">/w/ 소리 — 입술을 동그랗게 모았다가 "우" 하고 열며 소리 내요!</div>
+      <div class="ph-pills"><div class="ph-pill" onclick="speak('won')"><span>w</span>on</div><div class="ph-pill" onclick="speak('want')"><span>w</span>ant</div><div class="ph-pill" onclick="speak('water')"><span>w</span>ater</div><div class="ph-pill" onclick="speak('what')"><span>w</span>hat</div></div>
+      <div class="ph-note">💡 <strong>one</strong>은 o로 시작하지만 /w/ 소리("원")가 나요! won(원)과 발음이 같아요.<br>💡 How <strong>much</strong>의 ch는 /tʃ/ "치" 소리 → "하우 머치"</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">확인 문제 — /w/ 소리로 시작하는 단어를 모두 골라보세요</div>
+    <div class="card">
+      <div class="ph-pick-wrap" id="ph-picks"></div>
+      <div id="ph-res" style="margin-top:.75rem;font-size:.83rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;"></div>
+      <button class="btn-reset" style="margin-top:.75rem" onclick="resetPh()">&#8634; 다시</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문법 ══ -->
+<div id="grammar" class="panel">
+  <div class="sec">
+    <div class="sec-title">Grammar — 가격 묻고 답하기</div>
+    <div class="gram-box">
+      <div class="gram-title">How much is it? → It's + 숫자 + won.</div>
+      <div class="gram-big">How much is it? → <span>It's</span> five hundred won.</div>
+      <div class="gram-rule">물건의 값을 물을 때는 <strong>How much is it?</strong>을 써요.<br>특정 물건을 물을 때는 it 대신 물건 이름을 넣어요: <strong>How much is the cake?</strong><br>대답은 <strong>It's + 숫자 + won.</strong>으로 해요.<br><span class="o">✅ It's seven hundred won.</span> &nbsp; <span class="x">❌ It's seven hundreds won.</span></div>
+      <div class="gram-ex-wrap">
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">How much is the cookie?</span><span class="gram-ko">쿠키는 얼마예요?</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">It's three hundred won.</span><span class="gram-ko">300원이에요.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-no">❌</span><span class="gram-ex no">It's three hundreds won.</span><span class="gram-ko">hundred에는 s를 붙이지 않아요!</span></div>
+      </div>
+    </div>
+    <div class="gram-box">
+      <div class="gram-title">I'll take it. 물건 살 때 쓰는 말</div>
+      <div class="gram-big"><span>I'll</span> take it.</div>
+      <div class="gram-rule"><strong>I'll</strong>은 <strong>I will</strong>의 줄임말이에요.<br>가게에서 "그걸로 살게요."라고 말할 때 <strong>I'll take it.</strong>이라고 해요.</div>
+      <div class="gram-ex-wrap">
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">I'll take it.</span><span class="gram-ko">그걸로 살게요.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">Here you are.</span><span class="gram-ko">여기 있어요.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">연습 — 알맞은 표현 고르기</div>
+    <div id="gram-q-area"></div>
+  </div>
+</div>
+
+<!-- ══ 스토리 ══ -->
+<div id="story" class="panel">
+  <div class="sec">
+    <div class="sec-title">Story — 다람쥐네 가게 (복습용 이야기)</div>
+    <div class="sec-desc">빈칸을 탭하면 정답이 나타나요!</div>
+    <div class="story-scene">
+      <div class="scene-num">#1 · 가게 문을 열어요</div>
+      <div class="story-line">
+        다람쥐: Welcome! Cookies, cakes, and juice!<br>
+        토끼: Wow! How <span class="blank" onclick="reveal(this,'much')">____</span> is the cake?<br>
+        다람쥐: It's six <span class="blank" onclick="reveal(this,'hundred')">_______</span> won.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#2 · 토끼의 선택</div>
+      <div class="story-line">
+        토끼: Hmm... I'll <span class="blank" onclick="reveal(this,'take')">____</span> it.<br>
+        Here you <span class="blank" onclick="reveal(this,'are')">___</span>.<br>
+        다람쥐: Thank you!
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#3 · 곰의 등장</div>
+      <div class="story-line">
+        곰: How much is the <span class="blank" onclick="reveal(this,'juice')">_____</span>?<br>
+        다람쥐: It's eight hundred <span class="blank" onclick="reveal(this,'won')">___</span>.<br>
+        곰: Oh, no! I have no <span class="blank" onclick="reveal(this,'money')">_____</span>.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#4 · 함께 나눠요</div>
+      <div class="story-line">
+        토끼: That's okay. Help yourself!<br>
+        곰: Thank you, Rabbit!
+      </div>
+    </div>
+    <div class="story-btns">
+      <button class="btn-main" onclick="revealAll()">전체 정답 보기</button>
+      <button class="btn-sub" onclick="resetBlanks()">다시 도전</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문장 조합 ══ -->
+<div id="scramble" class="panel">
+  <div class="sec">
+    <div class="sec-title">문장 조합 퀴즈 — 단어를 순서대로 배열하세요!</div>
+    <div class="sec-desc">단어 칩을 눌러 순서대로 배열하고 ✓ 확인 버튼을 눌러요. 놓은 칩을 다시 누르면 빠져요.</div>
+    <div id="scramble-area"></div>
+  </div>
+</div>
+
+<!-- ══ 퀴즈 ══ -->
+<div id="quiz" class="panel">
+  <div class="quiz-bar-wrap"><div class="quiz-bar" id="qbar" style="width:0%"></div></div>
+  <div id="quiz-area"></div>
+</div>
+
+</main>
+<footer>Lesson 8 · How Much Is It? · 4학년 영어 포트폴리오 복습 자료</footer>
+
+<script>
+var words=[{"en":"apple","ko":"사과","ico":"🍎"},
+  {"en":"banana","ko":"바나나","ico":"🍌"},
+  {"en":"bread","ko":"빵","ico":"🍞"},
+  {"en":"cake","ko":"케이크","ico":"🎂"},
+  {"en":"candy","ko":"사탕","ico":"🍬"},
+  {"en":"cookie","ko":"쿠키","ico":"🍪"},
+  {"en":"how much","ko":"얼마","ico":"💰"},
+  {"en":"hundred","ko":"백(100)","ico":"💯"},
+  {"en":"juice","ko":"주스","ico":"🧃"},
+  {"en":"money","ko":"돈","ico":"💵"},
+  {"en":"take","ko":"사다, 가져가다","ico":"🛒"},
+  {"en":"won","ko":"원(화폐 단위)","ico":"🪙"}];
+var themeDat=[{"ico":"🍬","en":"candy","phrase":"It's one hundred won.","ko":"₩100 · 사탕"},
+  {"ico":"🍪","en":"cookie","phrase":"It's three hundred won.","ko":"₩300 · 쿠키"},
+  {"ico":"🍎","en":"apple","phrase":"It's five hundred won.","ko":"₩500 · 사과"},
+  {"ico":"🍌","en":"banana","phrase":"It's seven hundred won.","ko":"₩700 · 바나나"},
+  {"ico":"🧃","en":"juice","phrase":"It's eight hundred won.","ko":"₩800 · 주스"},
+  {"ico":"🍞","en":"bread","phrase":"It's nine hundred won.","ko":"₩900 · 빵"}];
+var phWords=[{"w":"won","t":true},
+  {"w":"bag","t":false},
+  {"w":"what","t":true},
+  {"w":"one","t":true},
+  {"w":"cake","t":false},
+  {"w":"want","t":true},
+  {"w":"juice","t":false},
+  {"w":"water","t":true}];
+var scrambles=[{"words":["How","much","is","it","?"],"answer":"How much is it?","hint":"이것은 얼마예요?"},
+  {"words":["It's","seven","hundred","won","."],"answer":"It's seven hundred won.","hint":"700원이에요."},
+  {"words":["I'll","take","it","."],"answer":"I'll take it.","hint":"그걸로 살게요."},
+  {"words":["How","much","is","the","cake","?"],"answer":"How much is the cake?","hint":"케이크는 얼마예요?"},
+  {"words":["Here","you","are","."],"answer":"Here you are.","hint":"여기 있어요."}];
+var gramQs=[{"q":"가격을 물을 때 쓰는 표현은?","opts":["How much is it?","How many is it?","What day is it?"],"ans":0,"fb":"\"How much is it?\"은 가격을 물을 때 써요!"},
+  {"q":"\"It's five ___ won.\"","opts":["hundred","hundreds","hundredes"],"ans":0,"fb":"hundred에는 s를 붙이지 않아요!"},
+  {"q":"\"I'll take it.\"의 뜻은?","opts":["그것은 뭔가요?","얼마예요?","그걸로 살게요."],"ans":2,"fb":"I'll take it. = 그걸로 살게요!"},
+  {"q":"\"I'll\"은 무엇의 줄임말?","opts":["I will","I all","I am"],"ans":0,"fb":"I'll = I will!"}];
+var quizzes=[{"q":"가격을 물을 때 알맞은 표현은?","opts":["How much is it?","How many is it?","What is it?","Who is it?"],"ans":0,"fb":"\"How much is it?\"으로 가격을 물어요!"},
+  {"q":"\"It's seven hundred won.\"은 얼마인가요?","opts":["70원","700원","7,000원","7원"],"ans":1,"fb":"seven hundred = 700!"},
+  {"q":"\"I'll take it.\"의 뜻은?","opts":["얼마예요?","그걸로 살게요.","여기 있어요.","너무 비싸요."],"ans":1,"fb":"I'll take it. = 그걸로 살게요!"},
+  {"q":"다음 중 먹을 수 없는 것은?","opts":["apple","cookie","money","candy"],"ans":2,"fb":"money(돈)는 먹는 것이 아니에요!"},
+  {"q":"\"five hundred won\"은 얼마인가요?","opts":["5원","50원","500원","5,000원"],"ans":2,"fb":"five hundred = 500!"},
+  {"q":"Fun Talk 1에서 Eric이 산 과일은?","opts":["바나나","사과","케이크","쿠키"],"ans":1,"fb":"Eric: Wow, apples! 사과를 샀어요."},
+  {"q":"Fun Talk 2에서 Kate가 산 것은?","opts":["cake","cookie","candy","juice"],"ans":1,"fb":"케이크는 900원, Kate는 300원짜리 쿠키를 샀어요."},
+  {"q":"가격을 대답하는 표현으로 알맞은 것은?","opts":["It's 500 won.","I have 500 won.","I take 500 won.","How much 500 won?"],"ans":0,"fb":"\"It's + 가격.\"으로 대답해요!"},
+  {"q":"\"How much is the ___?\" 빈칸에 들어갈 수 없는 것은?","opts":["juice","cookie","bread","hundred"],"ans":3,"fb":"hundred는 숫자예요. 물건 이름이 들어가야 해요!"},
+  {"q":"/w/ 소리로 시작하지 않는 단어는?","opts":["won","one","water","juice"],"ans":3,"fb":"one도 \"원\" — /w/ 소리예요! juice는 /dʒ/ 소리로 시작해요."}];
+
+function adjustMainPadding(){
+  var n=document.querySelector('.nav-wrap'),m=document.querySelector('main');
+  if(n&&m) m.style.paddingTop=(n.offsetHeight+16)+'px';
+}
+window.addEventListener('load', adjustMainPadding);
+window.addEventListener('resize', adjustMainPadding);
+
+/* ── 발음 (TTS) ── */
+var _ttsV=[],_ttsR=false;
+function _ttsL(){
+  var vs=window.speechSynthesis?window.speechSynthesis.getVoices():[];
+  if(vs.length){_ttsV=vs;_ttsR=true;}
+}
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=function(){_ttsL();};
+  _ttsL();
+}
+function _ttsP(){
+  return _ttsV.find(function(v){return v.lang==='en-US'&&v.localService;})
+      || _ttsV.find(function(v){return v.lang==='en-US';})
+      || _ttsV.find(function(v){return v.lang==='en-GB';})
+      || _ttsV.find(function(v){return v.lang.startsWith('en');})
+      || null;
+}
+function speak(text,rate){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  function _d(){
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US'; u.rate=rate||0.85; u.pitch=1;
+    var v=_ttsP(); if(v) u.voice=v;
+    u.onstart=function(){ window.speechSynthesis.resume(); };
+    window.speechSynthesis.speak(u);
+  }
+  if(!_ttsR){ _ttsL(); }
+  if(!_ttsR){ setTimeout(function(){ _ttsL(); _d(); }, 400); return; }
+  _d();
+}
+function popSpk(btn,word){
+  speak(word);
+  btn.classList.add('pop');
+  setTimeout(function(){ btn.classList.remove('pop'); }, 600);
+}
+
+/* ── 탭 이동 ── */
+function go(id,btn){
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='quiz') initQuiz();
+  if(id==='scramble') initScramble();
+  if(id==='grammar') initGramQ();
+}
+
+function shuffleIdx(n){
+  var a=[]; for(var i=0;i<n;i++) a.push(i);
+  for(var k=a.length-1;k>0;k--){ var j=Math.floor(Math.random()*(k+1)); var t=a[k]; a[k]=a[j]; a[j]=t; }
+  return a;
+}
+
+/* ── 단어 카드 ── */
+var vc=document.getElementById('vcards');
+if(vc){ words.forEach(function(w,i){
+  var d=document.createElement('div'); d.className='vcard';
+  d.innerHTML='<button class="spk-btn" title="발음 듣기">🔊</button>'
+    +'<span class="num">'+(i+1)+'</span>'
+    +'<div class="vico">'+w.ico+'</div>'
+    +'<div class="ven">'+w.en+'</div>'
+    +'<div class="vko">'+w.ko+'</div>'
+    +'<div class="vhint">탭 → 뜻 확인</div>';
+  d.querySelector('.spk-btn').onclick=function(e){ e.stopPropagation(); popSpk(this,w.en); };
+  d.onclick=function(){
+    d.classList.toggle('flipped');
+    d.querySelector('.vhint').style.display=d.classList.contains('flipped')?'none':'block';
+    speak(w.en);
+  };
+  vc.appendChild(d);
+}); }
+
+/* ── 주제 카드 ── */
+var tc=document.getElementById('themecards');
+if(tc){ themeDat.forEach(function(t){
+  var el=document.createElement('div'); el.className='th-card';
+  el.innerHTML='<div class="th-ico">'+t.ico+'</div><div class="th-en">'+t.en+'</div>'
+    +'<div class="th-phrase">'+t.phrase+'</div><div class="th-ko">'+t.ko+'</div>';
+  el.onclick=function(){ speak(t.say||t.phrase); };
+  tc.appendChild(el);
+}); }
+
+/* ── 파닉스 ── */
+var pp=document.getElementById('ph-picks');
+if(pp){ phWords.forEach(function(pw){
+  var b=document.createElement('button');
+  b.className='ph-pick'; b.textContent=pw.w;
+  b.onclick=function(){
+    speak(pw.w);
+    if(b.classList.contains('ok')||b.classList.contains('ng')) return;
+    b.classList.add(pw.t?'ok':'ng');
+    var got=document.querySelectorAll('#ph-picks .ph-pick.ok').length;
+    var bad=document.querySelectorAll('#ph-picks .ph-pick.ng').length;
+    document.getElementById('ph-res').textContent='✓ '+got+'개 맞춤 · ✗ '+bad+'개 틀림 (정답: '+phWords.filter(function(x){return x.t;}).map(function(x){return x.w;}).join(', ')+')';
+  };
+  pp.appendChild(b);
+}); }
+function resetPh(){
+  document.querySelectorAll('#ph-picks .ph-pick').forEach(function(b){ b.classList.remove('ok','ng'); });
+  document.getElementById('ph-res').textContent='';
+}
+
+/* ── 스토리 빈칸 ── */
+function reveal(el,ans){ el.textContent=ans; el.classList.add('revealed'); }
+function _blankAns(b){
+  var oc=b.getAttribute('onclick');
+  var m=oc.match(/reveal\(this,'([^']+)'\)/)||oc.match(/reveal\(this,`([^`]+)`\)/);
+  return m?m[1]:null;
+}
+function revealAll(){
+  document.querySelectorAll('.blank:not(.revealed)').forEach(function(b){
+    var a=_blankAns(b); if(a){ b.textContent=a; b.classList.add('revealed'); }
+  });
+}
+function resetBlanks(){
+  document.querySelectorAll('.blank').forEach(function(b){
+    var a=_blankAns(b); if(a){ b.textContent='_'.repeat(Math.max(a.length,3)); b.classList.remove('revealed'); }
+  });
+}
+
+/* ── 문장 조합 ── */
+function initScramble(){
+  var area=document.getElementById('scramble-area');
+  if(!area) return;
+  area.innerHTML='';
+  scrambles.forEach(function(s,i){
+    var sh=s.words.slice();
+    var orig=s.words.join('\t');
+    var attempt=0;
+    do {
+      for(var k=sh.length-1;k>0;k--){
+        var j=Math.floor(Math.random()*(k+1));
+        var tmp=sh[k]; sh[k]=sh[j]; sh[j]=tmp;
+      }
+      attempt++;
+    } while(sh.join('\t')===orig && attempt<20 && s.words.length>1);
+    var div=document.createElement('div');
+    div.className='scramble-box';
+    div.innerHTML=
+      '<div style="font-size:.8rem;color:var(--sub);margin-bottom:.55rem">'+(i+1)+' &middot; '+s.hint+'</div>'+
+      '<div class="scramble-words" id="chips-'+i+'"></div>'+
+      '<div class="answer-area" id="ans-'+i+'"></div>'+
+      '<div class="scr-btns">'+
+      '<button class="btn-check" onclick="checkScr('+i+')">&#10003; 확인</button>'+
+      '<button class="btn-reset" onclick="resetScr('+i+')">&#8634; 다시</button>'+
+      '</div>'+
+      '<div id="fb-'+i+'" class="scr-fb" style="display:none"></div>';
+    area.appendChild(div);
+    var box=div.querySelector('#chips-'+i);
+    sh.forEach(function(w){
+      var b=document.createElement('button');
+      b.className='word-chip'; b.textContent=w; b.dataset.w=w;
+      b.onclick=function(){ placeWord(i,b); };
+      box.appendChild(b);
+    });
+  });
+}
+function placeWord(qi,btn){
+  if(btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  var pc=document.createElement('button');
+  pc.className='placed-chip';
+  pc.textContent=btn.dataset.w;
+  pc.onclick=function(){ btn.classList.remove('used'); pc.remove(); document.getElementById('fb-'+qi).style.display='none'; };
+  document.getElementById('ans-'+qi).appendChild(pc);
+}
+function checkScr(qi){
+  var chips=[].slice.call(document.querySelectorAll('#ans-'+qi+' .placed-chip'));
+  var placed=chips.map(function(c){return c.textContent;}).join(' ');
+  var fb=document.getElementById('fb-'+qi); fb.style.display='block';
+  var norm=function(s){ return s.toLowerCase().replace(/[^a-z0-9'\uAC00-\uD7A3]/g,' ').replace(/\s+/g,' ').trim(); };
+  if(norm(placed)===norm(scrambles[qi].answer)){
+    fb.className='scr-fb fb-ok'; fb.textContent='🎉 정답! "'+scrambles[qi].answer+'"';
+    speak(scrambles[qi].answer);
+  } else {
+    fb.className='scr-fb fb-ng'; fb.textContent='"'+placed+'" → 다시 조합해봐요!';
+  }
+}
+function resetScr(qi){
+  document.querySelectorAll('#chips-'+qi+' .word-chip').forEach(function(b){ b.classList.remove('used'); });
+  document.getElementById('ans-'+qi).innerHTML='';
+  document.getElementById('fb-'+qi).style.display='none';
+}
+
+/* ── 문법 연습 ── */
+var _gqI=0,_gqD=false,_gqOrd=[];
+function initGramQ(){ _gqI=0; _gqD=false; renderGQ(); }
+function renderGQ(){
+  var area=document.getElementById('gram-q-area');
+  if(!area) return;
+  if(_gqI>=gramQs.length){
+    area.innerHTML='<div class="card" style="text-align:center;padding:1.5rem">'+
+      '<div style="font-size:2rem;margin-bottom:.4rem">🎉</div>'+
+      '<div style="font-family:\'Baloo 2\',sans-serif;font-size:1.3rem;font-weight:800;color:var(--m-d)">문법 연습 완료!</div>'+
+      '<button class="btn-retry" onclick="initGramQ()" style="margin-top:.8rem">다시 풀기 🔄</button></div>';
+    return;
+  }
+  var q=gramQs[_gqI];
+  _gqOrd=shuffleIdx(q.opts.length);
+  var btns=_gqOrd.map(function(oi,pos){
+    return '<button class="gq-opt" onclick="pickGQ('+pos+')">'+q.opts[oi]+'</button>';
+  }).join('');
+  area.innerHTML='<div class="card">'+
+    '<div class="quiz-num">'+(_gqI+1)+' / '+gramQs.length+'</div>'+
+    '<div class="quiz-q">'+q.q+'</div>'+
+    '<div class="gq-opts">'+btns+'</div>'+
+    '<div id="gq-fb" class="qfb"></div></div>';
+  _gqD=false;
+}
+function pickGQ(pos){
+  if(_gqD) return; _gqD=true;
+  var q=gramQs[_gqI], chosen=_gqOrd[pos];
+  document.querySelectorAll('#gram-q-area .gq-opt').forEach(function(b,j){
+    b.disabled=true;
+    if(_gqOrd[j]===q.ans) b.classList.add('ok');
+    else if(j===pos) b.classList.add('ng');
+  });
+  var fb=document.getElementById('gq-fb');
+  if(chosen===q.ans){ fb.className='qfb fb-ok show'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.className='qfb fb-ng show'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  setTimeout(function(){ _gqI++; renderGQ(); }, 1900);
+}
+
+/* ── 퀴즈 ── */
+var _qC=0,_qS=0,_qA=false,_qOrd=[];
+function initQuiz(){ _qC=0; _qS=0; _qA=false; renderQ(); }
+function renderQ(){
+  var a=document.getElementById('quiz-area'), b=document.getElementById('qbar');
+  if(!a||!b) return;
+  b.style.width=(_qC/quizzes.length*100)+'%';
+  if(_qC>=quizzes.length){
+    var p=Math.round(_qS/quizzes.length*100);
+    var e=p>=80?'🎉':p>=50?'😊':'💪';
+    var msg=p>=80?'완벽해요! 훌륭합니다!':p>=50?'잘했어요! 조금만 더 연습해요.':'틀린 표현을 다시 복습해봐요!';
+    a.innerHTML='<div class="result"><div class="res-emoji">'+e+'</div>'+
+      '<div class="res-score">'+_qS+' / '+quizzes.length+'</div>'+
+      '<div class="res-msg">'+msg+'</div>'+
+      '<button class="btn-retry" onclick="initQuiz()">다시 도전하기 🔄</button></div>';
+    b.style.width='100%'; return;
+  }
+  var q=quizzes[_qC];
+  _qOrd=shuffleIdx(q.opts.length);
+  var qtext=q.q.split('\n').join('<br>');
+  var opts=_qOrd.map(function(oi,pos){ return '<button class="opt" onclick="pick('+pos+')">'+q.opts[oi]+'</button>'; }).join('');
+  a.innerHTML='<div class="quiz-num">'+(_qC+1)+' / '+quizzes.length+' 문제</div>'+
+    '<div class="quiz-q">'+qtext+'</div>'+
+    '<div class="opts">'+opts+'</div>'+
+    '<div class="qfb" id="qfb"></div>'+
+    '<div class="qnav"><div class="qscore">현재 점수 '+_qS+'점</div>'+
+    '<button class="btn-nxt" id="qnxt" onclick="nextQ()">다음 →</button></div>';
+  _qA=false;
+}
+function pick(pos){
+  if(_qA) return; _qA=true;
+  var q=quizzes[_qC], chosen=_qOrd[pos];
+  document.querySelectorAll('#quiz-area .opt').forEach(function(o,j){
+    o.disabled=true;
+    if(_qOrd[j]===q.ans) o.classList.add('ok');
+    else if(j===pos) o.classList.add('ng');
+  });
+  var fb=document.getElementById('qfb');
+  if(chosen===q.ans){ _qS++; fb.className='qfb fb-ok show'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.className='qfb fb-ng show'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  document.getElementById('qnxt').style.display='inline-block';
+}
+function nextQ(){ _qC++; _qA=false; renderQ(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,795 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 12 · What Do You Do? 포트폴리오 복습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --m:#C2185B; --m-l:#FCE4EC; --m-d:#880E4F;
+  --s:#3949AB; --s-l:#E8EAF6; --s-d:#1A237E;
+  --gn:#2E7D32; --gn-l:#E8F5E9; --gn-d:#1B5E20;
+  --rd:#C62828; --rd-l:#FFEBEE; --rd-d:#7F0000;
+  --ye:#F57F17; --ye-l:#FFF8E1; --ye-d:#6D4C00;
+  --pk:#D81B60; --pk-l:#FCE4EC; --pk-d:#880E4F;
+  --bg:#FFF7FA; --white:#FFFFFF;
+  --text:#2A0F1C; --sub:#64455A; --border:#F5CADB;
+  --r:14px; --r-sm:8px;
+  --shadow:0 2px 12px rgba(194,24,91,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-padding-top:110px;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#880E4F 0%,#C2185B 45%,#F06292 100%);padding:3rem 1.5rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 14px;font-size:.75rem;font-weight:700;color:#fff;letter-spacing:.08em;margin-bottom:1rem;}
+.hero h1{font-family:'Baloo 2',sans-serif;font-size:clamp(2rem,7vw,3.4rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:.4rem;}
+.hero h1 span{color:#FFF176;}
+.hero p{font-size:.95rem;color:rgba(255,255,255,.82);}
+.hero-deco{position:absolute;font-size:5rem;opacity:.08;pointer-events:none;}
+.hero-deco.a{top:10%;left:5%;}
+.hero-deco.b{top:20%;right:8%;}
+.hero-deco.c{bottom:18%;left:14%;}
+
+/* ── NAV ── */
+.nav-wrap{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(194,24,91,.10);}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);max-width:980px;margin:0 auto;}
+.ntab{padding:.75rem .3rem;border:none;background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:.78rem;font-weight:700;color:var(--sub);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:normal;word-break:keep-all;text-align:center;line-height:1.3;}
+.ntab.on{color:var(--m);border-bottom-color:var(--m);background:var(--m-l);}
+.ntab:hover:not(.on){color:var(--text);background:var(--bg);}
+
+/* ── MAIN ── */
+main{max-width:980px;margin:0 auto;padding:0 1rem 5rem;}
+.panel{display:none;animation:up .3s ease;}
+.panel.on{display:block;padding-top:1rem;}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── UTIL ── */
+.sec{margin-bottom:2rem;}
+.sec-title{font-family:'Baloo 2',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:.9rem;}
+.sec-desc{font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;box-shadow:var(--shadow);}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em;margin-bottom:.55rem;}
+.tag-m{background:var(--m-l);color:var(--m-d);}
+.tag-s{background:var(--s-l);color:var(--s-d);}
+.tag-gn{background:var(--gn-l);color:var(--gn-d);}
+.tag-rd{background:var(--rd-l);color:var(--rd-d);}
+.tag-ye{background:var(--ye-l);color:var(--ye-d);}
+.tag-pk{background:var(--pk-l);color:var(--pk-d);}
+.en{font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);}
+.en.m{color:var(--m-d);} .en.s{color:var(--s-d);} .en.gn{color:var(--gn-d);} .en.rd{color:var(--rd-d);} .en.sm{font-size:.92rem;}
+.ko{font-size:.82rem;color:var(--sub);margin-top:2px;}
+.arrow{color:var(--m);font-size:.78rem;margin:.45rem 0;}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem;}
+.chip{background:var(--m-l);border-radius:20px;padding:3px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;font-weight:700;color:var(--m-d);}
+.chip.s{background:var(--s-l);color:var(--s-d);} .chip.ye{background:var(--ye-l);color:var(--ye-d);}
+.chip.pk{background:var(--pk-l);color:var(--pk-d);} .chip.gn{background:var(--gn-l);color:var(--gn-d);} .chip.rd{background:var(--rd-l);color:var(--rd-d);}
+.tip{margin-top:.9rem;background:var(--m-l);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;color:var(--m-d);font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+
+/* ── WORD CARDS ── */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.7rem;}
+.vcard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.9rem .7rem;text-align:center;cursor:pointer;transition:all .22s;position:relative;box-shadow:var(--shadow);}
+.vcard:hover{border-color:var(--m);transform:translateY(-2px);}
+.vcard.flipped{background:var(--m-l);border-color:var(--m);}
+.vcard .num{position:absolute;top:5px;left:8px;font-size:.65rem;font-weight:700;color:var(--m);opacity:.6;}
+.vcard .vico{font-size:1.8rem;margin:4px 0 2px;line-height:1;display:block;}
+.vcard .ven{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.vcard .vko{font-size:.8rem;color:var(--sub);margin-top:3px;font-family:'Noto Sans KR',sans-serif;}
+.vcard.flipped .vko{color:var(--m-d);font-weight:700;}
+.vcard .vhint{font-size:.6rem;color:var(--s);margin-top:4px;}
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.9rem;cursor:pointer;opacity:.45;transition:all .2s;padding:2px;line-height:1;border-radius:50%;}
+.spk-btn:hover{opacity:1;background:rgba(0,0,0,.07);}
+.spk-btn.pop{transform:scale(1.5);opacity:1;}
+.tts-bar{display:flex;align-items:center;gap:.5rem;background:#E3F2FD;border-radius:var(--r-sm);padding:.55rem .85rem;margin-bottom:.85rem;font-size:.8rem;color:#0D47A1;font-family:'Noto Sans KR',sans-serif;}
+.tts-dot{width:8px;height:8px;border-radius:50%;background:#2E7D32;animation:blink 1.2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+/* ── THEME CARDS ── */
+.th-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.85rem;}
+.th-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.1rem .9rem;text-align:center;cursor:pointer;transition:all .25s;box-shadow:var(--shadow);}
+.th-card:hover{transform:translateY(-3px);border-color:var(--m);}
+.th-ico{font-size:2.3rem;margin-bottom:.4rem;}
+.th-en{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.th-phrase{font-family:'Baloo 2',sans-serif;font-size:.8rem;color:var(--m-d);margin-top:.25rem;}
+.th-ko{font-size:.76rem;color:var(--sub);margin-top:.2rem;font-family:'Noto Sans KR',sans-serif;}
+
+/* ── DIALOGUE ── */
+.dlg{background:var(--m-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.dlg-title{font-size:.7rem;font-weight:700;letter-spacing:.07em;color:var(--m-d);margin-bottom:.75rem;text-transform:uppercase;}
+.dlg.alt{background:var(--s-l);}
+.dlg.alt .dlg-title,.dlg.alt .spkr{color:var(--s-d);}
+.line{display:flex;gap:.65rem;margin-bottom:.45rem;align-items:flex-start;}
+.line:last-child{margin-bottom:0;}
+.spkr{min-width:64px;font-size:.72rem;font-weight:700;color:var(--m-d);padding-top:2px;font-family:'Noto Sans KR',sans-serif;}
+.said{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);}
+.said small{display:block;font-size:.76rem;font-weight:400;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.said .key{color:var(--m-d);font-weight:800;}
+.said .ans{color:var(--s-d);font-weight:800;}
+.dlg.alt .said .key{color:var(--s-d);}
+
+/* ── CHANT ── */
+.chant-box{background:var(--s-l);border-left:4px solid var(--s);border-radius:0 var(--r) var(--r) 0;padding:1.1rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.92rem;line-height:2;color:var(--text);}
+.chant-box .hl{color:var(--m-d);font-weight:800;}
+.chant-box .ans{color:var(--s-d);font-weight:700;}
+.chant-box.song{background:var(--ye-l);border-left-color:var(--ye);}
+.chant-box.song .hl{color:var(--ye-d);}
+
+/* ── PHONICS ── */
+.ph-big{font-family:'Baloo 2',sans-serif;font-size:5rem;font-weight:800;color:var(--m);text-align:center;line-height:1;}
+.ph-sub{text-align:center;font-size:.88rem;color:var(--sub);margin:.3rem 0 1.2rem;}
+.ph-pills{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:1.2rem;}
+.ph-pill{background:var(--m-l);border:1px solid var(--m);border-radius:20px;padding:.45rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--m-d);cursor:pointer;}
+.ph-pill span{color:var(--pk);font-weight:800;}
+.ph-note{background:var(--ye-l);border-left:3px solid var(--ye);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:.75rem 1rem;font-size:.83rem;color:var(--ye-d);line-height:1.65;text-align:left;}
+.ph-pick-wrap{display:flex;flex-wrap:wrap;gap:.5rem;}
+.ph-pick{padding:.45rem 1rem;border-radius:20px;border:1.5px solid var(--border);background:var(--white);font-family:'Baloo 2',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;color:var(--text);}
+.ph-pick:hover{border-color:var(--m);}
+.ph-pick.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.ph-pick.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+
+/* ── GRAMMAR ── */
+.gram-box{background:var(--s-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.gram-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--s-d);margin-bottom:.8rem;text-transform:uppercase;}
+.gram-big{font-family:'Baloo 2',sans-serif;font-size:1.25rem;font-weight:800;color:var(--s-d);margin-bottom:.6rem;}
+.gram-big span{color:var(--m-d);}
+.gram-rule{font-size:.85rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;line-height:1.75;background:var(--white);border-radius:var(--r-sm);padding:.85rem 1rem;border:1px solid var(--border);}
+.gram-rule .o{color:var(--gn-d);} .gram-rule .x{color:var(--rd-d);}
+.gram-ex-wrap{margin-top:1rem;display:flex;flex-direction:column;gap:.45rem;}
+.gram-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.gram-badge{font-family:'Baloo 2',sans-serif;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+.gb-ok{background:var(--gn-l);color:var(--gn-d);}
+.gb-no{background:var(--rd-l);color:var(--rd-d);}
+.gram-ex{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;}
+.gram-ex.no{color:var(--rd-d);text-decoration:line-through;}
+.gram-ko{font-size:.82rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.gq-opts{display:flex;gap:.5rem;flex-wrap:wrap;}
+.gq-opt{flex:1;min-width:110px;padding:.6rem .6rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--text);transition:all .18s;}
+.gq-opt:hover:not(:disabled){border-color:var(--m);background:var(--m-l);}
+.gq-opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.gq-opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+
+/* ── STORY FILL ── */
+.story-scene{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scene-num{display:inline-block;background:var(--m);color:#fff;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:.7rem;}
+.story-line{font-family:'Baloo 2',sans-serif;font-size:.95rem;color:var(--text);line-height:1.9;}
+.blank{display:inline-block;border-bottom:2px solid var(--m);min-width:64px;text-align:center;color:var(--m);font-weight:700;cursor:pointer;padding:0 4px;transition:background .2s;border-radius:3px 3px 0 0;}
+.blank:hover{background:var(--m-l);}
+.blank.revealed{background:var(--m-l);color:var(--m-d);}
+.story-btns{margin-top:.75rem;display:flex;gap:.5rem;}
+.btn-main{background:var(--m);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;}
+.btn-sub{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;}
+
+/* ── SCRAMBLE ── */
+.scramble-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scramble-words{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.85rem;}
+.word-chip{background:var(--ye-l);border:1.5px solid var(--ye);border-radius:20px;padding:.35rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--ye-d);transition:all .2s;user-select:none;}
+.word-chip:hover{background:var(--ye);color:#fff;}
+.word-chip.used{opacity:.28;cursor:default;pointer-events:none;}
+.answer-area{min-height:44px;border:2px dashed var(--border);border-radius:var(--r-sm);padding:.5rem .75rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.75rem;background:var(--bg);}
+.placed-chip{background:var(--m-l);border:1.5px solid var(--m);border-radius:20px;padding:.3rem .85rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:var(--m-d);}
+.placed-chip:hover{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.scr-btns{display:flex;gap:.5rem;}
+.btn-check{background:var(--m);color:#fff;border:none;border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-reset{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.scr-fb{font-size:.82rem;margin-top:.5rem;font-family:'Noto Sans KR',sans-serif;padding:.45rem .75rem;border-radius:var(--r-sm);}
+.fb-ok{background:var(--gn-l);border-left:3px solid var(--gn);color:var(--gn-d);}
+.fb-ng{background:var(--rd-l);border-left:3px solid var(--rd);color:var(--rd-d);}
+
+/* ── QUIZ ── */
+.quiz-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-bottom:1.5rem;overflow:hidden;}
+.quiz-bar{height:100%;background:linear-gradient(90deg,var(--m),var(--s));border-radius:3px;transition:width .4s ease;}
+.quiz-num{font-size:.78rem;color:var(--sub);margin-bottom:.4rem;}
+.quiz-q{font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.1rem;}
+.opts{display:flex;flex-direction:column;gap:.55rem;}
+.opt{padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:all .18s;}
+.opt:hover:not(:disabled){border-color:var(--m);background:var(--m-l);}
+.opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.qfb{padding:.7rem 1rem;border-radius:var(--r-sm);font-size:.85rem;margin-top:.6rem;display:none;font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+.qfb.show{display:block;}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;}
+.qscore{font-size:.82rem;color:var(--sub);}
+.btn-nxt{background:var(--m);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;display:none;}
+.result{text-align:center;padding:2.5rem 1rem;}
+.res-emoji{font-size:4rem;margin-bottom:.5rem;}
+.res-score{font-family:'Baloo 2',sans-serif;font-size:3rem;font-weight:800;color:var(--m);}
+.res-msg{font-size:.95rem;color:var(--sub);margin:.4rem 0 1.2rem;}
+.btn-retry{background:var(--m-l);color:var(--m-d);border:1.5px solid var(--m);border-radius:var(--r-sm);padding:.65rem 1.5rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+
+footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
+@media(max-width:520px){
+  .grid2{grid-template-columns:1fr;}
+  .vgrid{grid-template-columns:repeat(3,1fr);}
+  .th-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-deco a">👩‍⚕️</span>
+  <span class="hero-deco b">✈️</span>
+  <span class="hero-deco c">🎨</span>
+  <div class="hero-badge">📋 Portfolio · 4학년 영어</div>
+  <h1>Lesson 12<br><span>What Do You Do?</span></h1>
+  <p>직업 묻고 답하기 · He's / She's · 대화 · 파닉스 · 문법 · 퀴즈</p>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="ntab on" onclick="go('words',this)">📖<br>단어</button>
+    <button class="ntab" onclick="go('expr',this)">💬<br>핵심표현</button>
+    <button class="ntab" onclick="go('dlgs',this)">🗣️<br>대화문</button>
+    <button class="ntab" onclick="go('chant',this)">🎵<br>찬트·노래</button>
+    <button class="ntab" onclick="go('phonics',this)">🔤<br>파닉스</button>
+    <button class="ntab" onclick="go('grammar',this)">📐<br>문법</button>
+    <button class="ntab" onclick="go('story',this)">🤥<br>스토리</button>
+    <button class="ntab" onclick="go('scramble',this)">🔀<br>문장조합</button>
+    <button class="ntab" onclick="go('quiz',this)">✏️<br>퀴즈</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══ 단어 ══ -->
+<div id="words" class="panel on">
+  <div class="sec">
+    <div class="sec-title">New Words — 신출 어휘 12개</div>
+    <div class="tts-bar"><span class="tts-dot"></span>🔊 단어 카드를 탭하거나 🔊 버튼을 눌러 영어 발음을 들어보세요 (Chrome · Edge · Whale 지원)</div>
+    <div class="vgrid" id="vcards"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">직업 카드 — 탭하면 "I'm a ___." 발음이 나와요</div>
+    <div class="th-grid" id="themecards"></div>
+  </div>
+</div>
+
+<!-- ══ 핵심표현 ══ -->
+<div id="expr" class="panel">
+  <div class="sec">
+    <div class="sec-title">Key Expressions — 핵심 의사소통 표현</div>
+    <div class="grid2">
+      <div class="card">
+        <span class="tag tag-m">① 직업 묻기</span>
+        <div class="en m">What do you do?</div>
+        <div class="ko">너는 무슨 일을 하니? (직업이 뭐니?)</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="en s sm">I'm a doctor.</div>
+        <div class="ko">나는 의사야.</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-s">② 다른 사람 직업 묻기</span>
+        <div class="en s">What does she do?</div>
+        <div class="ko">그녀는 무슨 일을 하니?</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="en s sm">She's a painter. She's cool!</div>
+        <div class="ko">그녀는 화가야. 멋지지!</div>
+        <div class="en s sm" style="margin-top:.3rem;">He's a pilot.</div>
+        <div class="ko">그는 조종사야.</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-pk">③ 직업 단어</span>
+        <div class="chips"><span class="chip">🩺 doctor 의사</span><span class="chip s">💉 nurse 간호사</span><span class="chip pk">👩‍🏫 teacher 선생님</span><span class="chip ye">🎨 painter 화가</span><span class="chip gn">✈️ pilot 조종사</span><span class="chip s">✍️ writer 작가</span><span class="chip">🩰 dancer 무용수</span><span class="chip ye">👨‍🍳 cook 요리사</span></div>
+      </div>
+      <div class="card">
+        <span class="tag tag-ye">④ He's / She's</span>
+        <div style="display:flex;gap:.7rem;margin-top:.5rem;font-family:'Noto Sans KR',sans-serif;font-size:.85rem;">
+          <div style="text-align:center;flex:1;background:var(--s-l);color:var(--s-d);padding:.7rem;border-radius:8px"><strong style="font-family:'Baloo 2',sans-serif;font-size:1.05rem;">He's</strong> = He is<br>남자 👨</div>
+          <div style="text-align:center;flex:1;background:var(--m-l);color:var(--m-d);padding:.7rem;border-radius:8px"><strong style="font-family:'Baloo 2',sans-serif;font-size:1.05rem;">She's</strong> = She is<br>여자 👩</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 대화문 ══ -->
+<div id="dlgs" class="panel">
+  <div class="sec">
+    <div class="sec-title">Fun Talk 1 (교과서 108p) — 가족 사진</div>
+    <div class="dlg">
+      <div class="dlg-title">가족 사진 보기</div>
+      <div class="line"><span class="spkr">Sam</span><div class="said">Who's that? <small>저 사람은 누구야?</small></div></div>
+      <div class="line"><span class="spkr">Hoa</span><div class="said">She's my uncle. I mean, she's my aunt. <small>우리 삼촌… 아니, 우리 이모야.</small></div></div>
+      <div class="line"><span class="spkr">Sam</span><div class="said"><span class="key">What does she do?</span> <small>그분은 무슨 일을 하셔?</small></div></div>
+      <div class="line"><span class="spkr">Hoa</span><div class="said"><span class="ans">She's a painter.</span> She's cool! <small>화가야. 멋지시지!</small></div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Fun Talk 2 (교과서 110p) — 직업 소개</div>
+    <div class="dlg alt">
+      <div class="dlg-title">직업 소개하기</div>
+      <div class="line"><span class="spkr">Kate</span><div class="said"><span class="key">What do you do?</span> <small>너는 무슨 일을 해?</small></div></div>
+      <div class="line"><span class="spkr">Eric</span><div class="said"><span class="ans">I'm a writer.</span> <small>나는 작가야.</small></div></div>
+      <div class="line"><span class="spkr">Kate</span><div class="said">That's cool! <span class="key">What does she do?</span> <small>멋지다! 그녀는 무슨 일을 해?</small></div></div>
+      <div class="line"><span class="spkr">Eric</span><div class="said"><span class="ans">She's a dancer.</span> <small>그녀는 무용수야.</small></div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Talk Like This (교과서 110p)</div>
+    <div class="grid2">
+    <div class="dlg" style="margin-bottom:0">
+      <div class="dlg-title">영상 1</div>
+      <div class="line"><span class="spkr">하나</span><div class="said"><span class="key">What do you do?</span> <small>너는 무슨 일을 해?</small></div></div>
+      <div class="line"><span class="spkr">민우</span><div class="said"><span class="ans">I'm a pilot!</span> <small>나는 조종사야!</small></div></div>
+      <div class="line"><span class="spkr">하나</span><div class="said">That's cool! <small>멋지다!</small></div></div>
+    </div>
+    <div class="dlg" style="margin-bottom:0">
+      <div class="dlg-title">영상 2</div>
+      <div class="line"><span class="spkr">Paul</span><div class="said"><span class="key">What does he do?</span> <small>그는 무슨 일을 해?</small></div></div>
+      <div class="line"><span class="spkr">준오</span><div class="said"><span class="ans">He's a nurse.</span> <small>그는 간호사야.</small></div></div>
+      <div class="line"><span class="spkr">Paul</span><div class="said">He's cool! <small>멋지다!</small></div></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 찬트·노래 ══ -->
+<div id="chant" class="panel">
+  <div class="sec">
+    <div class="sec-title">Chant and Do (교과서 108p)</div>
+    <div class="grid2">
+      <div class="chant-box">
+        <span class="hl">What do you do? What do you do?</span><br>
+        <span class="ans">I'm a doctor!</span> Doctor, doctor!<br>
+        <span class="hl">What does she do?</span><br>
+        <span class="ans">She's a nurse!</span> She's a nurse! Cool!
+      </div>
+      <div class="chant-box">
+        <span class="hl">What do you do?</span><br>
+        <span class="ans">I'm a pilot!</span> Pilot, pilot!<br>
+        <span class="hl">What does he do?</span><br>
+        <span class="ans">He's a painter!</span> So cool!
+      </div>
+    </div>
+    <div class="tip">💡 <strong>찬트 포인트</strong>: 직업에 어울리는 동작(진찰하기, 비행기 날개, 붓질)을 하며 따라 해요!</div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Song (교과서 111p)</div>
+    <div class="chant-box song">
+      <span class="hl">What do you do? What do you do?</span><br>
+      I'm a teacher! She's a writer! He's a dancer!<br>
+      <span class="hl">What does she do? She's a pilot! Cool!</span><br>
+      Doctor, nurse, painter, cook. We're all cool!
+    </div>
+  </div>
+</div>
+
+<!-- ══ 파닉스 ══ -->
+<div id="phonics" class="panel">
+  <div class="sec">
+    <div class="sec-title">Phonics — -er / -or "~하는 사람"</div>
+    <div class="card" style="text-align:center;padding:1.8rem;">
+      <div class="ph-big">-er</div>
+      <div class="ph-sub">동사 뒤에 -er / -or를 붙이면 "~하는 사람"이 되는 경우가 많아요! 끝소리는 "어"예요.</div>
+      <div class="ph-pills"><div class="ph-pill" onclick="speak('teacher')">teach<span>er</span></div><div class="ph-pill" onclick="speak('painter')">paint<span>er</span></div><div class="ph-pill" onclick="speak('dancer')">danc<span>er</span></div><div class="ph-pill" onclick="speak('writer')">writ<span>er</span></div><div class="ph-pill" onclick="speak('doctor')">doct<span>or</span></div></div>
+      <div class="ph-note">💡 teach(가르치다) + er = <strong>teacher</strong> (가르치는 사람)<br>💡 paint(그리다) + er = <strong>painter</strong> (그림 그리는 사람)<br>💡 dance + r = <strong>dancer</strong> &nbsp; write + r = <strong>writer</strong> (e로 끝나면 r만!)</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">확인 문제 — -er / -or로 끝나는 직업 단어를 모두 골라보세요</div>
+    <div class="card">
+      <div class="ph-pick-wrap" id="ph-picks"></div>
+      <div id="ph-res" style="margin-top:.75rem;font-size:.83rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;"></div>
+      <button class="btn-reset" style="margin-top:.75rem" onclick="resetPh()">&#8634; 다시</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문법 ══ -->
+<div id="grammar" class="panel">
+  <div class="sec">
+    <div class="sec-title">Grammar — 직업 묻고 답하기</div>
+    <div class="gram-box">
+      <div class="gram-title">What do you do? → I'm a + 직업.</div>
+      <div class="gram-big">What do you do? → <span>I'm a</span> doctor.</div>
+      <div class="gram-rule">상대방의 직업을 물을 때 <strong>What do you do?</strong>라고 해요.<br>대답할 때는 <strong>I'm a + 직업.</strong> 직업 앞에는 꼭 <strong>a</strong>를 써요!<br><span class="o">✅ I'm a doctor.</span> &nbsp; <span class="x">❌ I'm doctor.</span></div>
+      <div class="gram-ex-wrap">
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">I'm a pilot.</span><span class="gram-ko">나는 조종사야.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">I'm a writer.</span><span class="gram-ko">나는 작가야.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-no">❌</span><span class="gram-ex no">I'm teacher.</span><span class="gram-ko">직업 앞에 a를 써요!</span></div>
+      </div>
+    </div>
+    <div class="gram-box">
+      <div class="gram-title">He / She — 다른 사람의 직업</div>
+      <div class="gram-big">What <span>does</span> she do? → <span>She's</span> a teacher.</div>
+      <div class="gram-rule">다른 사람(he, she)의 직업을 물을 때는 do 대신 <strong>does</strong>를 써요: What does he/she do?<br>대답은 <strong>He's(= He is) / She's(= She is) + a + 직업.</strong></div>
+      <div class="gram-ex-wrap">
+        <div class="gram-row"><span class="gram-badge gb-ok">남자</span><span class="gram-ex">He's a nurse.</span><span class="gram-ko">그는 간호사야.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">여자</span><span class="gram-ex">She's a teacher.</span><span class="gram-ko">그녀는 선생님이야.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-no">❌</span><span class="gram-ex no">What do she do?</span><span class="gram-ko">she일 때는 does!</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">연습 — 알맞은 표현 고르기</div>
+    <div id="gram-q-area"></div>
+  </div>
+</div>
+
+<!-- ══ 스토리 ══ -->
+<div id="story" class="panel">
+  <div class="sec">
+    <div class="sec-title">Listen to the Story (교과서 114p) — 피노키오</div>
+    <div class="sec-desc">빈칸을 탭하면 정답이 나타나요!</div>
+    <div class="story-scene">
+      <div class="scene-num">#1 · 첫 만남</div>
+      <div class="story-line">
+        피노키오: What do you <span class="blank" onclick="reveal(this,'do')">___</span>?<br>
+        아저씨: I'm a <span class="blank" onclick="reveal(this,'cook')">____</span>. What do you do?<br>
+        피노키오: I'm a ... <span class="blank" onclick="reveal(this,'dancer')">______</span>?
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#2 · 길어지는 코</div>
+      <div class="story-line">
+        친구 1: What do you do?<br>
+        피노키오: I'm a <span class="blank" onclick="reveal(this,'pilot')">_____</span>! (피노키오의 코가 길어져요 → 거짓말!)<br>
+        친구 2: Are you a pilot?<br>
+        피노키오: No, I'm not. I'm a <span class="blank" onclick="reveal(this,'painter')">_______</span>.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#3 · 피노키오의 꿈</div>
+      <div class="story-line">
+        피노키오: I want to be a real <span class="blank" onclick="reveal(this,'boy')">___</span>.<br>
+        I want to be a good <span class="blank" onclick="reveal(this,'doctor')">______</span>.<br>
+        I will help people!
+      </div>
+    </div>
+    <div class="story-btns">
+      <button class="btn-main" onclick="revealAll()">전체 정답 보기</button>
+      <button class="btn-sub" onclick="resetBlanks()">다시 도전</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문장 조합 ══ -->
+<div id="scramble" class="panel">
+  <div class="sec">
+    <div class="sec-title">문장 조합 퀴즈 — 단어를 순서대로 배열하세요!</div>
+    <div class="sec-desc">단어 칩을 눌러 순서대로 배열하고 ✓ 확인 버튼을 눌러요. 놓은 칩을 다시 누르면 빠져요.</div>
+    <div id="scramble-area"></div>
+  </div>
+</div>
+
+<!-- ══ 퀴즈 ══ -->
+<div id="quiz" class="panel">
+  <div class="quiz-bar-wrap"><div class="quiz-bar" id="qbar" style="width:0%"></div></div>
+  <div id="quiz-area"></div>
+</div>
+
+</main>
+<footer>Lesson 12 · What Do You Do? · 4학년 영어 포트폴리오 복습 자료</footer>
+
+<script>
+var words=[{"en":"doctor","ko":"의사","ico":"🩺"},
+  {"en":"nurse","ko":"간호사","ico":"💉"},
+  {"en":"teacher","ko":"선생님","ico":"👩‍🏫"},
+  {"en":"painter","ko":"화가","ico":"🎨"},
+  {"en":"pilot","ko":"조종사","ico":"✈️"},
+  {"en":"model","ko":"모델","ico":"💃"},
+  {"en":"writer","ko":"작가","ico":"✍️"},
+  {"en":"dancer","ko":"무용수","ico":"🩰"},
+  {"en":"uncle","ko":"삼촌","ico":"👨"},
+  {"en":"cool","ko":"멋진","ico":"😎"},
+  {"en":"cook","ko":"요리사","ico":"👨‍🍳"},
+  {"en":"she","ko":"그녀(여자)","ico":"👩"}];
+var themeDat=[{"ico":"🩺","en":"doctor","phrase":"I'm a doctor.","ko":"의사"},
+  {"ico":"💉","en":"nurse","phrase":"I'm a nurse.","ko":"간호사"},
+  {"ico":"👩‍🏫","en":"teacher","phrase":"I'm a teacher.","ko":"선생님"},
+  {"ico":"🎨","en":"painter","phrase":"I'm a painter.","ko":"화가"},
+  {"ico":"✈️","en":"pilot","phrase":"I'm a pilot.","ko":"조종사"},
+  {"ico":"✍️","en":"writer","phrase":"I'm a writer.","ko":"작가"},
+  {"ico":"🩰","en":"dancer","phrase":"I'm a dancer.","ko":"무용수"},
+  {"ico":"👨‍🍳","en":"cook","phrase":"I'm a cook.","ko":"요리사"}];
+var phWords=[{"w":"teacher","t":true},
+  {"w":"cook","t":false},
+  {"w":"dancer","t":true},
+  {"w":"pilot","t":false},
+  {"w":"doctor","t":true},
+  {"w":"nurse","t":false},
+  {"w":"writer","t":true},
+  {"w":"painter","t":true}];
+var scrambles=[{"words":["What","do","you","do","?"],"answer":"What do you do?","hint":"직업이 뭐야?"},
+  {"words":["I'm","a","doctor","."],"answer":"I'm a doctor.","hint":"나는 의사야."},
+  {"words":["She's","a","teacher","."],"answer":"She's a teacher.","hint":"그녀는 선생님이야."},
+  {"words":["What","does","he","do","?"],"answer":"What does he do?","hint":"그는 무슨 일을 해?"},
+  {"words":["He's","a","pilot","."],"answer":"He's a pilot.","hint":"그는 조종사야."}];
+var gramQs=[{"q":"\"직업이 뭐야?\"를 영어로?","opts":["What do you do?","What are you doing?","Who are you?"],"ans":0,"fb":"What do you do? = 직업이 뭐야?"},
+  {"q":"\"나는 의사야.\"","opts":["I'm a doctor.","I'm doctor.","I is a doctor."],"ans":0,"fb":"직업 앞에 a를 꼭 써요!"},
+  {"q":"___ is a nurse. (남자)","opts":["He","She","It"],"ans":0,"fb":"남자는 He!"},
+  {"q":"What ___ she do?","opts":["do","does","is"],"ans":1,"fb":"she일 때는 does!"}];
+var quizzes=[{"q":"\"What do you do?\"의 뜻은?","opts":["뭐 하고 있어?","직업이 뭐야?","뭐 할 거야?","뭐 했어?"],"ans":1,"fb":"What do you do? = 직업이 뭐야?"},
+  {"q":"\"I'm a nurse.\"의 뜻은?","opts":["나는 의사야.","나는 간호사야.","나는 선생님이야.","나는 화가야."],"ans":1,"fb":"nurse = 간호사!"},
+  {"q":"\"pilot\"의 뜻은?","opts":["화가","작가","조종사","무용수"],"ans":2,"fb":"pilot = 비행기를 조종하는 사람!"},
+  {"q":"\"She's a teacher.\"에서 She's는 무엇의 줄임말?","opts":["She was","She is","She does","She has"],"ans":1,"fb":"She's = She is!"},
+  {"q":"\"That's cool!\"의 뜻은?","opts":["춥다!","멋지다!","이상하다!","시원하다!"],"ans":1,"fb":"cool = 멋진!"},
+  {"q":"\"그는 조종사야.\"를 영어로?","opts":["He's a pilot.","She's a pilot.","He a pilot.","He is pilot."],"ans":0,"fb":"He is = He's, 직업 앞에 a!"},
+  {"q":"\"writer\"의 뜻은?","opts":["화가","작가","무용수","요리사"],"ans":1,"fb":"writer = write(쓰다) + r → 작가!"},
+  {"q":"Fun Talk 1에서 Hoa의 이모는 무슨 일을 하나요?","opts":["dancer","writer","painter","nurse"],"ans":2,"fb":"She's a painter. 화가예요!"},
+  {"q":"Fun Talk 2에서 Eric의 직업은?","opts":["writer","pilot","dancer","doctor"],"ans":0,"fb":"Eric: I'm a writer."},
+  {"q":"\"What ___ he do?\" 빈칸에 알맞은 말은?","opts":["do","does","is","are"],"ans":1,"fb":"he/she일 때는 does!"}];
+
+function adjustMainPadding(){
+  var n=document.querySelector('.nav-wrap'),m=document.querySelector('main');
+  if(n&&m) m.style.paddingTop=(n.offsetHeight+16)+'px';
+}
+window.addEventListener('load', adjustMainPadding);
+window.addEventListener('resize', adjustMainPadding);
+
+/* ── 발음 (TTS) ── */
+var _ttsV=[],_ttsR=false;
+function _ttsL(){
+  var vs=window.speechSynthesis?window.speechSynthesis.getVoices():[];
+  if(vs.length){_ttsV=vs;_ttsR=true;}
+}
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=function(){_ttsL();};
+  _ttsL();
+}
+function _ttsP(){
+  return _ttsV.find(function(v){return v.lang==='en-US'&&v.localService;})
+      || _ttsV.find(function(v){return v.lang==='en-US';})
+      || _ttsV.find(function(v){return v.lang==='en-GB';})
+      || _ttsV.find(function(v){return v.lang.startsWith('en');})
+      || null;
+}
+function speak(text,rate){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  function _d(){
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US'; u.rate=rate||0.85; u.pitch=1;
+    var v=_ttsP(); if(v) u.voice=v;
+    u.onstart=function(){ window.speechSynthesis.resume(); };
+    window.speechSynthesis.speak(u);
+  }
+  if(!_ttsR){ _ttsL(); }
+  if(!_ttsR){ setTimeout(function(){ _ttsL(); _d(); }, 400); return; }
+  _d();
+}
+function popSpk(btn,word){
+  speak(word);
+  btn.classList.add('pop');
+  setTimeout(function(){ btn.classList.remove('pop'); }, 600);
+}
+
+/* ── 탭 이동 ── */
+function go(id,btn){
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='quiz') initQuiz();
+  if(id==='scramble') initScramble();
+  if(id==='grammar') initGramQ();
+}
+
+function shuffleIdx(n){
+  var a=[]; for(var i=0;i<n;i++) a.push(i);
+  for(var k=a.length-1;k>0;k--){ var j=Math.floor(Math.random()*(k+1)); var t=a[k]; a[k]=a[j]; a[j]=t; }
+  return a;
+}
+
+/* ── 단어 카드 ── */
+var vc=document.getElementById('vcards');
+if(vc){ words.forEach(function(w,i){
+  var d=document.createElement('div'); d.className='vcard';
+  d.innerHTML='<button class="spk-btn" title="발음 듣기">🔊</button>'
+    +'<span class="num">'+(i+1)+'</span>'
+    +'<div class="vico">'+w.ico+'</div>'
+    +'<div class="ven">'+w.en+'</div>'
+    +'<div class="vko">'+w.ko+'</div>'
+    +'<div class="vhint">탭 → 뜻 확인</div>';
+  d.querySelector('.spk-btn').onclick=function(e){ e.stopPropagation(); popSpk(this,w.en); };
+  d.onclick=function(){
+    d.classList.toggle('flipped');
+    d.querySelector('.vhint').style.display=d.classList.contains('flipped')?'none':'block';
+    speak(w.en);
+  };
+  vc.appendChild(d);
+}); }
+
+/* ── 주제 카드 ── */
+var tc=document.getElementById('themecards');
+if(tc){ themeDat.forEach(function(t){
+  var el=document.createElement('div'); el.className='th-card';
+  el.innerHTML='<div class="th-ico">'+t.ico+'</div><div class="th-en">'+t.en+'</div>'
+    +'<div class="th-phrase">'+t.phrase+'</div><div class="th-ko">'+t.ko+'</div>';
+  el.onclick=function(){ speak(t.say||t.phrase); };
+  tc.appendChild(el);
+}); }
+
+/* ── 파닉스 ── */
+var pp=document.getElementById('ph-picks');
+if(pp){ phWords.forEach(function(pw){
+  var b=document.createElement('button');
+  b.className='ph-pick'; b.textContent=pw.w;
+  b.onclick=function(){
+    speak(pw.w);
+    if(b.classList.contains('ok')||b.classList.contains('ng')) return;
+    b.classList.add(pw.t?'ok':'ng');
+    var got=document.querySelectorAll('#ph-picks .ph-pick.ok').length;
+    var bad=document.querySelectorAll('#ph-picks .ph-pick.ng').length;
+    document.getElementById('ph-res').textContent='✓ '+got+'개 맞춤 · ✗ '+bad+'개 틀림 (정답: '+phWords.filter(function(x){return x.t;}).map(function(x){return x.w;}).join(', ')+')';
+  };
+  pp.appendChild(b);
+}); }
+function resetPh(){
+  document.querySelectorAll('#ph-picks .ph-pick').forEach(function(b){ b.classList.remove('ok','ng'); });
+  document.getElementById('ph-res').textContent='';
+}
+
+/* ── 스토리 빈칸 ── */
+function reveal(el,ans){ el.textContent=ans; el.classList.add('revealed'); }
+function _blankAns(b){
+  var oc=b.getAttribute('onclick');
+  var m=oc.match(/reveal\(this,'([^']+)'\)/)||oc.match(/reveal\(this,`([^`]+)`\)/);
+  return m?m[1]:null;
+}
+function revealAll(){
+  document.querySelectorAll('.blank:not(.revealed)').forEach(function(b){
+    var a=_blankAns(b); if(a){ b.textContent=a; b.classList.add('revealed'); }
+  });
+}
+function resetBlanks(){
+  document.querySelectorAll('.blank').forEach(function(b){
+    var a=_blankAns(b); if(a){ b.textContent='_'.repeat(Math.max(a.length,3)); b.classList.remove('revealed'); }
+  });
+}
+
+/* ── 문장 조합 ── */
+function initScramble(){
+  var area=document.getElementById('scramble-area');
+  if(!area) return;
+  area.innerHTML='';
+  scrambles.forEach(function(s,i){
+    var sh=s.words.slice();
+    var orig=s.words.join('\t');
+    var attempt=0;
+    do {
+      for(var k=sh.length-1;k>0;k--){
+        var j=Math.floor(Math.random()*(k+1));
+        var tmp=sh[k]; sh[k]=sh[j]; sh[j]=tmp;
+      }
+      attempt++;
+    } while(sh.join('\t')===orig && attempt<20 && s.words.length>1);
+    var div=document.createElement('div');
+    div.className='scramble-box';
+    div.innerHTML=
+      '<div style="font-size:.8rem;color:var(--sub);margin-bottom:.55rem">'+(i+1)+' &middot; '+s.hint+'</div>'+
+      '<div class="scramble-words" id="chips-'+i+'"></div>'+
+      '<div class="answer-area" id="ans-'+i+'"></div>'+
+      '<div class="scr-btns">'+
+      '<button class="btn-check" onclick="checkScr('+i+')">&#10003; 확인</button>'+
+      '<button class="btn-reset" onclick="resetScr('+i+')">&#8634; 다시</button>'+
+      '</div>'+
+      '<div id="fb-'+i+'" class="scr-fb" style="display:none"></div>';
+    area.appendChild(div);
+    var box=div.querySelector('#chips-'+i);
+    sh.forEach(function(w){
+      var b=document.createElement('button');
+      b.className='word-chip'; b.textContent=w; b.dataset.w=w;
+      b.onclick=function(){ placeWord(i,b); };
+      box.appendChild(b);
+    });
+  });
+}
+function placeWord(qi,btn){
+  if(btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  var pc=document.createElement('button');
+  pc.className='placed-chip';
+  pc.textContent=btn.dataset.w;
+  pc.onclick=function(){ btn.classList.remove('used'); pc.remove(); document.getElementById('fb-'+qi).style.display='none'; };
+  document.getElementById('ans-'+qi).appendChild(pc);
+}
+function checkScr(qi){
+  var chips=[].slice.call(document.querySelectorAll('#ans-'+qi+' .placed-chip'));
+  var placed=chips.map(function(c){return c.textContent;}).join(' ');
+  var fb=document.getElementById('fb-'+qi); fb.style.display='block';
+  var norm=function(s){ return s.toLowerCase().replace(/[^a-z0-9'\uAC00-\uD7A3]/g,' ').replace(/\s+/g,' ').trim(); };
+  if(norm(placed)===norm(scrambles[qi].answer)){
+    fb.className='scr-fb fb-ok'; fb.textContent='🎉 정답! "'+scrambles[qi].answer+'"';
+    speak(scrambles[qi].answer);
+  } else {
+    fb.className='scr-fb fb-ng'; fb.textContent='"'+placed+'" → 다시 조합해봐요!';
+  }
+}
+function resetScr(qi){
+  document.querySelectorAll('#chips-'+qi+' .word-chip').forEach(function(b){ b.classList.remove('used'); });
+  document.getElementById('ans-'+qi).innerHTML='';
+  document.getElementById('fb-'+qi).style.display='none';
+}
+
+/* ── 문법 연습 ── */
+var _gqI=0,_gqD=false,_gqOrd=[];
+function initGramQ(){ _gqI=0; _gqD=false; renderGQ(); }
+function renderGQ(){
+  var area=document.getElementById('gram-q-area');
+  if(!area) return;
+  if(_gqI>=gramQs.length){
+    area.innerHTML='<div class="card" style="text-align:center;padding:1.5rem">'+
+      '<div style="font-size:2rem;margin-bottom:.4rem">🎉</div>'+
+      '<div style="font-family:\'Baloo 2\',sans-serif;font-size:1.3rem;font-weight:800;color:var(--m-d)">문법 연습 완료!</div>'+
+      '<button class="btn-retry" onclick="initGramQ()" style="margin-top:.8rem">다시 풀기 🔄</button></div>';
+    return;
+  }
+  var q=gramQs[_gqI];
+  _gqOrd=shuffleIdx(q.opts.length);
+  var btns=_gqOrd.map(function(oi,pos){
+    return '<button class="gq-opt" onclick="pickGQ('+pos+')">'+q.opts[oi]+'</button>';
+  }).join('');
+  area.innerHTML='<div class="card">'+
+    '<div class="quiz-num">'+(_gqI+1)+' / '+gramQs.length+'</div>'+
+    '<div class="quiz-q">'+q.q+'</div>'+
+    '<div class="gq-opts">'+btns+'</div>'+
+    '<div id="gq-fb" class="qfb"></div></div>';
+  _gqD=false;
+}
+function pickGQ(pos){
+  if(_gqD) return; _gqD=true;
+  var q=gramQs[_gqI], chosen=_gqOrd[pos];
+  document.querySelectorAll('#gram-q-area .gq-opt').forEach(function(b,j){
+    b.disabled=true;
+    if(_gqOrd[j]===q.ans) b.classList.add('ok');
+    else if(j===pos) b.classList.add('ng');
+  });
+  var fb=document.getElementById('gq-fb');
+  if(chosen===q.ans){ fb.className='qfb fb-ok show'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.className='qfb fb-ng show'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  setTimeout(function(){ _gqI++; renderGQ(); }, 1900);
+}
+
+/* ── 퀴즈 ── */
+var _qC=0,_qS=0,_qA=false,_qOrd=[];
+function initQuiz(){ _qC=0; _qS=0; _qA=false; renderQ(); }
+function renderQ(){
+  var a=document.getElementById('quiz-area'), b=document.getElementById('qbar');
+  if(!a||!b) return;
+  b.style.width=(_qC/quizzes.length*100)+'%';
+  if(_qC>=quizzes.length){
+    var p=Math.round(_qS/quizzes.length*100);
+    var e=p>=80?'🎉':p>=50?'😊':'💪';
+    var msg=p>=80?'완벽해요! 훌륭합니다!':p>=50?'잘했어요! 조금만 더 연습해요.':'틀린 표현을 다시 복습해봐요!';
+    a.innerHTML='<div class="result"><div class="res-emoji">'+e+'</div>'+
+      '<div class="res-score">'+_qS+' / '+quizzes.length+'</div>'+
+      '<div class="res-msg">'+msg+'</div>'+
+      '<button class="btn-retry" onclick="initQuiz()">다시 도전하기 🔄</button></div>';
+    b.style.width='100%'; return;
+  }
+  var q=quizzes[_qC];
+  _qOrd=shuffleIdx(q.opts.length);
+  var qtext=q.q.split('\n').join('<br>');
+  var opts=_qOrd.map(function(oi,pos){ return '<button class="opt" onclick="pick('+pos+')">'+q.opts[oi]+'</button>'; }).join('');
+  a.innerHTML='<div class="quiz-num">'+(_qC+1)+' / '+quizzes.length+' 문제</div>'+
+    '<div class="quiz-q">'+qtext+'</div>'+
+    '<div class="opts">'+opts+'</div>'+
+    '<div class="qfb" id="qfb"></div>'+
+    '<div class="qnav"><div class="qscore">현재 점수 '+_qS+'점</div>'+
+    '<button class="btn-nxt" id="qnxt" onclick="nextQ()">다음 →</button></div>';
+  _qA=false;
+}
+function pick(pos){
+  if(_qA) return; _qA=true;
+  var q=quizzes[_qC], chosen=_qOrd[pos];
+  document.querySelectorAll('#quiz-area .opt').forEach(function(o,j){
+    o.disabled=true;
+    if(_qOrd[j]===q.ans) o.classList.add('ok');
+    else if(j===pos) o.classList.add('ng');
+  });
+  var fb=document.getElementById('qfb');
+  if(chosen===q.ans){ _qS++; fb.className='qfb fb-ok show'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.className='qfb fb-ng show'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  document.getElementById('qnxt').style.display='inline-block';
+}
+function nextQ(){ _qC++; _qA=false; renderQ(); }
+</script>
+</body>
+</html>

@@ -1,0 +1,806 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 7 · It's Wednesday 포트폴리오 복습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --m:#1E6FB8; --m-l:#E3F0FB; --m-d:#0D3F6E;
+  --s:#00897B; --s-l:#E0F2F1; --s-d:#004D40;
+  --gn:#2E7D32; --gn-l:#E8F5E9; --gn-d:#1B5E20;
+  --rd:#C62828; --rd-l:#FFEBEE; --rd-d:#7F0000;
+  --ye:#F57F17; --ye-l:#FFF8E1; --ye-d:#6D4C00;
+  --pk:#D81B60; --pk-l:#FCE4EC; --pk-d:#880E4F;
+  --bg:#F5F9FE; --white:#FFFFFF;
+  --text:#0A1A30; --sub:#3E5470; --border:#C9DDF2;
+  --r:14px; --r-sm:8px;
+  --shadow:0 2px 12px rgba(30,111,184,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-padding-top:110px;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#1B4F80 0%,#2E6FB0 40%,#3B82C4 70%,#5BA3D9 100%);padding:3rem 1.5rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 14px;font-size:.75rem;font-weight:700;color:#fff;letter-spacing:.08em;margin-bottom:1rem;}
+.hero h1{font-family:'Baloo 2',sans-serif;font-size:clamp(2rem,7vw,3.4rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:.4rem;}
+.hero h1 span{color:#FFF176;}
+.hero p{font-size:.95rem;color:rgba(255,255,255,.82);}
+.hero-deco{position:absolute;font-size:5rem;opacity:.08;pointer-events:none;}
+.hero-deco.a{top:10%;left:5%;}
+.hero-deco.b{top:20%;right:8%;}
+.hero-deco.c{bottom:18%;left:14%;}
+
+/* ── NAV ── */
+.nav-wrap{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(30,111,184,.10);}
+.nav{display:grid;grid-template-columns:repeat(5,1fr);max-width:980px;margin:0 auto;}
+.ntab{padding:.75rem .3rem;border:none;background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:.78rem;font-weight:700;color:var(--sub);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:normal;word-break:keep-all;text-align:center;line-height:1.3;}
+.ntab.on{color:var(--m);border-bottom-color:var(--m);background:var(--m-l);}
+.ntab:hover:not(.on){color:var(--text);background:var(--bg);}
+
+/* ── MAIN ── */
+main{max-width:980px;margin:0 auto;padding:0 1rem 5rem;}
+.panel{display:none;animation:up .3s ease;}
+.panel.on{display:block;padding-top:1rem;}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── UTIL ── */
+.sec{margin-bottom:2rem;}
+.sec-title{font-family:'Baloo 2',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--m);margin-bottom:.9rem;}
+.sec-desc{font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;box-shadow:var(--shadow);}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em;margin-bottom:.55rem;}
+.tag-m{background:var(--m-l);color:var(--m-d);}
+.tag-s{background:var(--s-l);color:var(--s-d);}
+.tag-gn{background:var(--gn-l);color:var(--gn-d);}
+.tag-rd{background:var(--rd-l);color:var(--rd-d);}
+.tag-ye{background:var(--ye-l);color:var(--ye-d);}
+.tag-pk{background:var(--pk-l);color:var(--pk-d);}
+.en{font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);}
+.en.m{color:var(--m-d);} .en.s{color:var(--s-d);} .en.gn{color:var(--gn-d);} .en.rd{color:var(--rd-d);} .en.sm{font-size:.92rem;}
+.ko{font-size:.82rem;color:var(--sub);margin-top:2px;}
+.arrow{color:var(--m);font-size:.78rem;margin:.45rem 0;}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.3rem;}
+.chip{background:var(--m-l);border-radius:20px;padding:3px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;font-weight:700;color:var(--m-d);}
+.chip.s{background:var(--s-l);color:var(--s-d);} .chip.ye{background:var(--ye-l);color:var(--ye-d);}
+.chip.pk{background:var(--pk-l);color:var(--pk-d);} .chip.gn{background:var(--gn-l);color:var(--gn-d);} .chip.rd{background:var(--rd-l);color:var(--rd-d);}
+.tip{margin-top:.9rem;background:var(--m-l);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;color:var(--m-d);font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+
+/* ── WORD CARDS ── */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.7rem;}
+.vcard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.9rem .7rem;text-align:center;cursor:pointer;transition:all .22s;position:relative;box-shadow:var(--shadow);}
+.vcard:hover{border-color:var(--m);transform:translateY(-2px);}
+.vcard.flipped{background:var(--m-l);border-color:var(--m);}
+.vcard .num{position:absolute;top:5px;left:8px;font-size:.65rem;font-weight:700;color:var(--m);opacity:.6;}
+.vcard .vico{font-size:1.8rem;margin:4px 0 2px;line-height:1;display:block;}
+.vcard .ven{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.vcard .vko{font-size:.8rem;color:var(--sub);margin-top:3px;font-family:'Noto Sans KR',sans-serif;}
+.vcard.flipped .vko{color:var(--m-d);font-weight:700;}
+.vcard .vhint{font-size:.6rem;color:var(--s);margin-top:4px;}
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.9rem;cursor:pointer;opacity:.45;transition:all .2s;padding:2px;line-height:1;border-radius:50%;}
+.spk-btn:hover{opacity:1;background:rgba(0,0,0,.07);}
+.spk-btn.pop{transform:scale(1.5);opacity:1;}
+.tts-bar{display:flex;align-items:center;gap:.5rem;background:#E3F2FD;border-radius:var(--r-sm);padding:.55rem .85rem;margin-bottom:.85rem;font-size:.8rem;color:#0D47A1;font-family:'Noto Sans KR',sans-serif;}
+.tts-dot{width:8px;height:8px;border-radius:50%;background:#2E7D32;animation:blink 1.2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+
+/* ── THEME CARDS ── */
+.th-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.85rem;}
+.th-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.1rem .9rem;text-align:center;cursor:pointer;transition:all .25s;box-shadow:var(--shadow);}
+.th-card:hover{transform:translateY(-3px);border-color:var(--m);}
+.th-ico{font-size:2.3rem;margin-bottom:.4rem;}
+.th-en{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.th-phrase{font-family:'Baloo 2',sans-serif;font-size:.8rem;color:var(--m-d);margin-top:.25rem;}
+.th-ko{font-size:.76rem;color:var(--sub);margin-top:.2rem;font-family:'Noto Sans KR',sans-serif;}
+
+/* ── DIALOGUE ── */
+.dlg{background:var(--m-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.dlg-title{font-size:.7rem;font-weight:700;letter-spacing:.07em;color:var(--m-d);margin-bottom:.75rem;text-transform:uppercase;}
+.dlg.alt{background:var(--s-l);}
+.dlg.alt .dlg-title,.dlg.alt .spkr{color:var(--s-d);}
+.line{display:flex;gap:.65rem;margin-bottom:.45rem;align-items:flex-start;}
+.line:last-child{margin-bottom:0;}
+.spkr{min-width:64px;font-size:.72rem;font-weight:700;color:var(--m-d);padding-top:2px;font-family:'Noto Sans KR',sans-serif;}
+.said{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);}
+.said small{display:block;font-size:.76rem;font-weight:400;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.said .key{color:var(--m-d);font-weight:800;}
+.said .ans{color:var(--s-d);font-weight:800;}
+.dlg.alt .said .key{color:var(--s-d);}
+
+/* ── CHANT ── */
+.chant-box{background:var(--s-l);border-left:4px solid var(--s);border-radius:0 var(--r) var(--r) 0;padding:1.1rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.92rem;line-height:2;color:var(--text);}
+.chant-box .hl{color:var(--m-d);font-weight:800;}
+.chant-box .ans{color:var(--s-d);font-weight:700;}
+.chant-box.song{background:var(--ye-l);border-left-color:var(--ye);}
+.chant-box.song .hl{color:var(--ye-d);}
+
+/* ── PHONICS ── */
+.ph-big{font-family:'Baloo 2',sans-serif;font-size:5rem;font-weight:800;color:var(--m);text-align:center;line-height:1;}
+.ph-sub{text-align:center;font-size:.88rem;color:var(--sub);margin:.3rem 0 1.2rem;}
+.ph-pills{display:flex;flex-wrap:wrap;gap:.55rem;justify-content:center;margin-bottom:1.2rem;}
+.ph-pill{background:var(--m-l);border:1px solid var(--m);border-radius:20px;padding:.45rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--m-d);cursor:pointer;}
+.ph-pill span{color:var(--pk);font-weight:800;}
+.ph-note{background:var(--ye-l);border-left:3px solid var(--ye);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:.75rem 1rem;font-size:.83rem;color:var(--ye-d);line-height:1.65;text-align:left;}
+.ph-pick-wrap{display:flex;flex-wrap:wrap;gap:.5rem;}
+.ph-pick{padding:.45rem 1rem;border-radius:20px;border:1.5px solid var(--border);background:var(--white);font-family:'Baloo 2',sans-serif;font-size:.92rem;font-weight:700;cursor:pointer;transition:all .2s;color:var(--text);}
+.ph-pick:hover{border-color:var(--m);}
+.ph-pick.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.ph-pick.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+
+/* ── GRAMMAR ── */
+.gram-box{background:var(--s-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.gram-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--s-d);margin-bottom:.8rem;text-transform:uppercase;}
+.gram-big{font-family:'Baloo 2',sans-serif;font-size:1.25rem;font-weight:800;color:var(--s-d);margin-bottom:.6rem;}
+.gram-big span{color:var(--m-d);}
+.gram-rule{font-size:.85rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;line-height:1.75;background:var(--white);border-radius:var(--r-sm);padding:.85rem 1rem;border:1px solid var(--border);}
+.gram-rule .o{color:var(--gn-d);} .gram-rule .x{color:var(--rd-d);}
+.gram-ex-wrap{margin-top:1rem;display:flex;flex-direction:column;gap:.45rem;}
+.gram-row{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap;}
+.gram-badge{font-family:'Baloo 2',sans-serif;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+.gb-ok{background:var(--gn-l);color:var(--gn-d);}
+.gb-no{background:var(--rd-l);color:var(--rd-d);}
+.gram-ex{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;}
+.gram-ex.no{color:var(--rd-d);text-decoration:line-through;}
+.gram-ko{font-size:.82rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.gq-opts{display:flex;gap:.5rem;flex-wrap:wrap;}
+.gq-opt{flex:1;min-width:110px;padding:.6rem .6rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--text);transition:all .18s;}
+.gq-opt:hover:not(:disabled){border-color:var(--m);background:var(--m-l);}
+.gq-opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.gq-opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+
+/* ── STORY FILL ── */
+.story-scene{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scene-num{display:inline-block;background:var(--m);color:#fff;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:.7rem;}
+.story-line{font-family:'Baloo 2',sans-serif;font-size:.95rem;color:var(--text);line-height:1.9;}
+.blank{display:inline-block;border-bottom:2px solid var(--m);min-width:64px;text-align:center;color:var(--m);font-weight:700;cursor:pointer;padding:0 4px;transition:background .2s;border-radius:3px 3px 0 0;}
+.blank:hover{background:var(--m-l);}
+.blank.revealed{background:var(--m-l);color:var(--m-d);}
+.story-btns{margin-top:.75rem;display:flex;gap:.5rem;}
+.btn-main{background:var(--m);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;}
+.btn-sub{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;}
+
+/* ── SCRAMBLE ── */
+.scramble-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scramble-words{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.85rem;}
+.word-chip{background:var(--ye-l);border:1.5px solid var(--ye);border-radius:20px;padding:.35rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--ye-d);transition:all .2s;user-select:none;}
+.word-chip:hover{background:var(--ye);color:#fff;}
+.word-chip.used{opacity:.28;cursor:default;pointer-events:none;}
+.answer-area{min-height:44px;border:2px dashed var(--border);border-radius:var(--r-sm);padding:.5rem .75rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.75rem;background:var(--bg);}
+.placed-chip{background:var(--m-l);border:1.5px solid var(--m);border-radius:20px;padding:.3rem .85rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:var(--m-d);}
+.placed-chip:hover{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.scr-btns{display:flex;gap:.5rem;}
+.btn-check{background:var(--m);color:#fff;border:none;border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-reset{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.scr-fb{font-size:.82rem;margin-top:.5rem;font-family:'Noto Sans KR',sans-serif;padding:.45rem .75rem;border-radius:var(--r-sm);}
+.fb-ok{background:var(--gn-l);border-left:3px solid var(--gn);color:var(--gn-d);}
+.fb-ng{background:var(--rd-l);border-left:3px solid var(--rd);color:var(--rd-d);}
+
+/* ── QUIZ ── */
+.quiz-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-bottom:1.5rem;overflow:hidden;}
+.quiz-bar{height:100%;background:linear-gradient(90deg,var(--m),var(--s));border-radius:3px;transition:width .4s ease;}
+.quiz-num{font-size:.78rem;color:var(--sub);margin-bottom:.4rem;}
+.quiz-q{font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.1rem;}
+.opts{display:flex;flex-direction:column;gap:.55rem;}
+.opt{padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:all .18s;}
+.opt:hover:not(:disabled){border-color:var(--m);background:var(--m-l);}
+.opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.qfb{padding:.7rem 1rem;border-radius:var(--r-sm);font-size:.85rem;margin-top:.6rem;display:none;font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+.qfb.show{display:block;}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;}
+.qscore{font-size:.82rem;color:var(--sub);}
+.btn-nxt{background:var(--m);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;display:none;}
+.result{text-align:center;padding:2.5rem 1rem;}
+.res-emoji{font-size:4rem;margin-bottom:.5rem;}
+.res-score{font-family:'Baloo 2',sans-serif;font-size:3rem;font-weight:800;color:var(--m);}
+.res-msg{font-size:.95rem;color:var(--sub);margin:.4rem 0 1.2rem;}
+.btn-retry{background:var(--m-l);color:var(--m-d);border:1.5px solid var(--m);border-radius:var(--r-sm);padding:.65rem 1.5rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+
+footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
+@media(max-width:520px){
+  .grid2{grid-template-columns:1fr;}
+  .vgrid{grid-template-columns:repeat(3,1fr);}
+  .th-grid{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-deco a">📅</span>
+  <span class="hero-deco b">⭐</span>
+  <span class="hero-deco c">🎒</span>
+  <div class="hero-badge">📋 Portfolio · 4학년 영어</div>
+  <h1>Lesson 7<br><span>It's Wednesday</span></h1>
+  <p>요일 · 수업 말하기 · 대화 · 파닉스 · 문법 · 퀴즈</p>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="ntab on" onclick="go('words',this)">📖<br>단어</button>
+    <button class="ntab" onclick="go('expr',this)">💬<br>핵심표현</button>
+    <button class="ntab" onclick="go('dlgs',this)">🗣️<br>대화문</button>
+    <button class="ntab" onclick="go('chant',this)">🎵<br>찬트·노래</button>
+    <button class="ntab" onclick="go('phonics',this)">🔤<br>파닉스</button>
+    <button class="ntab" onclick="go('grammar',this)">📐<br>문법</button>
+    <button class="ntab" onclick="go('story',this)">👑<br>스토리</button>
+    <button class="ntab" onclick="go('scramble',this)">🔀<br>문장조합</button>
+    <button class="ntab" onclick="go('quiz',this)">✏️<br>퀴즈</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══ 단어 ══ -->
+<div id="words" class="panel on">
+  <div class="sec">
+    <div class="sec-title">New Words — 신출 어휘 12개</div>
+    <div class="tts-bar"><span class="tts-dot"></span>🔊 단어 카드를 탭하거나 🔊 버튼을 눌러 영어 발음을 들어보세요 (Chrome · Edge · Whale 지원)</div>
+    <div class="vgrid" id="vcards"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">요일 카드 — 탭하면 "It's ___." 발음이 나와요</div>
+    <div class="th-grid" id="themecards"></div>
+  </div>
+</div>
+
+<!-- ══ 핵심표현 ══ -->
+<div id="expr" class="panel">
+  <div class="sec">
+    <div class="sec-title">Key Expressions — 핵심 의사소통 표현</div>
+    <div class="grid2">
+      <div class="card">
+        <span class="tag tag-m">① 요일 묻기</span>
+        <div class="en m">What day is it today?</div>
+        <div class="ko">오늘은 무슨 요일이야?</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="en s sm">It's Wednesday.</div>
+        <div class="ko">수요일이야.</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-s">② 수업 말하기</span>
+        <div class="en s">I have a computer class.</div>
+        <div class="ko">나는 컴퓨터 수업이 있어.</div>
+        <div class="arrow">+ 다양하게 활용</div>
+        <div class="chips"><span class="chip s">I have a cooking class.</span><span class="chip s">I have a violin class.</span><span class="chip s">I have P.E. today.</span></div>
+      </div>
+      <div class="card">
+        <span class="tag tag-pk">③ 요일 순서</span>
+        <div style="display:grid;grid-template-columns:repeat(7,1fr);gap:.3rem;margin-top:.4rem;font-family:'Baloo 2',sans-serif;">
+          <div style="background:#E8F5E9;color:#2E7D32;padding:.4rem .2rem;text-align:center;border-radius:6px;font-size:.72rem;font-weight:700">Mon<br>월</div>
+          <div style="background:#E3F2FD;color:#1565C0;padding:.4rem .2rem;text-align:center;border-radius:6px;font-size:.72rem;font-weight:700">Tue<br>화</div>
+          <div style="background:#EDE7F6;color:#4527A0;padding:.4rem .2rem;text-align:center;border-radius:6px;font-size:.72rem;font-weight:700;outline:2px solid #4527A0">Wed<br>수</div>
+          <div style="background:#FFF8E1;color:#E65100;padding:.4rem .2rem;text-align:center;border-radius:6px;font-size:.72rem;font-weight:700">Thu<br>목</div>
+          <div style="background:#FCE4EC;color:#880E4F;padding:.4rem .2rem;text-align:center;border-radius:6px;font-size:.72rem;font-weight:700">Fri<br>금</div>
+          <div style="background:#E0F7FA;color:#006064;padding:.4rem .2rem;text-align:center;border-radius:6px;font-size:.72rem;font-weight:700">Sat<br>토</div>
+          <div style="background:#FFEBEE;color:#B71C1C;padding:.4rem .2rem;text-align:center;border-radius:6px;font-size:.72rem;font-weight:700">Sun<br>일</div>
+        </div>
+        <div class="ko" style="margin-top:.6rem;">💡 요일 이름은 항상 <strong>대문자</strong>로 시작해요!</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-ye">④ 과목 단어</span>
+        <div class="chips"><span class="chip">🎨 art 미술</span><span class="chip pk">🎵 music 음악</span><span class="chip s">💻 computer 컴퓨터</span><span class="chip ye">⚽ P.E. 체육</span><span class="chip gn">🔬 science 과학</span><span class="chip">➕ math 수학</span><span class="chip pk">🔤 English 영어</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 대화문 ══ -->
+<div id="dlgs" class="panel">
+  <div class="sec">
+    <div class="sec-title">Fun Talk 1 (교과서 68p) — 요일 확인하기</div>
+    <div class="dlg">
+      <div class="dlg-title">아침 · 집과 학교에서</div>
+      <div class="line"><span class="spkr">Hoa</span><div class="said"><span class="key">What day is it today</span>, Mom? <small>엄마, 오늘 무슨 요일이에요?</small></div></div>
+      <div class="line"><span class="spkr">엄마</span><div class="said"><span class="ans">It's Friday.</span> <small>금요일이야.</small></div></div>
+      <div class="line"><span class="spkr">Hoa</span><div class="said"><span class="key">What day is it today?</span> <small>오늘이 무슨 요일이야?</small></div></div>
+      <div class="line"><span class="spkr">준오</span><div class="said"><span class="ans">It's Wednesday.</span> <small>수요일이야.</small></div></div>
+      <div class="line"><span class="spkr">Hoa</span><div class="said">Great. Wednesday, Thursday, and Friday! <small>좋아. 수요일, 목요일, 금요일!</small></div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Fun Talk 2 (교과서 70p) — 약속 잡기</div>
+    <div class="dlg alt">
+      <div class="dlg-title">방과 후 운동장</div>
+      <div class="line"><span class="spkr">Sam</span><div class="said">Let's play soccer. <small>축구 하자.</small></div></div>
+      <div class="line"><span class="spkr">Eric</span><div class="said">Oh, <span class="key">I have a cooking class.</span> <small>아, 나 요리 수업이 있어.</small></div></div>
+      <div class="line"><span class="spkr">Kate</span><div class="said">Wait. <span class="key">What day is it today?</span> <small>잠깐. 오늘 무슨 요일이야?</small></div></div>
+      <div class="line"><span class="spkr">보라</span><div class="said"><span class="ans">It's Wednesday.</span> <small>수요일이야.</small></div></div>
+      <div class="line"><span class="spkr">Sam</span><div class="said">That's okay. <small>괜찮아.</small></div></div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Talk Like This (교과서 70p)</div>
+    <div class="grid2">
+    <div class="dlg" style="margin-bottom:0">
+      <div class="dlg-title">영상 1</div>
+      <div class="line"><span class="spkr">민우</span><div class="said">Let's play basketball. <small>농구 하자.</small></div></div>
+      <div class="line"><span class="spkr">하나</span><div class="said"><span class="key">What day is it today?</span> <small>오늘 무슨 요일이야?</small></div></div>
+      <div class="line"><span class="spkr">민우</span><div class="said"><span class="ans">It's Saturday.</span> <small>토요일이야.</small></div></div>
+      <div class="line"><span class="spkr">하나</span><div class="said">Oh, no! <small>아, 이런!</small></div></div>
+    </div>
+    <div class="dlg" style="margin-bottom:0">
+      <div class="dlg-title">영상 2</div>
+      <div class="line"><span class="spkr">Cora</span><div class="said"><span class="key">What day is it today?</span> <small>오늘 무슨 요일이야?</small></div></div>
+      <div class="line"><span class="spkr">Paul</span><div class="said"><span class="ans">It's Monday.</span> <small>월요일이야.</small></div></div>
+      <div class="line"><span class="spkr">Cora</span><div class="said">Oh, <span class="key">I have a violin class.</span> <small>아, 나 바이올린 수업이 있어.</small></div></div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 찬트·노래 ══ -->
+<div id="chant" class="panel">
+  <div class="sec">
+    <div class="sec-title">Chant and Do (교과서 68p)</div>
+    <div class="grid2">
+      <div class="chant-box">
+        <span class="hl">Monday, Tuesday, Wednesday,</span><br>
+        Thursday, Friday, Saturday, Sunday.<br>
+        <span class="hl">What day is it today?</span><br>
+        It's Monday. It's Tuesday.<br>
+        <span class="ans">It's Wednesday!</span> It's Thursday. It's Friday.
+      </div>
+      <div class="chant-box">
+        <span class="hl">What day is it today?</span><br>
+        Thursday, Friday, Saturday, Sunday.<br>
+        <span class="hl">What day is it today?</span><br>
+        <span class="ans">It's Saturday. It's Sunday!</span>
+      </div>
+    </div>
+    <div class="tip">💡 <strong>찬트 활동법</strong>: 요일 이름을 손가락으로 하나씩 세면서 따라 해요! Wednesday에서 목소리를 높여 보세요.</div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Song (교과서 71p)</div>
+    <div class="chant-box song">
+      <span class="hl">Monday, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday.</span><br>
+      What day is it today? What day is it today?<br>
+      <span class="hl">It's Wednesday. It's Thursday.</span><br>
+      I have a cooking class. I have a robot class.
+    </div>
+  </div>
+</div>
+
+<!-- ══ 파닉스 ══ -->
+<div id="phonics" class="panel">
+  <div class="sec">
+    <div class="sec-title">Phonics — -day 패턴 & 묵음</div>
+    <div class="card" style="text-align:center;padding:1.8rem;">
+      <div class="ph-big">-day</div>
+      <div class="ph-sub">요일 단어는 모두 -day로 끝나요! /deɪ/ "데이" 소리예요.</div>
+      <div class="ph-pills"><div class="ph-pill" onclick="speak('Monday')">Mon<span>day</span></div><div class="ph-pill" onclick="speak('Wednesday')">Wednes<span>day</span></div><div class="ph-pill" onclick="speak('Friday')">Fri<span>day</span></div><div class="ph-pill" onclick="speak('Saturday')">Satur<span>day</span></div><div class="ph-pill" onclick="speak('Sunday')">Sun<span>day</span></div></div>
+      <div class="ph-note">💡 <strong>Wednesday</strong>의 첫 번째 d는 소리 나지 않아요(묵음)! "웬즈데이"로 읽어요.<br>✅ Wednesday → "웬즈데이" &nbsp;&nbsp; ❌ "웨드네스데이"</div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">확인 문제 — -day로 끝나는 단어를 모두 골라보세요</div>
+    <div class="card">
+      <div class="ph-pick-wrap" id="ph-picks"></div>
+      <div id="ph-res" style="margin-top:.75rem;font-size:.83rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;"></div>
+      <button class="btn-reset" style="margin-top:.75rem" onclick="resetPh()">&#8634; 다시</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문법 ══ -->
+<div id="grammar" class="panel">
+  <div class="sec">
+    <div class="sec-title">Grammar — 요일 묻고 답하기</div>
+    <div class="gram-box">
+      <div class="gram-title">What day is it today? → It's + 요일.</div>
+      <div class="gram-big">What day is it today? → <span>It's</span> Wednesday.</div>
+      <div class="gram-rule">요일을 물을 때는 <strong>What day is it today?</strong>라고 해요.<br>대답은 <strong>It's(= It is) + 요일.</strong>로 해요. 이때 it은 "그것"이라는 뜻이 아니라 날짜·요일을 말할 때 쓰는 말이에요.<br><span class="o">✅ It's Monday.</span> &nbsp; <span class="x">❌ It's monday. (요일은 대문자로!)</span></div>
+      <div class="gram-ex-wrap">
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">It's Monday.</span><span class="gram-ko">월요일이야.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">It's Wednesday.</span><span class="gram-ko">수요일이야.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-no">❌</span><span class="gram-ex no">It's monday.</span><span class="gram-ko">요일 첫 글자는 대문자!</span></div>
+      </div>
+    </div>
+    <div class="gram-box">
+      <div class="gram-title">I have + (a) 과목 + class.</div>
+      <div class="gram-big">I <span>have</span> a music class.</div>
+      <div class="gram-rule">"~ 수업이 있어"라고 말할 때는 <strong>I have a ___ class.</strong>를 써요.<br>P.E.처럼 과목 이름만 말할 때는 <strong>I have P.E. today.</strong>처럼 쓸 수 있어요.</div>
+      <div class="gram-ex-wrap">
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">I have a computer class.</span><span class="gram-ko">컴퓨터 수업이 있어.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">I have a cooking class.</span><span class="gram-ko">요리 수업이 있어.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex">I have P.E. today.</span><span class="gram-ko">오늘 체육 수업이 있어.</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">연습 — 알맞은 표현 고르기</div>
+    <div id="gram-q-area"></div>
+  </div>
+</div>
+
+<!-- ══ 스토리 ══ -->
+<div id="story" class="panel">
+  <div class="sec">
+    <div class="sec-title">Listen to the Story (교과서 74p) — 왕자와 거지</div>
+    <div class="sec-desc">빈칸을 탭하면 정답이 나타나요!</div>
+    <div class="story-scene">
+      <div class="scene-num">#1 · 궁전의 아침</div>
+      <div class="story-line">
+        (왕자가 된) 거지: <span class="blank" onclick="reveal(this,'What')">____</span> day is it <span class="blank" onclick="reveal(this,'today')">_____</span>?<br>
+        신하: It's <span class="blank" onclick="reveal(this,'Friday')">______</span>.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#2 · 바쁜 하루</div>
+      <div class="story-line">
+        (왕자가 된) 거지: Oh, I have a <span class="blank" onclick="reveal(this,'violin')">______</span> class.<br>
+        I have a <span class="blank" onclick="reveal(this,'dance')">_____</span> class. Oh, no. I'm tired.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#3 · 궁전 밖에서</div>
+      <div class="story-line">
+        (거지가 된) 왕자: I want some <span class="blank" onclick="reveal(this,'chicken')">_______</span>.<br>
+        I want some <span class="blank" onclick="reveal(this,'milk')">____</span>.<br>
+        식당 주인: Don't sit here.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#4 · 다시 제자리로</div>
+      <div class="story-line">
+        거지, 왕자: It's <span class="blank" onclick="reveal(this,'Sunday')">______</span>!<br>
+        거지: Now, I'm happy.<br>
+        왕자: I'm happy, too.
+      </div>
+    </div>
+    <div class="story-btns">
+      <button class="btn-main" onclick="revealAll()">전체 정답 보기</button>
+      <button class="btn-sub" onclick="resetBlanks()">다시 도전</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문장 조합 ══ -->
+<div id="scramble" class="panel">
+  <div class="sec">
+    <div class="sec-title">문장 조합 퀴즈 — 단어를 순서대로 배열하세요!</div>
+    <div class="sec-desc">단어 칩을 눌러 순서대로 배열하고 ✓ 확인 버튼을 눌러요. 놓은 칩을 다시 누르면 빠져요.</div>
+    <div id="scramble-area"></div>
+  </div>
+</div>
+
+<!-- ══ 퀴즈 ══ -->
+<div id="quiz" class="panel">
+  <div class="quiz-bar-wrap"><div class="quiz-bar" id="qbar" style="width:0%"></div></div>
+  <div id="quiz-area"></div>
+</div>
+
+</main>
+<footer>Lesson 7 · It's Wednesday · 4학년 영어 포트폴리오 복습 자료</footer>
+
+<script>
+var words=[{"en":"art","ko":"미술","ico":"🎨"},
+  {"en":"class","ko":"수업","ico":"📚"},
+  {"en":"computer","ko":"컴퓨터","ico":"💻"},
+  {"en":"day","ko":"날, 하루","ico":"📅"},
+  {"en":"have","ko":"(수업이) 있다, 갖다","ico":"🙋"},
+  {"en":"music","ko":"음악","ico":"🎵"},
+  {"en":"P.E.","ko":"체육","ico":"⚽"},
+  {"en":"science","ko":"과학","ico":"🔬"},
+  {"en":"today","ko":"오늘","ico":"📆"},
+  {"en":"Wednesday","ko":"수요일","ico":"💧"},
+  {"en":"math","ko":"수학","ico":"➕"},
+  {"en":"English","ko":"영어","ico":"🔤"}];
+var themeDat=[{"ico":"🌙","en":"Monday","phrase":"It's Monday.","ko":"월요일"},
+  {"ico":"🔥","en":"Tuesday","phrase":"It's Tuesday.","ko":"화요일"},
+  {"ico":"💧","en":"Wednesday","phrase":"It's Wednesday.","ko":"수요일"},
+  {"ico":"🌳","en":"Thursday","phrase":"It's Thursday.","ko":"목요일"},
+  {"ico":"🪙","en":"Friday","phrase":"It's Friday.","ko":"금요일"},
+  {"ico":"🌍","en":"Saturday","phrase":"It's Saturday.","ko":"토요일"},
+  {"ico":"☀️","en":"Sunday","phrase":"It's Sunday.","ko":"일요일"}];
+var phWords=[{"w":"Monday","t":true},
+  {"w":"class","t":false},
+  {"w":"Friday","t":true},
+  {"w":"music","t":false},
+  {"w":"Sunday","t":true},
+  {"w":"have","t":false},
+  {"w":"Saturday","t":true},
+  {"w":"today","t":true}];
+var scrambles=[{"words":["What","day","is","it","today","?"],"answer":"What day is it today?","hint":"오늘은 무슨 요일이야?"},
+  {"words":["It's","Wednesday","."],"answer":"It's Wednesday.","hint":"수요일이야."},
+  {"words":["I","have","a","computer","class","."],"answer":"I have a computer class.","hint":"나는 컴퓨터 수업이 있어."},
+  {"words":["I","have","P.E.","today","."],"answer":"I have P.E. today.","hint":"나는 오늘 체육 수업이 있어."},
+  {"words":["I","have","a","cooking","class","."],"answer":"I have a cooking class.","hint":"나는 요리 수업이 있어."}];
+var gramQs=[{"q":"오늘이 무슨 요일인지 묻는 표현은?","opts":["What day is it today?","What time is it?","How much is it?"],"ans":0,"fb":"\"What day is it today?\"로 요일을 물어봐요!"},
+  {"q":"요일을 바르게 쓴 것은?","opts":["It's monday.","It's Monday.","It's MONday."],"ans":1,"fb":"요일은 항상 대문자로 시작해요!"},
+  {"q":"\"나는 음악 수업이 있어.\"","opts":["I have a music class.","I am a music class.","I has a music class."],"ans":0,"fb":"I have a ___ class. = ~ 수업이 있어."},
+  {"q":"수요일 다음 요일은?","opts":["Tuesday","Thursday","Friday"],"ans":1,"fb":"Wednesday → Thursday(목요일)!"}];
+var quizzes=[{"q":"오늘이 무슨 요일인지 묻는 표현은?","opts":["What day is it today?","What time is it?","How much is it?","What's your name?"],"ans":0,"fb":"\"What day is it today?\"로 요일을 물어봐요!"},
+  {"q":"\"It's Wednesday.\"의 뜻은?","opts":["화요일이야.","목요일이야.","수요일이야.","금요일이야."],"ans":2,"fb":"Wednesday = 수요일!"},
+  {"q":"학교 수업 과목이 아닌 것은?","opts":["art","music","science","Tuesday"],"ans":3,"fb":"Tuesday는 화요일이에요. art(미술), music(음악), science(과학)는 과목이에요!"},
+  {"q":"\"I have a computer class.\"에서 have의 뜻은?","opts":["먹다","(수업이) 있다","주다","하다"],"ans":1,"fb":"have a class = 수업이 있다!"},
+  {"q":"\"나는 오늘 체육 수업이 있어.\"를 영어로?","opts":["I have P.E. today.","I have art today.","I have science today.","I have music today."],"ans":0,"fb":"P.E. = 체육!"},
+  {"q":"요일 순서에서 Wednesday 다음은?","opts":["Monday","Tuesday","Thursday","Friday"],"ans":2,"fb":"Mon → Tue → Wed → Thu → Fri → Sat → Sun"},
+  {"q":"\"What day is it today?\"에 알맞은 대답은?","opts":["It's Wednesday.","It's ten o'clock.","It's seven hundred won.","It's my bag."],"ans":0,"fb":"요일은 \"It's + 요일.\"로 대답해요!"},
+  {"q":"Fun Talk 2에서 Eric이 축구를 못 한 이유는?","opts":["음악 수업","미술 수업","요리 수업","과학 수업"],"ans":2,"fb":"Eric: Oh, I have a cooking class. 요리 수업이 있었어요!"},
+  {"q":"Talk Like This 영상 2에서 Cora가 가진 수업은?","opts":["violin class","dance class","robot class","cooking class"],"ans":0,"fb":"Cora: Oh, I have a violin class."},
+  {"q":"Wednesday를 읽을 때 소리 나지 않는 글자는?","opts":["첫 번째 d","W","s","y"],"ans":0,"fb":"Wednesday는 \"웬즈데이\" — 첫 번째 d는 묵음이에요!"}];
+
+function adjustMainPadding(){
+  var n=document.querySelector('.nav-wrap'),m=document.querySelector('main');
+  if(n&&m) m.style.paddingTop=(n.offsetHeight+16)+'px';
+}
+window.addEventListener('load', adjustMainPadding);
+window.addEventListener('resize', adjustMainPadding);
+
+/* ── 발음 (TTS) ── */
+var _ttsV=[],_ttsR=false;
+function _ttsL(){
+  var vs=window.speechSynthesis?window.speechSynthesis.getVoices():[];
+  if(vs.length){_ttsV=vs;_ttsR=true;}
+}
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=function(){_ttsL();};
+  _ttsL();
+}
+function _ttsP(){
+  return _ttsV.find(function(v){return v.lang==='en-US'&&v.localService;})
+      || _ttsV.find(function(v){return v.lang==='en-US';})
+      || _ttsV.find(function(v){return v.lang==='en-GB';})
+      || _ttsV.find(function(v){return v.lang.startsWith('en');})
+      || null;
+}
+function speak(text,rate){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  function _d(){
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US'; u.rate=rate||0.85; u.pitch=1;
+    var v=_ttsP(); if(v) u.voice=v;
+    u.onstart=function(){ window.speechSynthesis.resume(); };
+    window.speechSynthesis.speak(u);
+  }
+  if(!_ttsR){ _ttsL(); }
+  if(!_ttsR){ setTimeout(function(){ _ttsL(); _d(); }, 400); return; }
+  _d();
+}
+function popSpk(btn,word){
+  speak(word);
+  btn.classList.add('pop');
+  setTimeout(function(){ btn.classList.remove('pop'); }, 600);
+}
+
+/* ── 탭 이동 ── */
+function go(id,btn){
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='quiz') initQuiz();
+  if(id==='scramble') initScramble();
+  if(id==='grammar') initGramQ();
+}
+
+function shuffleIdx(n){
+  var a=[]; for(var i=0;i<n;i++) a.push(i);
+  for(var k=a.length-1;k>0;k--){ var j=Math.floor(Math.random()*(k+1)); var t=a[k]; a[k]=a[j]; a[j]=t; }
+  return a;
+}
+
+/* ── 단어 카드 ── */
+var vc=document.getElementById('vcards');
+if(vc){ words.forEach(function(w,i){
+  var d=document.createElement('div'); d.className='vcard';
+  d.innerHTML='<button class="spk-btn" title="발음 듣기">🔊</button>'
+    +'<span class="num">'+(i+1)+'</span>'
+    +'<div class="vico">'+w.ico+'</div>'
+    +'<div class="ven">'+w.en+'</div>'
+    +'<div class="vko">'+w.ko+'</div>'
+    +'<div class="vhint">탭 → 뜻 확인</div>';
+  d.querySelector('.spk-btn').onclick=function(e){ e.stopPropagation(); popSpk(this,w.en); };
+  d.onclick=function(){
+    d.classList.toggle('flipped');
+    d.querySelector('.vhint').style.display=d.classList.contains('flipped')?'none':'block';
+    speak(w.en);
+  };
+  vc.appendChild(d);
+}); }
+
+/* ── 주제 카드 ── */
+var tc=document.getElementById('themecards');
+if(tc){ themeDat.forEach(function(t){
+  var el=document.createElement('div'); el.className='th-card';
+  el.innerHTML='<div class="th-ico">'+t.ico+'</div><div class="th-en">'+t.en+'</div>'
+    +'<div class="th-phrase">'+t.phrase+'</div><div class="th-ko">'+t.ko+'</div>';
+  el.onclick=function(){ speak(t.say||t.phrase); };
+  tc.appendChild(el);
+}); }
+
+/* ── 파닉스 ── */
+var pp=document.getElementById('ph-picks');
+if(pp){ phWords.forEach(function(pw){
+  var b=document.createElement('button');
+  b.className='ph-pick'; b.textContent=pw.w;
+  b.onclick=function(){
+    speak(pw.w);
+    if(b.classList.contains('ok')||b.classList.contains('ng')) return;
+    b.classList.add(pw.t?'ok':'ng');
+    var got=document.querySelectorAll('#ph-picks .ph-pick.ok').length;
+    var bad=document.querySelectorAll('#ph-picks .ph-pick.ng').length;
+    document.getElementById('ph-res').textContent='✓ '+got+'개 맞춤 · ✗ '+bad+'개 틀림 (정답: '+phWords.filter(function(x){return x.t;}).map(function(x){return x.w;}).join(', ')+')';
+  };
+  pp.appendChild(b);
+}); }
+function resetPh(){
+  document.querySelectorAll('#ph-picks .ph-pick').forEach(function(b){ b.classList.remove('ok','ng'); });
+  document.getElementById('ph-res').textContent='';
+}
+
+/* ── 스토리 빈칸 ── */
+function reveal(el,ans){ el.textContent=ans; el.classList.add('revealed'); }
+function _blankAns(b){
+  var oc=b.getAttribute('onclick');
+  var m=oc.match(/reveal\(this,'([^']+)'\)/)||oc.match(/reveal\(this,`([^`]+)`\)/);
+  return m?m[1]:null;
+}
+function revealAll(){
+  document.querySelectorAll('.blank:not(.revealed)').forEach(function(b){
+    var a=_blankAns(b); if(a){ b.textContent=a; b.classList.add('revealed'); }
+  });
+}
+function resetBlanks(){
+  document.querySelectorAll('.blank').forEach(function(b){
+    var a=_blankAns(b); if(a){ b.textContent='_'.repeat(Math.max(a.length,3)); b.classList.remove('revealed'); }
+  });
+}
+
+/* ── 문장 조합 ── */
+function initScramble(){
+  var area=document.getElementById('scramble-area');
+  if(!area) return;
+  area.innerHTML='';
+  scrambles.forEach(function(s,i){
+    var sh=s.words.slice();
+    var orig=s.words.join('\t');
+    var attempt=0;
+    do {
+      for(var k=sh.length-1;k>0;k--){
+        var j=Math.floor(Math.random()*(k+1));
+        var tmp=sh[k]; sh[k]=sh[j]; sh[j]=tmp;
+      }
+      attempt++;
+    } while(sh.join('\t')===orig && attempt<20 && s.words.length>1);
+    var div=document.createElement('div');
+    div.className='scramble-box';
+    div.innerHTML=
+      '<div style="font-size:.8rem;color:var(--sub);margin-bottom:.55rem">'+(i+1)+' &middot; '+s.hint+'</div>'+
+      '<div class="scramble-words" id="chips-'+i+'"></div>'+
+      '<div class="answer-area" id="ans-'+i+'"></div>'+
+      '<div class="scr-btns">'+
+      '<button class="btn-check" onclick="checkScr('+i+')">&#10003; 확인</button>'+
+      '<button class="btn-reset" onclick="resetScr('+i+')">&#8634; 다시</button>'+
+      '</div>'+
+      '<div id="fb-'+i+'" class="scr-fb" style="display:none"></div>';
+    area.appendChild(div);
+    var box=div.querySelector('#chips-'+i);
+    sh.forEach(function(w){
+      var b=document.createElement('button');
+      b.className='word-chip'; b.textContent=w; b.dataset.w=w;
+      b.onclick=function(){ placeWord(i,b); };
+      box.appendChild(b);
+    });
+  });
+}
+function placeWord(qi,btn){
+  if(btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  var pc=document.createElement('button');
+  pc.className='placed-chip';
+  pc.textContent=btn.dataset.w;
+  pc.onclick=function(){ btn.classList.remove('used'); pc.remove(); document.getElementById('fb-'+qi).style.display='none'; };
+  document.getElementById('ans-'+qi).appendChild(pc);
+}
+function checkScr(qi){
+  var chips=[].slice.call(document.querySelectorAll('#ans-'+qi+' .placed-chip'));
+  var placed=chips.map(function(c){return c.textContent;}).join(' ');
+  var fb=document.getElementById('fb-'+qi); fb.style.display='block';
+  var norm=function(s){ return s.toLowerCase().replace(/[^a-z0-9'\uAC00-\uD7A3]/g,' ').replace(/\s+/g,' ').trim(); };
+  if(norm(placed)===norm(scrambles[qi].answer)){
+    fb.className='scr-fb fb-ok'; fb.textContent='🎉 정답! "'+scrambles[qi].answer+'"';
+    speak(scrambles[qi].answer);
+  } else {
+    fb.className='scr-fb fb-ng'; fb.textContent='"'+placed+'" → 다시 조합해봐요!';
+  }
+}
+function resetScr(qi){
+  document.querySelectorAll('#chips-'+qi+' .word-chip').forEach(function(b){ b.classList.remove('used'); });
+  document.getElementById('ans-'+qi).innerHTML='';
+  document.getElementById('fb-'+qi).style.display='none';
+}
+
+/* ── 문법 연습 ── */
+var _gqI=0,_gqD=false,_gqOrd=[];
+function initGramQ(){ _gqI=0; _gqD=false; renderGQ(); }
+function renderGQ(){
+  var area=document.getElementById('gram-q-area');
+  if(!area) return;
+  if(_gqI>=gramQs.length){
+    area.innerHTML='<div class="card" style="text-align:center;padding:1.5rem">'+
+      '<div style="font-size:2rem;margin-bottom:.4rem">🎉</div>'+
+      '<div style="font-family:\'Baloo 2\',sans-serif;font-size:1.3rem;font-weight:800;color:var(--m-d)">문법 연습 완료!</div>'+
+      '<button class="btn-retry" onclick="initGramQ()" style="margin-top:.8rem">다시 풀기 🔄</button></div>';
+    return;
+  }
+  var q=gramQs[_gqI];
+  _gqOrd=shuffleIdx(q.opts.length);
+  var btns=_gqOrd.map(function(oi,pos){
+    return '<button class="gq-opt" onclick="pickGQ('+pos+')">'+q.opts[oi]+'</button>';
+  }).join('');
+  area.innerHTML='<div class="card">'+
+    '<div class="quiz-num">'+(_gqI+1)+' / '+gramQs.length+'</div>'+
+    '<div class="quiz-q">'+q.q+'</div>'+
+    '<div class="gq-opts">'+btns+'</div>'+
+    '<div id="gq-fb" class="qfb"></div></div>';
+  _gqD=false;
+}
+function pickGQ(pos){
+  if(_gqD) return; _gqD=true;
+  var q=gramQs[_gqI], chosen=_gqOrd[pos];
+  document.querySelectorAll('#gram-q-area .gq-opt').forEach(function(b,j){
+    b.disabled=true;
+    if(_gqOrd[j]===q.ans) b.classList.add('ok');
+    else if(j===pos) b.classList.add('ng');
+  });
+  var fb=document.getElementById('gq-fb');
+  if(chosen===q.ans){ fb.className='qfb fb-ok show'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.className='qfb fb-ng show'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  setTimeout(function(){ _gqI++; renderGQ(); }, 1900);
+}
+
+/* ── 퀴즈 ── */
+var _qC=0,_qS=0,_qA=false,_qOrd=[];
+function initQuiz(){ _qC=0; _qS=0; _qA=false; renderQ(); }
+function renderQ(){
+  var a=document.getElementById('quiz-area'), b=document.getElementById('qbar');
+  if(!a||!b) return;
+  b.style.width=(_qC/quizzes.length*100)+'%';
+  if(_qC>=quizzes.length){
+    var p=Math.round(_qS/quizzes.length*100);
+    var e=p>=80?'🎉':p>=50?'😊':'💪';
+    var msg=p>=80?'완벽해요! 훌륭합니다!':p>=50?'잘했어요! 조금만 더 연습해요.':'틀린 표현을 다시 복습해봐요!';
+    a.innerHTML='<div class="result"><div class="res-emoji">'+e+'</div>'+
+      '<div class="res-score">'+_qS+' / '+quizzes.length+'</div>'+
+      '<div class="res-msg">'+msg+'</div>'+
+      '<button class="btn-retry" onclick="initQuiz()">다시 도전하기 🔄</button></div>';
+    b.style.width='100%'; return;
+  }
+  var q=quizzes[_qC];
+  _qOrd=shuffleIdx(q.opts.length);
+  var qtext=q.q.split('\n').join('<br>');
+  var opts=_qOrd.map(function(oi,pos){ return '<button class="opt" onclick="pick('+pos+')">'+q.opts[oi]+'</button>'; }).join('');
+  a.innerHTML='<div class="quiz-num">'+(_qC+1)+' / '+quizzes.length+' 문제</div>'+
+    '<div class="quiz-q">'+qtext+'</div>'+
+    '<div class="opts">'+opts+'</div>'+
+    '<div class="qfb" id="qfb"></div>'+
+    '<div class="qnav"><div class="qscore">현재 점수 '+_qS+'점</div>'+
+    '<button class="btn-nxt" id="qnxt" onclick="nextQ()">다음 →</button></div>';
+  _qA=false;
+}
+function pick(pos){
+  if(_qA) return; _qA=true;
+  var q=quizzes[_qC], chosen=_qOrd[pos];
+  document.querySelectorAll('#quiz-area .opt').forEach(function(o,j){
+    o.disabled=true;
+    if(_qOrd[j]===q.ans) o.classList.add('ok');
+    else if(j===pos) o.classList.add('ng');
+  });
+  var fb=document.getElementById('qfb');
+  if(chosen===q.ans){ _qS++; fb.className='qfb fb-ok show'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.className='qfb fb-ng show'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  document.getElementById('qnxt').style.display='inline-block';
+}
+function nextQ(){ _qC++; _qA=false; renderQ(); }
+</script>
+</body>
+</html>

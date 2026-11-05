@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 6 · Where's My Cap? 포트폴리오 복습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bl:#1565C0; --bl-l:#E3F2FD; --bl-d:#0D47A1;
+  --cy:#00838F; --cy-l:#E0F7FA; --cy-d:#006064;
+  --pu:#6A1B9A; --pu-l:#F3E5F5; --pu-d:#4A148C;
+  --gn:#2E7D32; --gn-l:#E8F5E9; --gn-d:#1B5E20;
+  --ye:#F57F17; --ye-l:#FFF8E1; --ye-d:#6D4C00;
+  --rd:#C62828; --rd-l:#FFEBEE; --rd-d:#7F0000;
+  --bg:#F5F9FF; --white:#FFFFFF;
+  --text:#0A1A3A; --sub:#3A4A6A; --border:#BBDEFB;
+  --r:14px; --r-sm:8px;
+  --shadow:0 2px 12px rgba(21,101,192,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-padding-top:110px;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+.hero{background:linear-gradient(135deg,#0D47A1 0%,#1565C0 40%,#1976D2 70%,#00838F 100%);padding:3rem 1.5rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 14px;font-size:.75rem;font-weight:700;color:#fff;letter-spacing:.08em;margin-bottom:1rem;}
+.hero h1{font-family:'Baloo 2',sans-serif;font-size:clamp(2rem,7vw,3.4rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:.4rem;}
+.hero h1 span{color:#FFF176;}
+.hero p{font-size:.95rem;color:rgba(255,255,255,.82);}
+.hero-deco{position:absolute;font-size:5rem;opacity:.08;pointer-events:none;}
+.hero-deco.a{top:10%;left:5%;}
+.hero-deco.b{top:20%;right:8%;}
+.hero-deco.c{bottom:18%;left:14%;}
+
+.nav-wrap{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(21,101,192,.1);}
+.nav{display:grid;grid-template-columns:repeat(4,1fr);max-width:980px;margin:0 auto;}
+.ntab{padding:.75rem .3rem;border:none;background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:.78rem;font-weight:700;color:var(--sub);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:normal;word-break:keep-all;text-align:center;line-height:1.3;}
+.ntab.on{color:var(--bl);border-bottom-color:var(--bl);background:var(--bl-l);}
+.ntab:hover:not(.on){color:var(--text);background:var(--bg);}
+
+main{max-width:980px;margin:0 auto;padding:0 1rem 5rem;}
+.panel{display:none;animation:up .3s ease;}
+.panel.on{display:block;padding-top:1rem;}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+.sec{margin-bottom:2rem;}
+.sec-title{font-family:'Baloo 2',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--bl);margin-bottom:.9rem;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;box-shadow:var(--shadow);}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em;margin-bottom:.55rem;}
+.tag-bl{background:var(--bl-l);color:var(--bl-d);}
+.tag-cy{background:var(--cy-l);color:var(--cy-d);}
+.tag-pu{background:var(--pu-l);color:var(--pu-d);}
+.tag-gn{background:var(--gn-l);color:var(--gn-d);}
+.tag-ye{background:var(--ye-l);color:var(--ye-d);}
+.en{font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);}
+.ko{font-size:.82rem;color:var(--sub);margin-top:2px;}
+.arrow{color:var(--bl);font-size:.78rem;margin:.45rem 0;}
+
+/* WORD CARDS */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.7rem;}
+.vcard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.9rem .7rem;text-align:center;cursor:pointer;transition:all .22s;position:relative;box-shadow:var(--shadow);}
+.vcard:hover{border-color:var(--bl);transform:translateY(-2px);}
+.vcard.flipped{background:var(--bl-l);border-color:var(--bl);}
+.vcard .num{position:absolute;top:5px;left:8px;font-size:.65rem;font-weight:700;color:var(--bl);opacity:.6;}
+.vcard .ven{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.vcard .vko{font-size:.8rem;color:var(--sub);margin-top:3px;font-family:'Noto Sans KR',sans-serif;}
+.vcard.flipped .vko{color:var(--bl-d);font-weight:700;}
+.vcard .vhint{font-size:.6rem;color:var(--cy);margin-top:4px;}
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.4;transition:all .2s;padding:0;line-height:1;}
+.spk-btn:hover{opacity:1;}
+.spk-btn.pop{transform:scale(1.4);opacity:1;}
+
+/* LOCATION MAP — 핵심 인터랙티브 */
+.loc-wrap{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.4rem;box-shadow:var(--shadow);}
+.loc-scene{position:relative;background:linear-gradient(180deg,#E3F2FD 0%,#BBDEFB 100%);border-radius:var(--r-sm);height:220px;margin-bottom:1rem;overflow:hidden;}
+.loc-table{position:absolute;bottom:30px;left:50%;transform:translateX(-50%);width:160px;height:50px;background:#8D6E63;border-radius:6px;display:flex;align-items:center;justify-content:center;font-family:'Baloo 2',sans-serif;font-size:.75rem;font-weight:700;color:#fff;}
+.loc-table::before{content:'탁자 (table)';font-size:.7rem;}
+.loc-item{position:absolute;font-size:1.8rem;cursor:pointer;transition:all .3s;user-select:none;}
+.loc-item:hover{transform:scale(1.2);}
+.loc-label{position:absolute;background:rgba(255,255,255,.9);border:1px solid var(--bl);border-radius:20px;padding:2px 8px;font-family:'Baloo 2',sans-serif;font-size:.7rem;font-weight:700;color:var(--bl-d);display:none;white-space:nowrap;}
+.loc-item:hover .loc-label{display:block;}
+.prep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.75rem;margin-top:.5rem;}
+.prep-card{background:var(--bl-l);border:1.5px solid var(--bl);border-radius:var(--r-sm);padding:.85rem;text-align:center;cursor:pointer;transition:all .22s;}
+.prep-card:hover{background:var(--bl);transform:translateY(-2px);}
+.prep-card:hover .prep-en,.prep-card:hover .prep-ko{color:#fff;}
+.prep-en{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:800;color:var(--bl-d);margin-bottom:.2rem;}
+.prep-ko{font-size:.78rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.prep-ex{font-family:'Baloo 2',sans-serif;font-size:.75rem;color:var(--cy-d);margin-top:.3rem;}
+
+/* INTERACTIVE 위치 퀴즈 */
+.pos-quiz{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.3rem;box-shadow:var(--shadow);margin-bottom:1rem;}
+.pos-q{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;margin-bottom:.85rem;}
+.pos-opts{display:flex;gap:.5rem;flex-wrap:wrap;}
+.pos-opt{padding:.45rem 1rem;border:1.5px solid var(--border);border-radius:20px;background:var(--white);font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .18s;color:var(--text);}
+.pos-opt:hover{border-color:var(--bl);background:var(--bl-l);}
+.pos-opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.pos-opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.pos-fb{font-size:.82rem;margin-top:.5rem;font-family:'Noto Sans KR',sans-serif;display:none;padding:.4rem .75rem;border-radius:var(--r-sm);}
+
+/* DIALOGUE */
+.dlg{background:var(--bl-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.dlg-title{font-size:.7rem;font-weight:700;letter-spacing:.07em;color:var(--bl-d);margin-bottom:.75rem;text-transform:uppercase;}
+.line{display:flex;gap:.65rem;margin-bottom:.45rem;align-items:flex-start;}
+.line:last-child{margin-bottom:0;}
+.spkr{min-width:64px;font-size:.72rem;font-weight:700;color:var(--bl-d);padding-top:2px;font-family:'Noto Sans KR',sans-serif;}
+.said{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);}
+.said small{display:block;font-size:.76rem;font-weight:400;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.said .wh{color:var(--bl-d);font-weight:800;}
+.said .ans{color:var(--cy-d);font-weight:800;}
+
+/* CHANT */
+.chant-box{background:var(--cy-l);border-left:4px solid var(--cy);border-radius:0 var(--r) var(--r) 0;padding:1.1rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;line-height:2;color:var(--text);}
+.chant-box .hl{color:var(--bl-d);font-weight:800;}
+.chant-box .ans{color:var(--cy-d);font-weight:700;}
+
+/* GRAMMAR */
+.gram-box{background:var(--pu-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.gram-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--pu-d);margin-bottom:.8rem;text-transform:uppercase;}
+.gram-big{font-family:'Baloo 2',sans-serif;font-size:1.25rem;font-weight:800;color:var(--pu-d);margin-bottom:.6rem;}
+.gram-rule{font-size:.85rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;line-height:1.75;background:var(--white);border-radius:var(--r-sm);padding:.85rem 1rem;border:1px solid var(--border);}
+.gram-row{display:flex;align-items:center;gap:.7rem;margin-bottom:.4rem;flex-wrap:wrap;}
+.gram-badge{font-family:'Baloo 2',sans-serif;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+.gb-ok{background:var(--gn-l);color:var(--gn-d);}
+.gb-no{background:var(--rd-l);color:var(--rd-d);}
+.gram-ex{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;}
+
+/* STORY FILL */
+.story-scene{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scene-num{display:inline-block;background:var(--bl);color:#fff;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:.7rem;}
+.story-line{font-family:'Baloo 2',sans-serif;font-size:.95rem;color:var(--text);line-height:1.9;}
+.blank{display:inline-block;border-bottom:2px solid var(--bl);min-width:64px;text-align:center;color:var(--bl);font-weight:700;cursor:pointer;padding:0 4px;transition:background .2s;border-radius:3px 3px 0 0;}
+.blank:hover{background:var(--bl-l);}
+.blank.revealed{background:var(--bl-l);color:var(--bl-d);}
+
+/* SCRAMBLE */
+.scramble-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scramble-words{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.85rem;}
+.word-chip{background:var(--ye-l);border:1.5px solid var(--ye);border-radius:20px;padding:.35rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--ye-d);transition:all .2s;user-select:none;}
+.word-chip:hover{background:var(--ye);color:#fff;}
+.word-chip.used{opacity:.28;cursor:default;pointer-events:none;}
+.answer-area{min-height:44px;border:2px dashed var(--border);border-radius:var(--r-sm);padding:.5rem .75rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.75rem;background:var(--bg);}
+.placed-chip{background:var(--bl-l);border:1.5px solid var(--bl);border-radius:20px;padding:.3rem .85rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:var(--bl-d);}
+.placed-chip:hover{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.scr-btns{display:flex;gap:.5rem;}
+.btn-check{background:var(--bl);color:#fff;border:none;border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-reset{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.scr-fb{font-size:.82rem;margin-top:.5rem;font-family:'Noto Sans KR',sans-serif;padding:.45rem .75rem;border-radius:var(--r-sm);}
+.fb-ok{background:var(--gn-l);border-left:3px solid var(--gn);color:var(--gn-d);}
+.fb-ng{background:var(--rd-l);border-left:3px solid var(--rd);color:var(--rd-d);}
+
+/* QUIZ */
+.quiz-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-bottom:1.5rem;overflow:hidden;}
+.quiz-bar{height:100%;background:linear-gradient(90deg,var(--bl),var(--cy));border-radius:3px;transition:width .4s ease;}
+.quiz-num{font-size:.78rem;color:var(--sub);margin-bottom:.4rem;}
+.quiz-q{font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.1rem;}
+.opts{display:flex;flex-direction:column;gap:.55rem;}
+.opt{padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:all .18s;}
+.opt:hover:not(:disabled){border-color:var(--bl);background:var(--bl-l);}
+.opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.qfb{padding:.7rem 1rem;border-radius:var(--r-sm);font-size:.85rem;margin-top:.6rem;display:none;font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+.qfb.show{display:block;}
+.qfb.fb-ok{background:var(--gn-l);border-left:3px solid var(--gn);color:var(--gn-d);}
+.qfb.fb-ng{background:var(--rd-l);border-left:3px solid var(--rd);color:var(--rd-d);}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;}
+.qscore{font-size:.82rem;color:var(--sub);}
+.btn-nxt{background:var(--bl);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;display:none;}
+.result{text-align:center;padding:2.5rem 1rem;}
+.res-emoji{font-size:4rem;margin-bottom:.5rem;}
+.res-score{font-family:'Baloo 2',sans-serif;font-size:3rem;font-weight:800;color:var(--bl);}
+.res-msg{font-size:.95rem;color:var(--sub);margin:.4rem 0 1.2rem;}
+.btn-retry{background:var(--bl-l);color:var(--bl-d);border:1.5px solid var(--bl);border-radius:var(--r-sm);padding:.65rem 1.5rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+
+footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
+@media(max-width:640px){.nav{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:520px){
+  .grid2{grid-template-columns:1fr;}
+  .vgrid{grid-template-columns:repeat(3,1fr);}
+  .prep-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* 발음 버튼 향상 */
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.9rem;cursor:pointer;opacity:.45;transition:all .2s;padding:2px;line-height:1;border-radius:50%;}
+.spk-btn:hover{opacity:1;background:rgba(0,0,0,.07);}
+.spk-btn.pop{transform:scale(1.5);opacity:1;}
+.tts-bar{display:flex;align-items:center;gap:.5rem;background:var(--bl-l,#E3F2FD);border-radius:var(--r-sm,8px);padding:.55rem .85rem;margin-bottom:.85rem;font-size:.8rem;color:var(--bl-d,#0D47A1);font-family:'Noto Sans KR',sans-serif;}
+.tts-dot{width:8px;height:8px;border-radius:50%;background:var(--gn,#2E7D32);animation:blink 1.2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.vcard .vico{font-size:1.8rem;margin:4px 0 2px;line-height:1;display:block;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-deco a">🧢</span>
+  <span class="hero-deco b">📦</span>
+  <span class="hero-deco c">🔍</span>
+  <div class="hero-badge">📋 Portfolio · 4학년 영어</div>
+  <h1>Lesson 6<br><span>Where's My Cap?</span></h1>
+  <p>위치 전치사 · 물건 찾기 · 대화 · 문법 · 퀴즈</p>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="ntab on" onclick="go('words',this)">📖<br>단어</button>
+    <button class="ntab" onclick="go('expr',this)">💬<br>핵심표현</button>
+    <button class="ntab" onclick="go('dlgs',this)">🗣️<br>대화문</button>
+    <button class="ntab" onclick="go('chant',this)">🎵<br>찬트·노래</button>
+    <button class="ntab" onclick="go('grammar',this)">📐<br>문법</button>
+    <button class="ntab" onclick="go('story',this)">🐦<br>스토리</button>
+    <button class="ntab" onclick="go('scramble',this)">🔀<br>문장조합</button>
+    <button class="ntab" onclick="go('quiz',this)">✏️<br>퀴즈</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══ 단어 ══ -->
+<div id="words" class="panel on">
+  <div class="sec">
+    <div class="sec-title">New Words — 신출 어휘 10개</div>
+    <div class="tts-bar"><span class="tts-dot"></span>🔊 단어 카드를 탭하거나 🔊 버튼을 눌러 영어 발음을 들어보세요 (Chrome · Edge · Whale 지원)</div>
+    <div class="vgrid" id="vcards"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">위치 전치사 — in / on / under + Furthermore</div>
+    <div class="prep-grid">
+      <div class="prep-card" onclick="speak('in the box')">
+        <div style="font-size:2rem;margin-bottom:.3rem;">📦</div>
+        <div class="prep-en">in</div>
+        <div class="prep-ko">~ 안에</div>
+        <div class="prep-ex">in the box</div>
+      </div>
+      <div class="prep-card" onclick="speak('on the table')">
+        <div style="font-size:2rem;margin-bottom:.3rem;">🪑</div>
+        <div class="prep-en">on</div>
+        <div class="prep-ko">~ 위에</div>
+        <div class="prep-ex">on the table</div>
+      </div>
+      <div class="prep-card" onclick="speak('under the chair')">
+        <div style="font-size:2rem;margin-bottom:.3rem;">⬇️</div>
+        <div class="prep-en">under</div>
+        <div class="prep-ko">~ 아래에</div>
+        <div class="prep-ex">under the chair</div>
+      </div>
+      <div class="prep-card" onclick="speak('between')">
+        <div style="font-size:2rem;margin-bottom:.3rem;">↔️</div>
+        <div class="prep-en">between</div>
+        <div class="prep-ko">~ 사이에</div>
+        <div class="prep-ex">between A and B</div>
+      </div>
+      <div class="prep-card" onclick="speak('in front of')">
+        <div style="font-size:2rem;margin-bottom:.3rem;">⬆️</div>
+        <div class="prep-en">in front of</div>
+        <div class="prep-ko">~ 앞에</div>
+        <div class="prep-ex">in front of the desk</div>
+      </div>
+      <div class="prep-card" onclick="speak('behind')">
+        <div style="font-size:2rem;margin-bottom:.3rem;">🔙</div>
+        <div class="prep-en">behind</div>
+        <div class="prep-ko">~ 뒤에</div>
+        <div class="prep-ex">behind the chair</div>
+      </div>
+      <div class="prep-card" onclick="speak('beside')">
+        <div style="font-size:2rem;margin-bottom:.3rem;">↩️</div>
+        <div class="prep-en">beside</div>
+        <div class="prep-ko">~ 옆에</div>
+        <div class="prep-ex">beside the bed</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 인터랙티브 위치 퀴즈 -->
+  <div class="sec">
+    <div class="sec-title">위치 감각 퀴즈 — 그림을 보고 전치사를 골라봐요!</div>
+    <div id="pos-quiz-area"></div>
+  </div>
+</div>
+
+<!-- ══ 핵심표현 ══ -->
+<div id="expr" class="panel">
+  <div class="sec">
+    <div class="sec-title">Key Expressions — 핵심 의사소통 표현</div>
+    <div class="grid2">
+      <div class="card">
+        <span class="tag tag-bl">① 위치 묻기</span>
+        <div class="en" style="color:var(--bl-d);">Where's my cap?</div>
+        <div class="ko">내 모자가 어디에 있지?</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="en" style="color:var(--cy-d);font-size:.95rem;">It's on the table.</div>
+        <div class="ko">그것은 탁자 위에 있어.</div>
+        <div style="margin-top:.65rem;display:flex;flex-direction:column;gap:.3rem;">
+          <div style="font-family:'Baloo 2',sans-serif;font-size:.85rem;"><span style="color:var(--cy-d);font-weight:700;">It's in the box.</span> <span style="font-size:.78rem;color:var(--sub);">상자 안에 있어.</span></div>
+          <div style="font-family:'Baloo 2',sans-serif;font-size:.85rem;"><span style="color:var(--cy-d);font-weight:700;">It's under the chair.</span> <span style="font-size:.78rem;color:var(--sub);">의자 아래에 있어.</span></div>
+          <div style="font-family:'Baloo 2',sans-serif;font-size:.85rem;"><span style="color:var(--cy-d);font-weight:700;">It's on the bed.</span> <span style="font-size:.78rem;color:var(--sub);">침대 위에 있어.</span></div>
+          <div style="font-family:'Baloo 2',sans-serif;font-size:.85rem;"><span style="color:var(--cy-d);font-weight:700;">It's on the desk.</span> <span style="font-size:.78rem;color:var(--sub);">책상 위에 있어.</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag tag-pu">② 모를 때</span>
+        <div class="en" style="color:var(--pu-d);">I don't know.</div>
+        <div class="ko">모르겠어.</div>
+        <div class="arrow">+ 사과할 때</div>
+        <div class="en" style="color:var(--pu-d);font-size:.92rem;">Sorry, I don't know.</div>
+        <div class="ko">미안, 모르겠어.</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-bl">③ Where's 구조</span>
+        <div style="font-family:'Baloo 2',sans-serif;font-size:1.1rem;font-weight:800;margin-bottom:.5rem;">
+          <span style="color:var(--bl-d);">Where's</span> = <span style="color:var(--cy-d);">Where is</span>
+        </div>
+        <div style="font-size:.82rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;line-height:1.7;">
+          <strong>Where is</strong>를 줄이면 <strong>Where's</strong>예요.<br>
+          하나인 물건을 찾을 때 → <span style="color:var(--bl-d);">Where is (= Where's)</span><br>
+          두 개 이상일 때 → <span style="color:var(--cy-d);">Where are</span>
+        </div>
+        <div style="margin-top:.6rem;display:flex;flex-direction:column;gap:.25rem;">
+          <div><span class="tag tag-gn" style="font-size:.65rem;">단수</span> <span style="font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;">Where's my cap?</span></div>
+          <div><span class="tag tag-cy" style="font-size:.65rem;">복수</span> <span style="font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;">Where are my shoes?</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag tag-ye">④ 주요 가구·물건</span>
+        <div style="display:flex;flex-wrap:wrap;gap:.35rem;margin-top:.2rem;">
+          <span style="background:var(--bl-l);border-radius:20px;padding:4px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;color:var(--bl-d);">🛏 bed 침대</span>
+          <span style="background:var(--bl-l);border-radius:20px;padding:4px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;color:var(--bl-d);">📦 box 상자</span>
+          <span style="background:var(--bl-l);border-radius:20px;padding:4px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;color:var(--bl-d);">🪑 chair 의자</span>
+          <span style="background:var(--bl-l);border-radius:20px;padding:4px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;color:var(--bl-d);">🖥 desk 책상</span>
+          <span style="background:var(--bl-l);border-radius:20px;padding:4px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;color:var(--bl-d);">🪴 table 탁자</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 대화문 ══ -->
+<div id="dlgs" class="panel">
+  <div class="sec">
+    <div class="sec-title">Fun Talk 1 (교과서 58p) — 버스 탑승 전</div>
+    <div class="dlg">
+      <div class="dlg-title">현장학습 출발 전</div>
+      <div class="line"><span class="spkr">Mr. Jones</span><div class="said">The bus is ready. Let's go. <small>버스 준비 됐어요. 가요.</small></div></div>
+      <div class="line"><span class="spkr">모두</span><div class="said">Yeah! <small>야호!</small></div></div>
+      <div class="line"><span class="spkr">Eric</span><div class="said"><span class="wh">Where's my bag?</span> <small>내 가방이 어디에 있지?</small></div></div>
+      <div class="line"><span class="spkr">보라</span><div class="said"><span class="ans">It's under the chair.</span> <small>의자 아래에 있어.</small></div></div>
+      <div class="line"><span class="spkr">준오</span><div class="said"><span class="wh">Where's my cap?</span> <small>내 모자가 어디에 있지?</small></div></div>
+      <div class="line"><span class="spkr">Momo</span><div class="said"><span class="ans">It's on the table.</span> Here. <small>탁자 위에 있어. 여기.</small></div></div>
+      <div class="line"><span class="spkr">준오</span><div class="said">Thank you, Momo. <small>고마워, 모모.</small></div></div>
+      <div class="line"><span class="spkr">Mr. Jones</span><div class="said">Sit down, everyone. <small>모두 앉으세요.</small></div></div>
+      <div class="line"><span class="spkr">모두</span><div class="said">Okay. <small>알겠어요.</small></div></div>
+      <div class="line"><span class="spkr">준오</span><div class="said"><span class="wh">Where's Momo?</span> <small>모모가 어디에 있지?</small></div></div>
+      <div class="line"><span class="spkr">모두</span><div class="said">Momo! <small>모모!</small></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Fun Talk 2 (교과서 60p) — 현장학습 중</div>
+    <div class="dlg" style="background:var(--cy-l);">
+      <div class="dlg-title" style="color:var(--cy-d);">만들기 활동</div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">Eric</span><div class="said"><span class="wh">Where's my pen?</span> <small>내 펜이 어디에 있지?</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">Sam</span><div class="said">I don't know. <small>모르겠어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">보라</span><div class="said"><span class="ans">It's on the desk.</span> <small>책상 위에 있어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">Eric</span><div class="said">K-O-R-E-A. I like it. <small>K-O-R-E-A. 마음에 들어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">보라</span><div class="said">I like it, too. <small>나도 마음에 들어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">Kate</span><div class="said">Tada! <small>짜잔!</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">준오</span><div class="said">Wow, it's nice. <small>와, 멋지다.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">Kate</span><div class="said"><span class="wh">Where's my tape?</span> <small>내 테이프가 어디에 있지?</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">Hoa</span><div class="said">Look! <span class="ans">It's under the chair.</span> <small>봐봐! 의자 아래에 있어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--cy-d);">Kate</span><div class="said">I love Korea! <small>나는 한국이 정말 좋아!</small></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Talk Like This (교과서 61p)</div>
+    <div class="grid2">
+      <div class="dlg" style="margin-bottom:0;">
+        <div class="dlg-title">영상 1</div>
+        <div class="line"><span class="spkr">Danny</span><div class="said"><span class="wh">Where's my soccer ball?</span> <small>내 축구공이 어디에 있지?</small></div></div>
+        <div class="line"><span class="spkr">Paul</span><div class="said"><span class="ans">It's in the box.</span> <small>상자 안에 있어.</small></div></div>
+        <div class="line"><span class="spkr">민우</span><div class="said">Paul, let's play soccer. <small>폴, 축구 하자.</small></div></div>
+        <div class="line"><span class="spkr">Paul</span><div class="said">Okay. <small>좋아.</small></div></div>
+      </div>
+      <div class="dlg" style="margin-bottom:0;">
+        <div class="dlg-title">영상 2</div>
+        <div class="line"><span class="spkr">하나</span><div class="said"><span class="wh">Where's my book?</span> <small>내 책이 어디에 있지?</small></div></div>
+        <div class="line"><span class="spkr">Alice</span><div class="said">I don't know. <small>모르겠어.</small></div></div>
+        <div class="line"><span class="spkr">민우</span><div class="said">Look! <span class="ans">It's on the bed.</span> <small>봐봐! 침대 위에 있어.</small></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 찬트·노래 ══ -->
+<div id="chant" class="panel">
+  <div class="sec">
+    <div class="sec-title">Chant and Do (교과서 58p)</div>
+    <div class="grid2">
+      <div class="chant-box">
+        Fan, fan, my fan, <span class="hl">where's my fan?</span><br>
+        In, in, <span class="ans">in the box</span>, it's in the box.<br><br>
+        Tape, tape, my tape, <span class="hl">where's my tape?</span><br>
+        On, on, <span class="ans">on the desk</span>, it's on the desk.<br><br>
+        Ball, ball, my ball, <span class="hl">where's my ball?</span><br>
+        Under, under, <span class="ans">under the chair</span>, it's under the chair.<br><br>
+        Bag, bag, my bag, <span class="hl">where's my bag?</span><br>
+        On, on, <span class="ans">on the bed</span>, it's on the bed.
+      </div>
+      <div class="chant-box">
+        Pen, pen, my pen, <span class="hl">where's my pen?</span><br>
+        In, in, <span class="ans">in the box</span>, it's in the box.<br><br>
+        Book, book, my book, <span class="hl">where's my book?</span><br>
+        Under, under, <span class="ans">under the desk</span>, it's under the desk.<br><br>
+        Cap, cap, my cap, <span class="hl">where's my cap?</span><br>
+        On, on, <span class="ans">on the table</span>, it's on the table.<br><br>
+        Doll, doll, my doll, <span class="hl">where's my doll?</span><br>
+        Under, under, <span class="ans">under the bed</span>, it's under the bed.
+      </div>
+    </div>
+    <div style="margin-top:.9rem;background:var(--bl-l);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;color:var(--bl-d);font-family:'Noto Sans KR',sans-serif;">
+      💡 <strong>찬트 패턴</strong>: 물건 이름 2번 반복 → <span style="font-weight:700;">Where's my ___?</span> → 위치로 대답!
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Song (교과서 61p) — Where's My Ball?</div>
+    <div class="chant-box" style="background:var(--pu-l);border-left-color:var(--pu);">
+      <span class="hl" style="color:var(--pu-d);">Where's my ball? Where's my ball?</span><br>
+      I don't know. Sorry, I don't know.<br>
+      <span class="hl" style="color:var(--pu-d);">Where's my ball? Where's my ball?</span><br>
+      <span class="ans" style="color:var(--cy-d);">It's in, in, it's in the box.</span><br><br>
+      <span class="hl" style="color:var(--pu-d);">Where's my fan? Where's my fan?</span><br>
+      I don't know. Sorry, I don't know.<br>
+      <span class="hl" style="color:var(--pu-d);">Where's my fan? Where's my fan?</span><br>
+      <span class="ans" style="color:var(--cy-d);">It's on, on, it's on the desk.</span>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문법 ══ -->
+<div id="grammar" class="panel">
+  <div class="sec">
+    <div class="sec-title">Grammar — 물건·장소 찾기 Where is ___?</div>
+    <div class="gram-box">
+      <div class="gram-title">위치 묻기 표현</div>
+      <div class="gram-big"><span style="color:var(--bl-d);">Where is</span> _______?</div>
+      <div class="gram-rule">
+        물건이나 장소를 물어볼 때 <strong>Where is (찾는 것)?</strong>을 씁니다.<br>
+        물어보는 것이 <strong>하나</strong>일 때 → <span style="color:var(--bl-d);font-weight:700;">is</span><br>
+        물어보는 것이 <strong>두 개 이상</strong>일 때 → <span style="color:var(--cy-d);font-weight:700;">are</span>
+      </div>
+      <div style="margin-top:1rem;display:flex;flex-direction:column;gap:.5rem;">
+        <div class="gram-row"><span class="gram-badge gb-ok">단수</span><span class="gram-ex" style="color:var(--bl-d);">Where is my cap? = Where's my cap?</span></div>
+        <div class="gram-row"><span class="gram-badge" style="background:var(--cy-l);color:var(--cy-d);">복수</span><span class="gram-ex" style="color:var(--cy-d);">Where are my shoes?</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">in</span><span class="gram-ex">It's <span style="color:var(--bl-d);">in</span> the box.</span><span style="font-size:.82rem;color:var(--sub);">안에</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">on</span><span class="gram-ex">It's <span style="color:var(--cy-d);">on</span> the table.</span><span style="font-size:.82rem;color:var(--sub);">위에</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">under</span><span class="gram-ex">It's <span style="color:var(--pu-d);">under</span> the chair.</span><span style="font-size:.82rem;color:var(--sub);">아래에</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">is / are 선택 퀴즈</div>
+    <div id="gram-q-area"></div>
+  </div>
+</div>
+
+<!-- ══ 스토리 ══ -->
+<div id="story" class="panel">
+  <div class="sec">
+    <div class="sec-title">Listen to the Story (교과서 64p) — 새 이야기</div>
+    <div style="font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;">빈칸을 탭하면 정답이 나타나요!</div>
+    <div class="story-scene">
+      <div class="scene-num">#1 · 저녁 인사</div>
+      <div class="story-line">
+        남자아이: Good evening. Please come in.<br>
+        할아버지: Do you like <span class="blank" onclick="reveal(this,'noodles')">_______</span>?<br>
+        아저씨: Yes, I do. Thank you.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#2 · 펜 찾기</div>
+      <div class="story-line">
+        아저씨: Do you have a pen?<br>
+        남자아이: Yes, I do. <span class="blank" onclick="reveal(this,`Where's`)">_______</span> my pen?<br>
+        할아버지: It's <span class="blank" onclick="reveal(this,'in')">__</span> the box.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#3 · 새 등장</div>
+      <div class="story-line">
+        남자아이: <span class="blank" onclick="reveal(this,`What's`)">______</span> this?<br>
+        아저씨: It's a bird. Touch this.<br>
+        남자아이: Wow!
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#4 · 새 찾기</div>
+      <div class="story-line">
+        여자아이: Where's the bird?<br>
+        할아버지: I <span class="blank" onclick="reveal(this,`don't`)">_____</span> <span class="blank" onclick="reveal(this,'know')">____</span>.<br>
+        여자아이: Oh, look! It's <span class="blank" onclick="reveal(this,'on')">__</span> the table.
+      </div>
+    </div>
+    <div style="margin-top:.75rem;display:flex;gap:.5rem;">
+      <button onclick="revealAll()" style="background:var(--bl);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;">전체 정답 보기</button>
+      <button onclick="resetBlanks()" style="background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;">다시 도전</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문장 조합 ══ -->
+<div id="scramble" class="panel">
+  <div class="sec">
+    <div class="sec-title">문장 조합 퀴즈 — 단어를 순서대로 배열하세요!</div>
+    <div style="font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;">단어 칩을 눌러 배열하고 ✓ 확인을 눌러요.</div>
+    <div id="scramble-area"></div>
+  </div>
+</div>
+
+<!-- ══ 퀴즈 ══ -->
+<div id="quiz" class="panel">
+  <div class="quiz-bar-wrap"><div class="quiz-bar" id="qbar" style="width:0%"></div></div>
+  <div id="quiz-area"></div>
+</div>
+
+</main>
+<footer>Lesson 6 · Where's My Cap? · 4학년 영어 포트폴리오 복습 자료</footer>
+
+<script>function adjustMainPadding(){
+  var n=document.querySelector('.nav-wrap'),m=document.querySelector('main');
+  if(n&&m) m.style.paddingTop=(n.offsetHeight+16)+'px';
+}
+window.addEventListener('load', adjustMainPadding);
+window.addEventListener('resize', adjustMainPadding);
+
+var _ttsV=[],_ttsR=false;
+function _ttsL(){
+  var vs=window.speechSynthesis?window.speechSynthesis.getVoices():[];
+  if(vs.length){_ttsV=vs;_ttsR=true;}
+}
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=function(){_ttsL();};
+  _ttsL();
+}
+function _ttsP(){
+  return _ttsV.find(function(v){return v.lang==='en-US'&&v.localService;})
+      || _ttsV.find(function(v){return v.lang==='en-US';})
+      || _ttsV.find(function(v){return v.lang==='en-GB';})
+      || _ttsV.find(function(v){return v.lang.startsWith('en');})
+      || null;
+}
+function speak(text,rate){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  function _d(){
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US'; u.rate=rate||0.85; u.pitch=1;
+    var v=_ttsP(); if(v) u.voice=v;
+    u.onstart=function(){ window.speechSynthesis.resume(); };
+    window.speechSynthesis.speak(u);
+  }
+  if(!_ttsR){ _ttsL(); }
+  if(!_ttsR){ setTimeout(function(){ _ttsL(); _d(); }, 400); return; }
+  _d();
+}
+function popSpk(btn,word){
+  speak(word);
+  btn.classList.add('pop');
+  setTimeout(function(){ btn.classList.remove('pop'); }, 600);
+}
+
+function go(id,btn){
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='quiz') initQuiz();
+  if(id==='scramble') initScramble();
+  if(id==='grammar' && typeof initGramQ !== 'undefined') initGramQ();
+  if(id==='words' && typeof initPosQuiz !== 'undefined') initPosQuiz();
+}
+
+function reveal(el,ans){ el.textContent=ans; el.classList.add('revealed'); }
+function revealAll(){
+  document.querySelectorAll('.blank:not(.revealed)').forEach(function(b){
+    var oc=b.getAttribute('onclick');
+    var m=oc.match(/reveal\(this,'([^']+)'\)/)||oc.match(/reveal\(this,`([^`]+)`\)/);
+    if(m){ b.textContent=m[1]; b.classList.add('revealed'); }
+  });
+}
+function resetBlanks(){
+  document.querySelectorAll('.blank').forEach(function(b){
+    var oc=b.getAttribute('onclick');
+    var m=oc.match(/reveal\(this,'([^']+)'\)/)||oc.match(/reveal\(this,`([^`]+)`\)/);
+    if(m){ b.textContent='_'.repeat(m[1].length); b.classList.remove('revealed'); }
+  });
+}
+
+function initScramble(){
+  var area=document.getElementById('scramble-area');
+  if(!area) return;
+  area.innerHTML='';
+  scrambles.forEach(function(s,i){
+    var sh=s.words.slice();
+    var orig=s.words.join('\t');
+    var attempt=0;
+    do {
+      for(var k=sh.length-1;k>0;k--){
+        var j=Math.floor(Math.random()*(k+1));
+        var tmp=sh[k]; sh[k]=sh[j]; sh[j]=tmp;
+      }
+      attempt++;
+    } while(sh.join('\t')===orig && attempt<20 && s.words.length>1);
+    var div=document.createElement('div');
+    div.className='scramble-box';
+    var chips='';
+    sh.forEach(function(w){
+      chips+='<button class="word-chip" onclick="placeWord('+i+',this)">'+w+'</button>';
+    });
+    div.innerHTML=
+      '<div style="font-size:.8rem;color:var(--sub,#666);margin-bottom:.55rem">'+(i+1)+' &middot; '+s.hint+'</div>'+
+      '<div class="scramble-words" id="chips-'+i+'">'+chips+'</div>'+
+      '<div class="answer-area" id="ans-'+i+'"></div>'+
+      '<div class="scr-btns">'+
+      '<button class="btn-check" onclick="checkScr('+i+')">&#10003; 확인</button>'+
+      '<button class="btn-reset" onclick="resetScr('+i+')">&#8634; 다시</button>'+
+      '</div>'+
+      '<div id="fb-'+i+'" class="scr-fb" style="display:none"></div>';
+    area.appendChild(div);
+    var chipEls=div.querySelectorAll('.word-chip');
+    chipEls.forEach(function(el,j){ el.dataset.w=sh[j]; });
+  });
+}
+
+function placeWord(qi,btn){
+  if(btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  var pc=document.createElement('button');
+  pc.className='placed-chip';
+  pc.textContent=btn.dataset.w;
+  pc.onclick=function(){ btn.classList.remove('used'); pc.remove(); document.getElementById('fb-'+qi).style.display='none'; };
+  document.getElementById('ans-'+qi).appendChild(pc);
+}
+function checkScr(qi){
+  var chips=[].slice.call(document.querySelectorAll('#ans-'+qi+' .placed-chip'));
+  var placed=chips.map(function(c){return c.textContent;}).join(' ');
+  var fb=document.getElementById('fb-'+qi); fb.style.display='block';
+  var norm=function(s){ return s.toLowerCase().replace(/[^a-z0-9\uAC00-\uD7A3]/g,' ').replace(/\s+/g,' ').trim(); };
+  if(norm(placed)===norm(scrambles[qi].answer)){
+    fb.className='scr-fb fb-ok'; fb.textContent='\uD83C\uDF89 \uc815\ub2f5! "'+scrambles[qi].answer+'"';
+  } else {
+    fb.className='scr-fb fb-ng'; fb.textContent='"'+placed+'" \u2192 \ub2e4\uc2dc \uc870\ud569\ud574\ubc10\uc694!';
+  }
+}
+
+function resetScr(qi){
+  document.querySelectorAll('#chips-'+qi+' .word-chip').forEach(function(b){ b.classList.remove('used'); });
+  document.getElementById('ans-'+qi).innerHTML='';
+  document.getElementById('fb-'+qi).style.display='none';
+}
+
+var _qC=0,_qS=0,_qA=false;
+function initQuiz(){ _qC=0; _qS=0; _qA=false; renderQ(); }
+function renderQ(){
+  var a=document.getElementById('quiz-area'), b=document.getElementById('qbar');
+  if(!a||!b) return;
+  b.style.width=(_qC/quizzes.length*100)+'%';
+  if(_qC>=quizzes.length){
+    var p=Math.round(_qS/quizzes.length*100);
+    var e=p>=80?'🎉':p>=50?'😊':'💪';
+    var msg=p>=80?'완벽해요! 훌륭합니다!':p>=50?'잘했어요! 조금만 더 연습해요.':'틀린 표현을 다시 복습해봐요!';
+    a.innerHTML='<div class="result"><div class="res-emoji">'+e+'</div>'+
+      '<div class="res-score">'+_qS+' / '+quizzes.length+'</div>'+
+      '<div class="res-msg">'+msg+'</div>'+
+      '<button class="btn-retry" onclick="initQuiz()">다시 도전하기 🔄</button></div>';
+    b.style.width='100%'; return;
+  }
+  var q=quizzes[_qC];
+  var qtext=q.q.split('\n').join('<br>');
+  var opts=q.opts.map(function(o,i){ return '<button class="opt" onclick="pick('+i+')">'+o+'</button>'; }).join('');
+  a.innerHTML='<div class="quiz-num">'+(_qC+1)+' / '+quizzes.length+' 문제</div>'+
+    '<div class="quiz-q">'+qtext+'</div>'+
+    '<div class="opts">'+opts+'</div>'+
+    '<div class="qfb" id="qfb"></div>'+
+    '<div class="qnav"><div class="qscore">현재 점수 '+_qS+'점</div>'+
+    '<button class="btn-nxt" id="qnxt" onclick="nextQ()">다음 →</button></div>';
+  _qA=false;
+}
+function pick(i){
+  if(_qA) return; _qA=true;
+  var q=quizzes[_qC];
+  document.querySelectorAll('.opt').forEach(function(o,j){
+    o.disabled=true;
+    if(j===q.ans) o.classList.add('ok');
+    else if(j===i) o.classList.add('ng');
+  });
+  var fb=document.getElementById('qfb');
+  if(i===q.ans){ _qS++; fb.className='qfb fb-ok show'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.className='qfb fb-ng show'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  document.getElementById('qnxt').style.display='inline-block';
+}
+function nextQ(){ _qC++; _qA=false; renderQ(); }
+
+function initGramQ(){ _gqI=0; _gqD=false; renderGQ(); }
+function renderGQ(){
+  var area=document.getElementById('gram-q-area');
+  if(!area) return;
+  if(_gqI>=gramQs.length){
+    area.innerHTML='<div class="card" style="text-align:center;padding:1.5rem">'+
+      '<div style="font-size:2rem;margin-bottom:.4rem">🎉</div>'+
+      '<div style="font-family:\'Baloo 2\',sans-serif;font-size:1.3rem;font-weight:800">모두 맞혔어요!</div>'+
+      '<button onclick="initGramQ()" style="margin-top:.8rem;padding:.5rem 1.2rem;cursor:pointer;border-radius:8px;border:1.5px solid #ccc">다시 풀기</button></div>';
+    return;
+  }
+  var q=gramQs[_gqI];
+  var btns=q.opts.map(function(o,i){
+    return '<button onclick="pickGQ('+i+')" style="flex:1;min-width:80px;padding:.6rem .5rem;border:1.5px solid #ccc;border-radius:8px;background:#fff;font-size:.9rem;font-weight:700;cursor:pointer">'+o+'</button>';
+  }).join('');
+  area.innerHTML='<div class="card">'+
+    '<div style="font-size:.78rem;color:#666;margin-bottom:.4rem">'+(_gqI+1)+' / '+gramQs.length+'</div>'+
+    '<div style="font-size:1.05rem;font-weight:700;margin-bottom:1rem">'+q.q+'</div>'+
+    '<div style="display:flex;gap:.5rem;flex-wrap:wrap">'+btns+'</div>'+
+    '<div id="gq-fb" style="display:none;margin-top:.7rem;padding:.6rem .85rem;border-radius:8px;font-size:.83rem"></div></div>';
+  _gqD=false;
+}
+function pickGQ(i){
+  if(_gqD) return; _gqD=true;
+  var q=gramQs[_gqI];
+  document.querySelectorAll('#gram-q-area .card button').forEach(function(b,j){
+    b.disabled=true;
+    if(j===q.ans) b.style.background='#E8F5E9';
+    else if(j===i) b.style.background='#FFEBEE';
+  });
+  var fb=document.getElementById('gq-fb'); fb.style.display='block';
+  if(i===q.ans){ fb.style.background='#E8F5E9'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.style.background='#FFEBEE'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  setTimeout(function(){ _gqI++; renderGQ(); }, 1700);
+}
+
+var words=[
+  {n:1,en:'bed',ko:'침대',ico:'🛏️'},
+  {n:2,en:'box',ko:'상자',ico:'📦'},
+  {n:3,en:'bus',ko:'버스',ico:'🚌'},
+  {n:4,en:'chair',ko:'의자',ico:'🪑'},
+  {n:5,en:'desk',ko:'책상',ico:'🖥️'},
+  {n:6,en:'fan',ko:'부채',ico:'🌬️'},
+  {n:7,en:'know',ko:'알다',ico:'💡'},
+  {n:8,en:'table',ko:'탁자',ico:'🪴'},
+  {n:9,en:'under',ko:'아래에',ico:'⬇️'},
+  {n:10,en:'where',ko:'어디에',ico:'🔍'}
+];
+var vc=document.getElementById('vcards');
+if(vc){ words.forEach(function(w){
+  var d=document.createElement('div'); d.className='vcard';
+  d.innerHTML='<button class="spk-btn" onclick="event.stopPropagation();popSpk(this,\''+w.en+'\')">🔊</button>'
+    +'<span class="num">'+w.n+'</span>'
+    +'<div class="vico">'+w.ico+'</div>'
+    +'<div class="ven">'+w.en+'</div>'
+    +'<div class="vko">'+w.ko+'</div>'
+    +'<div class="vhint">탭 → 뜻 확인</div>';
+  d.onclick=function(){
+    d.classList.toggle('flipped');
+    d.querySelector('.vhint').style.display=d.classList.contains('flipped')?'none':'block';
+    speak(w.en);
+  };
+  vc.appendChild(d);
+}); }
+
+var posQs=[
+  {q:'🎩 모자가 📦 상자 안에 있어요. 전치사는?',opts:['in','on','under'],ans:0,fb:'"in the box" — 안에 있을 때는 "in"!'},
+  {q:'📚 책이 🖥 책상 위에 있어요. 전치사는?',opts:['under','on','in'],ans:1,fb:'"on the desk" — 위에 있을 때는 "on"!'},
+  {q:'⚽ 공이 🪑 의자 아래에 있어요. 전치사는?',opts:['on','in','under'],ans:2,fb:'"under the chair" — 아래에 있을 때는 "under"!'},
+  {q:'🌟 두 사람 사이에 있어요. 전치사는?',opts:['beside','between','behind'],ans:1,fb:'"between" — 사이에 있을 때는 "between"!'}
+];
+var _pqC=0,_pqD=false;
+function initPosQuiz(){ _pqC=0; _pqD=false; renderPQ(); }
+function renderPQ(){
+  var area=document.getElementById('pos-quiz-area');
+  if(!area) return;
+  if(_pqC>=posQs.length){
+    area.innerHTML='<div class="pos-quiz" style="text-align:center"><div style="font-size:2rem">🎉</div>'
+      +'<div style="font-family:\'Baloo 2\',sans-serif;font-size:1.2rem;font-weight:800;color:var(--bl,#1565C0)">전치사 완벽 이해!</div>'
+      +'<button onclick="initPosQuiz()" style="margin-top:.8rem;background:var(--bl-l,#E3F2FD);color:var(--bl-d,#0D47A1);border:1.5px solid var(--bl,#1565C0);border-radius:8px;padding:.5rem 1.2rem;font-family:\'Baloo 2\',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer">다시 풀기</button></div>';
+    return;
+  }
+  var q=posQs[_pqC];
+  var opts=q.opts.map(function(o,i){ return '<button class="pos-opt" onclick="pickPQ('+i+')">'+o+'</button>'; }).join('');
+  area.innerHTML='<div class="pos-quiz">'
+    +'<div style="font-size:.78rem;color:var(--sub,#666);margin-bottom:.35rem">'+(_pqC+1)+' / '+posQs.length+'</div>'
+    +'<div class="pos-q">'+q.q+'</div>'
+    +'<div class="pos-opts">'+opts+'</div>'
+    +'<div class="pos-fb" id="pqfb" style="display:none"></div></div>';
+  _pqD=false;
+}
+function pickPQ(i){
+  if(_pqD) return; _pqD=true;
+  var q=posQs[_pqC];
+  document.querySelectorAll('.pos-opt').forEach(function(b,j){
+    b.disabled=true;
+    if(j===q.ans) b.classList.add('ok');
+    else if(j===i) b.classList.add('ng');
+  });
+  var fb=document.getElementById('pqfb'); fb.style.display='block';
+  if(i===q.ans){ fb.style.cssText='display:block;background:var(--gn-l,#E8F5E9);border-left:3px solid var(--gn,#2E7D32);color:var(--gn-d,#1B5E20);padding:.4rem .75rem;border-radius:6px;font-size:.82rem'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.style.cssText='display:block;background:var(--rd-l,#FFEBEE);border-left:3px solid var(--rd,#C62828);color:var(--rd-d,#7F0000);padding:.4rem .75rem;border-radius:6px;font-size:.82rem'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  setTimeout(function(){ _pqC++; renderPQ(); }, 1700);
+}
+window.addEventListener('load', function(){ initPosQuiz(); });
+
+var scrambles=[
+  {words:["Where's",'my','cap','?'],answer:"Where's my cap?",hint:'내 모자가 어디에 있지?'},
+  {words:["It's",'on','the','table','.'],answer:"It's on the table.",hint:'그것은 탁자 위에 있어.'},
+  {words:["It's",'in','the','box','.'],answer:"It's in the box.",hint:'그것은 상자 안에 있어.'},
+  {words:["It's",'under','the','chair','.'],answer:"It's under the chair.",hint:'그것은 의자 아래에 있어.'},
+  {words:['I','know',"don't",'.'],answer:"I don't know.",hint:'모르겠어.'},
+  {words:['Where','are','shoes','my','?'],answer:'Where are my shoes?',hint:'내 신발이 어디에 있지?'}
+];
+var gramQs=[
+  {q:'Where ___ my cap? (모자 1개)',opts:['is','are','am'],ans:0,fb:'하나인 물건을 찾을 때는 "is"! Where is my cap?'},
+  {q:'Where ___ my shoes? (신발 2개)',opts:['is','am','are'],ans:2,fb:'두 개 이상일 때는 "are"! Where are my shoes?'},
+  {q:'"Where is"를 줄이면?',opts:["Where's",'Wheres',"Where're","Wher's"],ans:0,fb:"Where is → Where's로 줄여 써요!"},
+  {q:"It's ___ the box. (상자 안에)",opts:['on','under','in'],ans:2,fb:'상자 안에 있을 때는 "in"! It\'s in the box.'}
+];
+var _gqI=0,_gqD=false;
+var quizzes=[
+  {q:'"내 모자가 어디에 있지?"를 영어로?',opts:["Where's my cap?","What's my cap?","Where's my bag?","How's my cap?"],ans:0,fb:"Where's my cap? — where's = where is예요!"},
+  {q:'"It\'s under the chair."의 뜻은?',opts:['의자 위에 있어.','의자 안에 있어.','의자 아래에 있어.','의자 옆에 있어.'],ans:2,fb:'"under"는 아래에! It\'s under the chair. = 의자 아래에 있어.'},
+  {q:'"I don\'t know."의 뜻은?',opts:['알아.','모르겠어.','좋아.','감사합니다.'],ans:1,fb:'"I don\'t know."는 모를 때 쓰는 "모르겠어."예요!'},
+  {q:'두 개 이상의 물건 위치를 물을 때 알맞은 문장은?',opts:["Where's my shoes?","Where are my shoes?","Where is my shoes?","Where's my shoe?"],ans:1,fb:'두 개 이상(복수)일 때 "Where are"를 써요!'},
+  {q:'찬트에서 Fan은 어디에 있었나요?',opts:['on the desk','under the bed','in the box','on the table'],ans:2,fb:'In, in, in the box — fan은 상자 안에 있었어요!'},
+  {q:'Fun Talk 1에서 Eric의 가방은 어디에 있었나요?',opts:['on the table','in the box','under the chair','on the bed'],ans:2,fb:'보라: It\'s under the chair. 의자 아래에 있었어요!'},
+  {q:'"between"의 뜻은?',opts:['~뒤에','~앞에','~옆에','~사이에'],ans:3,fb:'"between"은 두 사람/사물 사이에 있을 때 써요!'},
+  {q:'스토리에서 새(bird)는 마지막에 어디에 있었나요?',opts:['in the box','on the table','under the chair','on the desk'],ans:1,fb:'여자아이: It\'s on the table. 탁자 위에 있었어요!'},
+  {q:'"Where is"를 줄이면?',opts:["Where're","Where's","Wher's","Where've"],ans:1,fb:'Where is → Where\'s! 아포스트로피로 줄여요.'},
+  {q:'"It\'s on the table."에서 전치사는?',opts:['in','under','on','beside'],ans:2,fb:'"on"은 위에! It\'s on the table. = 탁자 위에 있어.'}
+];
+</script>
+</body>
+</html>

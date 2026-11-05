@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lesson 4 · Let's Play Basketball 포트폴리오 복습</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;700;800&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --or:#E65100; --or-l:#FBE9E7; --or-d:#BF360C;
+  --ye:#F57F17; --ye-l:#FFF8E1; --ye-d:#6D4C00;
+  --bl:#1565C0; --bl-l:#E3F2FD; --bl-d:#0D47A1;
+  --gn:#2E7D32; --gn-l:#E8F5E9; --gn-d:#1B5E20;
+  --rd:#C62828; --rd-l:#FFEBEE; --rd-d:#7F0000;
+  --pu:#6A1B9A; --pu-l:#F3E5F5; --pu-d:#4A148C;
+  --bg:#FFFAF5; --white:#FFFFFF;
+  --text:#1A1209; --sub:#5C4A30; --border:#FFE0B2;
+  --r:14px; --r-sm:8px;
+  --shadow:0 2px 12px rgba(230,81,0,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-padding-top:110px;}
+body{font-family:'Noto Sans KR',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
+
+/* ── HERO ── */
+.hero{background:linear-gradient(135deg,#E65100 0%,#FF6D00 40%,#FF8F00 75%,#F9A825 100%);padding:3rem 1.5rem 3rem;text-align:center;position:relative;overflow:hidden;}
+.hero-badge{display:inline-flex;align-items:center;gap:6px;background:rgba(255,255,255,.18);border:1px solid rgba(255,255,255,.35);border-radius:20px;padding:5px 14px;font-size:.75rem;font-weight:700;color:#fff;letter-spacing:.08em;margin-bottom:1rem;}
+.hero h1{font-family:'Baloo 2',sans-serif;font-size:clamp(2rem,7vw,3.4rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:.4rem;}
+.hero h1 span{color:#FFF176;}
+.hero p{font-size:.95rem;color:rgba(255,255,255,.82);}
+.hero-deco{position:absolute;font-size:5rem;opacity:.08;pointer-events:none;}
+.hero-deco.a{top:10%;left:5%;}
+.hero-deco.b{top:20%;right:8%;}
+.hero-deco.c{bottom:18%;left:14%;}
+
+/* ── NAV ── */
+.nav-wrap{background:var(--white);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(230,81,0,.1);}
+.nav{display:grid;grid-template-columns:repeat(4,1fr);max-width:980px;margin:0 auto;}
+.ntab{padding:.75rem .3rem;border:none;background:transparent;font-family:'Noto Sans KR',sans-serif;font-size:.78rem;font-weight:700;color:var(--sub);cursor:pointer;border-bottom:3px solid transparent;transition:all .2s;white-space:normal;word-break:keep-all;text-align:center;line-height:1.3;}
+.ntab.on{color:var(--or);border-bottom-color:var(--or);background:var(--or-l);}
+.ntab:hover:not(.on){color:var(--text);background:var(--bg);}
+
+/* ── MAIN ── */
+main{max-width:980px;margin:0 auto;padding:0 1rem 5rem;}
+.panel{display:none;animation:up .3s ease;}
+.panel.on{display:block;padding-top:1rem;}
+@keyframes up{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+
+/* ── UTIL ── */
+.sec{margin-bottom:2rem;}
+.sec-title{font-family:'Baloo 2',sans-serif;font-size:.72rem;font-weight:800;letter-spacing:.1em;text-transform:uppercase;color:var(--or);margin-bottom:.9rem;}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:1rem;}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;box-shadow:var(--shadow);}
+.tag{display:inline-block;font-size:.68rem;font-weight:700;padding:3px 9px;border-radius:20px;letter-spacing:.05em;margin-bottom:.55rem;}
+.tag-or{background:var(--or-l);color:var(--or-d);}
+.tag-bl{background:var(--bl-l);color:var(--bl-d);}
+.tag-gn{background:var(--gn-l);color:var(--gn-d);}
+.tag-rd{background:var(--rd-l);color:var(--rd-d);}
+.tag-ye{background:var(--ye-l);color:var(--ye-d);}
+.en{font-family:'Baloo 2',sans-serif;font-size:1.05rem;font-weight:700;color:var(--text);}
+.ko{font-size:.82rem;color:var(--sub);margin-top:2px;}
+.arrow{color:var(--or);font-size:.78rem;margin:.45rem 0;}
+
+/* ── WORD CARDS ── */
+.vgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(110px,1fr));gap:.7rem;}
+.vcard{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.9rem .7rem;text-align:center;cursor:pointer;transition:all .22s;position:relative;box-shadow:var(--shadow);}
+.vcard:hover{border-color:var(--or);transform:translateY(-2px);}
+.vcard.flipped{background:var(--or-l);border-color:var(--or);}
+.vcard .num{position:absolute;top:5px;left:8px;font-size:.65rem;font-weight:700;color:var(--or);opacity:.6;}
+.vcard .ven{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.vcard .vko{font-size:.8rem;color:var(--sub);margin-top:3px;font-family:'Noto Sans KR',sans-serif;}
+.vcard.flipped .vko{color:var(--or-d);font-weight:700;}
+.vcard .vhint{font-size:.6rem;color:var(--ye-d);margin-top:4px;}
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.85rem;cursor:pointer;opacity:.4;transition:all .2s;padding:0;line-height:1;}
+.spk-btn:hover{opacity:1;}
+.spk-btn.pop{transform:scale(1.4);opacity:1;}
+
+/* ── SPORT CARDS ── */
+.sport-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:.85rem;}
+.sport-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1.1rem .9rem;text-align:center;cursor:pointer;transition:all .25s;box-shadow:var(--shadow);}
+.sport-card:hover{transform:translateY(-3px);box-shadow:0 8px 20px rgba(230,81,0,.15);border-color:var(--or);}
+.sport-ico{font-size:2.4rem;margin-bottom:.4rem;}
+.sport-en{font-family:'Baloo 2',sans-serif;font-size:1rem;font-weight:700;color:var(--text);}
+.sport-lets{font-family:'Baloo 2',sans-serif;font-size:.82rem;color:var(--or-d);margin-top:.25rem;}
+.sport-ko{font-size:.78rem;color:var(--sub);margin-top:.2rem;font-family:'Noto Sans KR',sans-serif;}
+
+/* ── DIALOGUE ── */
+.dlg{background:var(--or-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.dlg-title{font-size:.7rem;font-weight:700;letter-spacing:.07em;color:var(--or-d);margin-bottom:.75rem;text-transform:uppercase;}
+.line{display:flex;gap:.65rem;margin-bottom:.45rem;align-items:flex-start;}
+.line:last-child{margin-bottom:0;}
+.spkr{min-width:64px;font-size:.72rem;font-weight:700;color:var(--or-d);padding-top:2px;font-family:'Noto Sans KR',sans-serif;}
+.said{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:600;color:var(--text);}
+.said small{display:block;font-size:.76rem;font-weight:400;color:var(--sub);font-family:'Noto Sans KR',sans-serif;}
+.said .lets{color:var(--or-d);font-weight:800;}
+.said .sorry{color:var(--rd-d);font-weight:800;}
+
+/* ── CHANT ── */
+.chant-box{background:var(--ye-l);border-left:4px solid var(--ye);border-radius:0 var(--r) var(--r) 0;padding:1.1rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.92rem;line-height:2;color:var(--text);}
+.chant-box .hl{color:var(--or-d);font-weight:800;}
+.chant-box .ok{color:var(--gn-d);font-weight:700;}
+.chant-box .ng{color:var(--rd-d);font-weight:700;}
+
+/* ── GRAMMAR ── */
+.gram-box{background:var(--bl-l);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:1rem;}
+.gram-title{font-size:.7rem;font-weight:700;letter-spacing:.08em;color:var(--bl-d);margin-bottom:.8rem;text-transform:uppercase;}
+.gram-big{font-family:'Baloo 2',sans-serif;font-size:1.3rem;font-weight:800;color:var(--bl-d);margin-bottom:.6rem;}
+.gram-rule{font-size:.85rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;line-height:1.75;background:var(--white);border-radius:var(--r-sm);padding:.85rem 1rem;border:1px solid var(--border);}
+.gram-row{display:flex;align-items:center;gap:.7rem;margin-bottom:.4rem;flex-wrap:wrap;}
+.gram-badge{font-family:'Baloo 2',sans-serif;font-size:.78rem;font-weight:700;padding:3px 10px;border-radius:20px;}
+.gb-ok{background:var(--gn-l);color:var(--gn-d);}
+.gb-no{background:var(--rd-l);color:var(--rd-d);}
+.gram-ex{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;}
+
+/* ── STORY FILL ── */
+.story-scene{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scene-num{display:inline-block;background:var(--or);color:#fff;font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:20px;margin-bottom:.7rem;}
+.story-line{font-family:'Baloo 2',sans-serif;font-size:.95rem;color:var(--text);line-height:1.9;}
+.blank{display:inline-block;border-bottom:2px solid var(--or);min-width:64px;text-align:center;color:var(--or);font-weight:700;cursor:pointer;padding:0 4px;transition:background .2s;border-radius:3px 3px 0 0;}
+.blank:hover{background:var(--or-l);}
+.blank.revealed{background:var(--or-l);color:var(--or-d);}
+
+/* ── SCRAMBLE ── */
+.scramble-box{background:var(--white);border:1px solid var(--border);border-radius:var(--r);padding:1.2rem 1.4rem;margin-bottom:.85rem;box-shadow:var(--shadow);}
+.scramble-words{display:flex;flex-wrap:wrap;gap:.45rem;margin-bottom:.85rem;}
+.word-chip{background:var(--ye-l);border:1.5px solid var(--ye);border-radius:20px;padding:.35rem .9rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;color:var(--ye-d);transition:all .2s;user-select:none;}
+.word-chip:hover{background:var(--ye);color:#fff;}
+.word-chip.used{opacity:.28;cursor:default;pointer-events:none;}
+.answer-area{min-height:44px;border:2px dashed var(--border);border-radius:var(--r-sm);padding:.5rem .75rem;display:flex;flex-wrap:wrap;gap:.4rem;align-items:center;margin-bottom:.75rem;background:var(--bg);}
+.placed-chip{background:var(--or-l);border:1.5px solid var(--or);border-radius:20px;padding:.3rem .85rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;color:var(--or-d);}
+.placed-chip:hover{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.scr-btns{display:flex;gap:.5rem;}
+.btn-check{background:var(--or);color:#fff;border:none;border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.btn-reset{background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.5rem 1.1rem;font-family:'Baloo 2',sans-serif;font-size:.85rem;font-weight:700;cursor:pointer;}
+.scr-fb{font-size:.82rem;margin-top:.5rem;font-family:'Noto Sans KR',sans-serif;padding:.45rem .75rem;border-radius:var(--r-sm);}
+.fb-ok{background:var(--gn-l);border-left:3px solid var(--gn);color:var(--gn-d);}
+.fb-ng{background:var(--rd-l);border-left:3px solid var(--rd);color:var(--rd-d);}
+
+/* ── QUIZ ── */
+.quiz-bar-wrap{height:5px;background:var(--border);border-radius:3px;margin-bottom:1.5rem;overflow:hidden;}
+.quiz-bar{height:100%;background:linear-gradient(90deg,var(--or),var(--ye));border-radius:3px;transition:width .4s ease;}
+.quiz-num{font-size:.78rem;color:var(--sub);margin-bottom:.4rem;}
+.quiz-q{font-size:1.05rem;font-weight:700;line-height:1.6;margin-bottom:1.1rem;}
+.opts{display:flex;flex-direction:column;gap:.55rem;}
+.opt{padding:.8rem 1rem;border:1.5px solid var(--border);border-radius:var(--r-sm);background:var(--white);font-family:'Noto Sans KR',sans-serif;font-size:.9rem;font-weight:500;color:var(--text);cursor:pointer;text-align:left;transition:all .18s;}
+.opt:hover:not(:disabled){border-color:var(--or);background:var(--or-l);}
+.opt.ok{background:var(--gn-l);border-color:var(--gn);color:var(--gn-d);}
+.opt.ng{background:var(--rd-l);border-color:var(--rd);color:var(--rd-d);}
+.qfb{padding:.7rem 1rem;border-radius:var(--r-sm);font-size:.85rem;margin-top:.6rem;display:none;font-family:'Noto Sans KR',sans-serif;line-height:1.6;}
+.qfb.show{display:block;}
+.qfb.fb-ok{background:var(--gn-l);border-left:3px solid var(--gn);color:var(--gn-d);}
+.qfb.fb-ng{background:var(--rd-l);border-left:3px solid var(--rd);color:var(--rd-d);}
+.qnav{display:flex;justify-content:space-between;align-items:center;margin-top:1rem;}
+.qscore{font-size:.82rem;color:var(--sub);}
+.btn-nxt{background:var(--or);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;display:none;}
+.result{text-align:center;padding:2.5rem 1rem;}
+.res-emoji{font-size:4rem;margin-bottom:.5rem;}
+.res-score{font-family:'Baloo 2',sans-serif;font-size:3rem;font-weight:800;color:var(--or);}
+.res-msg{font-size:.95rem;color:var(--sub);margin:.4rem 0 1.2rem;}
+.btn-retry{background:var(--or-l);color:var(--or-d);border:1.5px solid var(--or);border-radius:var(--r-sm);padding:.65rem 1.5rem;font-family:'Baloo 2',sans-serif;font-size:.9rem;font-weight:700;cursor:pointer;}
+
+/* ── FURTHERMORE ── */
+.fur-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:.85rem;}
+.fur-card{background:var(--white);border:1.5px solid var(--border);border-radius:var(--r);padding:1rem .85rem;text-align:center;box-shadow:var(--shadow);cursor:pointer;transition:all .22s;}
+.fur-card:hover{transform:translateY(-2px);border-color:var(--or);}
+.fur-ico{font-size:2.3rem;margin-bottom:.4rem;}
+.fur-en{font-family:'Baloo 2',sans-serif;font-size:.95rem;font-weight:700;color:var(--text);}
+.fur-lets{font-family:'Baloo 2',sans-serif;font-size:.8rem;color:var(--or-d);margin-top:.2rem;}
+.fur-ko{font-size:.78rem;color:var(--sub);margin-top:2px;font-family:'Noto Sans KR',sans-serif;}
+
+footer{text-align:center;padding:2rem 1rem;font-size:.78rem;color:var(--sub);}
+
+@media(max-width:640px){.nav{grid-template-columns:repeat(4,1fr);}}
+@media(max-width:520px){
+  .grid2{grid-template-columns:1fr;}
+  .vgrid{grid-template-columns:repeat(3,1fr);}
+  .sport-grid{grid-template-columns:repeat(2,1fr);}
+  .fur-grid{grid-template-columns:repeat(2,1fr);}
+}
+
+/* 발음 버튼 향상 */
+.spk-btn{position:absolute;top:5px;right:7px;background:none;border:none;font-size:.9rem;cursor:pointer;opacity:.45;transition:all .2s;padding:2px;line-height:1;border-radius:50%;}
+.spk-btn:hover{opacity:1;background:rgba(0,0,0,.07);}
+.spk-btn.pop{transform:scale(1.5);opacity:1;}
+.tts-bar{display:flex;align-items:center;gap:.5rem;background:var(--bl-l,#E3F2FD);border-radius:var(--r-sm,8px);padding:.55rem .85rem;margin-bottom:.85rem;font-size:.8rem;color:var(--bl-d,#0D47A1);font-family:'Noto Sans KR',sans-serif;}
+.tts-dot{width:8px;height:8px;border-radius:50%;background:var(--gn,#2E7D32);animation:blink 1.2s infinite;}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:.2;}}
+.vcard .vico{font-size:1.8rem;margin:4px 0 2px;line-height:1;display:block;}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <span class="hero-deco a">🏀</span>
+  <span class="hero-deco b">⚽</span>
+  <span class="hero-deco c">🎾</span>
+  <div class="hero-badge">📋 Portfolio · 4학년 영어</div>
+  <h1>Lesson 4<br><span>Let's Play Basketball</span></h1>
+  <p>운동 단어 · 권유 표현 · 대화 · 문법 · 퀴즈</p>
+</div>
+
+<div class="nav-wrap">
+  <div class="nav">
+    <button class="ntab on" onclick="go('words',this)">📖<br>단어</button>
+    <button class="ntab" onclick="go('expr',this)">💬<br>핵심표현</button>
+    <button class="ntab" onclick="go('dlgs',this)">🗣️<br>대화문</button>
+    <button class="ntab" onclick="go('chant',this)">🎵<br>찬트·노래</button>
+    <button class="ntab" onclick="go('grammar',this)">📐<br>문법</button>
+    <button class="ntab" onclick="go('story',this)">🧡<br>스토리</button>
+    <button class="ntab" onclick="go('scramble',this)">🔀<br>문장조합</button>
+    <button class="ntab" onclick="go('quiz',this)">✏️<br>퀴즈</button>
+  </div>
+</div>
+
+<main>
+
+<!-- ══ 단어 ══ -->
+<div id="words" class="panel on">
+  <div class="sec">
+    <div class="sec-title">New Words — 신출 어휘 12개</div>
+    <div class="tts-bar"><span class="tts-dot"></span>🔊 단어 카드를 탭하거나 🔊 버튼을 눌러 영어 발음을 들어보세요 (Chrome · Edge · Whale 지원)</div>
+    <div class="vgrid" id="vcards"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">운동 종목 카드 — 탭하면 "Let's play ___!" 발음이 나와요</div>
+    <div class="sport-grid" id="sportcards"></div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Furthermore — 추가 활동 표현</div>
+    <div class="fur-grid">
+      <div class="fur-card" onclick="speak('Let\'s watch TV.')">
+        <div class="fur-ico">📺</div>
+        <div class="fur-en">watch TV</div>
+        <div class="fur-lets">Let's watch TV.</div>
+        <div class="fur-ko">TV를 보다</div>
+      </div>
+      <div class="fur-card" onclick="speak('Let\'s go swimming.')">
+        <div class="fur-ico">🏊</div>
+        <div class="fur-en">go swimming</div>
+        <div class="fur-lets">Let's go swimming.</div>
+        <div class="fur-ko">수영하러 가다</div>
+      </div>
+      <div class="fur-card" onclick="speak('Let\'s study English.')">
+        <div class="fur-ico">📚</div>
+        <div class="fur-en">study English</div>
+        <div class="fur-lets">Let's study English.</div>
+        <div class="fur-ko">영어를 공부하다</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 핵심표현 ══ -->
+<div id="expr" class="panel">
+  <div class="sec">
+    <div class="sec-title">Key Expressions — 핵심 의사소통 표현</div>
+    <div class="grid2">
+      <div class="card">
+        <span class="tag tag-or">① 권유하기</span>
+        <div class="en" style="color:var(--or-d);">Let's play baseball.</div>
+        <div class="ko">야구 하자.</div>
+        <div class="arrow">↓ 긍정 대답</div>
+        <div class="en" style="color:var(--gn-d);font-size:.95rem;">Sounds good!</div>
+        <div class="ko">좋아!</div>
+        <div class="en" style="color:var(--gn-d);font-size:.88rem;margin-top:.3rem;">Okay. / That's good.</div>
+        <div class="ko">알겠어. / 잘됐다.</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-rd">② 거절하기</span>
+        <div class="en" style="color:var(--rd-d);">Sorry, I can't.</div>
+        <div class="ko">미안하지만, 안 되겠어.</div>
+        <div class="arrow">+ 이유 말하기</div>
+        <div style="display:flex;flex-wrap:wrap;gap:.4rem;margin-top:.2rem;">
+          <span style="background:var(--rd-l);border-radius:20px;padding:3px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;color:var(--rd-d);">I'm tired.</span>
+          <span style="background:var(--rd-l);border-radius:20px;padding:3px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;color:var(--rd-d);">I'm sick.</span>
+          <span style="background:var(--rd-l);border-radius:20px;padding:3px 10px;font-family:'Baloo 2',sans-serif;font-size:.82rem;color:var(--rd-d);">I'm busy.</span>
+        </div>
+      </div>
+      <div class="card">
+        <span class="tag tag-ye">③ 안타까움 표현</span>
+        <div class="en" style="color:var(--ye-d);">That's too bad.</div>
+        <div class="ko">안됐구나.</div>
+        <div class="arrow">↔ 위로할 때</div>
+        <div class="en" style="color:var(--gn-d);font-size:.92rem;">That's okay. You can do it!</div>
+        <div class="ko">괜찮아. 너는 할 수 있어!</div>
+      </div>
+      <div class="card">
+        <span class="tag tag-bl">④ 좋아하는 것 묻기</span>
+        <div class="en" style="color:var(--bl-d);">Do you like badminton?</div>
+        <div class="ko">너는 배드민턴을 좋아하니?</div>
+        <div class="arrow">↓ 대답</div>
+        <div class="en" style="color:var(--gn-d);font-size:.92rem;">Yes, I do.</div>
+        <div class="ko">응, 좋아해.</div>
+        <div class="en" style="color:var(--rd-d);font-size:.92rem;margin-top:.3rem;">No, I don't.</div>
+        <div class="ko">아니, 안 좋아해.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 대화문 ══ -->
+<div id="dlgs" class="panel">
+  <div class="sec">
+    <div class="sec-title">Fun Talk 1 (교과서 40p) — 운동장</div>
+    <div class="dlg">
+      <div class="dlg-title">배드민턴 → 농구</div>
+      <div class="line"><span class="spkr">Eric</span><div class="said">Kate! Do you like badminton? <small>케이트! 너 배드민턴 좋아해?</small></div></div>
+      <div class="line"><span class="spkr">Kate</span><div class="said">Yes, I do. <small>응, 좋아해.</small></div></div>
+      <div class="line"><span class="spkr">Eric</span><div class="said"><span class="lets">Let's play badminton.</span> <small>배드민턴 하자.</small></div></div>
+      <div class="line"><span class="spkr">Kate</span><div class="said"><span class="sorry">Sorry, I can't.</span> I'm tired. <small>미안, 안 되겠어. 나 피곤해.</small></div></div>
+      <div class="line"><span class="spkr">Eric</span><div class="said">Okay. <small>알겠어.</small></div></div>
+      <div class="line"><span class="spkr">보라</span><div class="said">Hey, Eric! <span class="lets">Let's play basketball.</span> <small>에릭! 농구 하자.</small></div></div>
+      <div class="line"><span class="spkr">Eric</span><div class="said">Sounds good! <small>좋아!</small></div></div>
+      <div class="line"><span class="spkr">Momo</span><div class="said">Pass, Eric! Pass! <small>패스, 에릭! 패스!</small></div></div>
+      <div class="line"><span class="spkr">모두</span><div class="said">Great, Momo! <small>잘했어, 모모!</small></div></div>
+      <div class="line"><span class="spkr">Momo</span><div class="said">I love basketball! <small>나는 농구가 정말 좋아!</small></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Fun Talk 2 (교과서 42p) — 야구팀 구성</div>
+    <div class="dlg" style="background:var(--bl-l);">
+      <div class="dlg-title" style="color:var(--bl-d);">야구팀 모으기</div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">Sam</span><div class="said">Hello! <small>안녕!</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">모두</span><div class="said">Hi, Sam. <small>안녕, 샘.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">Sam</span><div class="said"><span class="lets">Let's play baseball.</span> <small>야구 하자.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">모두</span><div class="said">Sounds good! <small>좋아!</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">Sam</span><div class="said">Bora! Hoa! <span class="lets">Let's play baseball.</span> <small>보라! 호아! 야구 하자.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">보라</span><div class="said"><span class="sorry">Sorry, I can't.</span> I'm sick. Bye. <small>미안, 안 되겠어. 나 아파. 잘 가.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">Sam</span><div class="said">Oh, that's too bad. Bye. <small>아, 안됐다. 잘 가.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">Hoa</span><div class="said">I can play. <small>나는 할 수 있어.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">준오</span><div class="said">That's good. <small>잘됐다.</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">Sam</span><div class="said">Come on! <small>가자!</small></div></div>
+      <div class="line"><span class="spkr" style="color:var(--bl-d);">Kate, Hoa</span><div class="said">That's okay, Sam. You can do it! <small>괜찮아, 샘. 너는 할 수 있어!</small></div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="sec-title">Talk Like This (교과서 42p)</div>
+    <div class="grid2">
+      <div class="dlg" style="margin-bottom:0;">
+        <div class="dlg-title">영상 1</div>
+        <div class="line"><span class="spkr">하나</span><div class="said">Do you like tennis? <small>테니스 좋아해?</small></div></div>
+        <div class="line"><span class="spkr">Paul</span><div class="said">Yes, I do. <small>응, 좋아해.</small></div></div>
+        <div class="line"><span class="spkr">하나</span><div class="said"><span class="lets">Let's play tennis!</span> <small>테니스 하자!</small></div></div>
+        <div class="line"><span class="spkr">Paul</span><div class="said">Sounds good. <small>좋아.</small></div></div>
+      </div>
+      <div class="dlg" style="margin-bottom:0;">
+        <div class="dlg-title">영상 2</div>
+        <div class="line"><span class="spkr">민우</span><div class="said">Hello, Alice. <small>안녕, 앨리스.</small></div></div>
+        <div class="line"><span class="spkr">Alice</span><div class="said">Hi, Minu. <small>안녕, 민우.</small></div></div>
+        <div class="line"><span class="spkr">민우</span><div class="said"><span class="lets">Let's play soccer.</span> <small>축구 하자.</small></div></div>
+        <div class="line"><span class="spkr">Alice</span><div class="said"><span class="sorry">Sorry, I can't.</span> I'm busy. <small>미안, 안 되겠어. 나 바빠.</small></div></div>
+        <div class="line"><span class="spkr">민우</span><div class="said">That's too bad. <small>안됐구나.</small></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 찬트·노래 ══ -->
+<div id="chant" class="panel">
+  <div class="sec">
+    <div class="sec-title">Chant and Do (교과서 40p)</div>
+    <div class="grid2">
+      <div class="chant-box">
+        Soccer, soccer.<br>
+        <span class="hl">Let's play soccer.</span><br>
+        Tennis, tennis. <span class="hl">Let's play tennis.</span><br>
+        Baseball, baseball.<br>
+        <span class="hl">Let's play baseball.</span><br>
+        <span class="ok">Sounds good. Sounds good.</span><br>
+        <span class="ok">Okay. Sounds good.</span>
+      </div>
+      <div class="chant-box">
+        Badminton, badminton.<br>
+        <span class="hl">Let's play badminton.</span><br>
+        Basketball, basketball.<br>
+        <span class="hl">Let's play basketball.</span><br>
+        <span class="ng">Sorry, I can't.</span><br>
+        <span class="ng">Sorry, I can't.</span>
+      </div>
+    </div>
+    <div style="margin-top:.9rem;background:var(--or-l);border-radius:var(--r-sm);padding:.8rem 1rem;font-size:.82rem;color:var(--or-d);font-family:'Noto Sans KR',sans-serif;">
+      💡 <strong>찬트 포인트</strong>: <span style="color:var(--or-d);font-weight:700;">Let's play ___!</span> 부분에서 함께 손을 들어요! Sorry, I can't. 에서는 손을 흔들어요.
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">Song (교과서 42p) — Do You Like Soccer?</div>
+    <div class="chant-box" style="background:var(--bl-l);border-left-color:var(--bl);">
+      Oh, do you like <span class="hl" style="color:var(--bl-d);">soccer</span>? (Hey!)<br>
+      Oh, <span class="ok">let's play soccer.</span> (Hey!)<br>
+      Oh, <span class="ok">let's play soccer.</span> (Hey!)<br>
+      Okay. Sounds good. I like soccer.<br><br>
+      Oh, do you like <span class="hl" style="color:var(--bl-d);">baseball</span>? (Hey!)<br>
+      Oh, <span class="ok">let's play baseball.</span> (Hey!)<br>
+      Oh, <span class="ok">let's play baseball.</span> (Hey!)<br>
+      <span class="ng">Sorry, I can't. I'm sick.</span><br>
+      Oh, that's too bad.<br><br>
+      Oh, do you like <span class="hl" style="color:var(--bl-d);">tennis</span>? (Hey!)<br>
+      Oh, <span class="ok">let's play tennis.</span> (Hey!)<br>
+      Oh, <span class="ok">let's play tennis.</span> (Hey!)<br>
+      Okay. Sounds good. I like tennis.
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문법 ══ -->
+<div id="grammar" class="panel">
+  <div class="sec">
+    <div class="sec-title">Grammar — 권유하기 Let's + 동사원형</div>
+    <div class="gram-box">
+      <div class="gram-title">권유·제안 표현 구조</div>
+      <div class="gram-big"><span style="color:var(--or-d);">Let's</span> <span style="color:var(--bl-d);">+ 동사원형</span> .</div>
+      <div class="gram-rule">
+        어떤 행동을 <strong>함께 하자고 권유</strong>할 때 <strong>Let's ___.</strong> 표현을 씁니다.<br>
+        Let's 뒤에는 항상 동사의 <strong>원래 모양(원형)</strong>을 써줍니다!<br><br>
+        <span style="color:var(--gn-d);">✅ Let's study! — 우리 공부하자!</span><br>
+        <span style="color:var(--rd-d);">❌ Let's studying! (X) — studying은 원형이 아니에요</span><br>
+        <span style="color:var(--rd-d);">❌ Let's studied! (X) — studied는 과거형이에요</span>
+      </div>
+      <div style="margin-top:1rem;">
+        <div style="font-size:.78rem;font-weight:700;color:var(--sub);letter-spacing:.06em;margin-bottom:.6rem;">예문</div>
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex" style="color:var(--or-d);">Let's play soccer.</span><span style="font-size:.82rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;">축구 하자.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-ok">✅</span><span class="gram-ex" style="color:var(--or-d);">Let's watch TV.</span><span style="font-size:.82rem;color:var(--sub);font-family:'Noto Sans KR',sans-serif;">TV 보자.</span></div>
+        <div class="gram-row"><span class="gram-badge gb-no">❌</span><span class="gram-ex" style="color:var(--rd-d);text-decoration:line-through;">Let's playing soccer.</span><span style="font-size:.82rem;color:var(--rd-d);font-family:'Noto Sans KR',sans-serif;">play 원형을 써야 해요!</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="sec">
+    <div class="sec-title">연습 — 올바른 Let's 문장 고르기</div>
+    <div id="gram-q-area"></div>
+  </div>
+</div>
+
+<!-- ══ 스토리 ══ -->
+<div id="story" class="panel">
+  <div class="sec">
+    <div class="sec-title">Listen to the Story (교과서 46p) — 삐삐</div>
+    <div style="font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;">빈칸을 탭하면 정답이 나타나요!</div>
+    <div class="story-scene">
+      <div class="scene-num">#1 · 토미와 안니카</div>
+      <div class="story-line">
+        토미: Let's play <span class="blank" onclick="reveal(this,'basketball')">__________</span>.<br>
+        안니카: Sorry, I can't. I'm tired.<br>
+        토미: That's too <span class="blank" onclick="reveal(this,'bad')">___</span>.
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#2 · 삐삐 등장</div>
+      <div class="story-line">
+        삐삐: Nice! It's sunny.<br>
+        토미, 안니카: Good morning, Pippi.<br>
+        삐삐: Good morning!
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#3 · 농구 제안</div>
+      <div class="story-line">
+        토미: Pippi, let's play <span class="blank" onclick="reveal(this,'basketball')">__________</span>.<br>
+        삐삐: <span class="blank" onclick="reveal(this,'Sounds')">______</span> good.<br>
+        안니카: Wow, Pippi. You're great!
+      </div>
+    </div>
+    <div class="story-scene">
+      <div class="scene-num">#4 · 도둑 등장</div>
+      <div class="story-line">
+        안니카: Pippi, look!<br>
+        삐삐: Hey, let's <span class="blank" onclick="reveal(this,'play')">____</span> basketball.<br>
+        도둑: Sorry, I can't. I'm <span class="blank" onclick="reveal(this,'busy')">____</span>.
+      </div>
+    </div>
+    <div style="margin-top:.75rem;display:flex;gap:.5rem;">
+      <button onclick="revealAll()" style="background:var(--or);color:#fff;border:none;border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;">전체 정답 보기</button>
+      <button onclick="resetBlanks()" style="background:var(--bg);color:var(--sub);border:1.5px solid var(--border);border-radius:var(--r-sm);padding:.6rem 1.3rem;font-family:'Baloo 2',sans-serif;font-size:.88rem;font-weight:700;cursor:pointer;">다시 도전</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ 문장 조합 ══ -->
+<div id="scramble" class="panel">
+  <div class="sec">
+    <div class="sec-title">문장 조합 퀴즈 — 단어를 순서대로 배열하세요!</div>
+    <div style="font-size:.82rem;color:var(--sub);margin-bottom:1rem;font-family:'Noto Sans KR',sans-serif;">단어 칩을 눌러 순서대로 배열하고 ✓ 확인 버튼을 눌러요.</div>
+    <div id="scramble-area"></div>
+  </div>
+</div>
+
+<!-- ══ 퀴즈 ══ -->
+<div id="quiz" class="panel">
+  <div class="quiz-bar-wrap"><div class="quiz-bar" id="qbar" style="width:0%"></div></div>
+  <div id="quiz-area"></div>
+</div>
+
+</main>
+<footer>Lesson 4 · Let's Play Basketball · 4학년 영어 포트폴리오 복습 자료</footer>
+
+<script>function adjustMainPadding(){
+  var n=document.querySelector('.nav-wrap'),m=document.querySelector('main');
+  if(n&&m) m.style.paddingTop=(n.offsetHeight+16)+'px';
+}
+window.addEventListener('load', adjustMainPadding);
+window.addEventListener('resize', adjustMainPadding);
+
+var _ttsV=[],_ttsR=false;
+function _ttsL(){
+  var vs=window.speechSynthesis?window.speechSynthesis.getVoices():[];
+  if(vs.length){_ttsV=vs;_ttsR=true;}
+}
+if(window.speechSynthesis){
+  window.speechSynthesis.onvoiceschanged=function(){_ttsL();};
+  _ttsL();
+}
+function _ttsP(){
+  return _ttsV.find(function(v){return v.lang==='en-US'&&v.localService;})
+      || _ttsV.find(function(v){return v.lang==='en-US';})
+      || _ttsV.find(function(v){return v.lang==='en-GB';})
+      || _ttsV.find(function(v){return v.lang.startsWith('en');})
+      || null;
+}
+function speak(text,rate){
+  if(!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  function _d(){
+    var u=new SpeechSynthesisUtterance(text);
+    u.lang='en-US'; u.rate=rate||0.85; u.pitch=1;
+    var v=_ttsP(); if(v) u.voice=v;
+    u.onstart=function(){ window.speechSynthesis.resume(); };
+    window.speechSynthesis.speak(u);
+  }
+  if(!_ttsR){ _ttsL(); }
+  if(!_ttsR){ setTimeout(function(){ _ttsL(); _d(); }, 400); return; }
+  _d();
+}
+function popSpk(btn,word){
+  speak(word);
+  btn.classList.add('pop');
+  setTimeout(function(){ btn.classList.remove('pop'); }, 600);
+}
+
+function go(id,btn){
+  window.scrollTo({top:0,behavior:'smooth'});
+  document.querySelectorAll('.panel').forEach(function(p){ p.classList.remove('on'); });
+  document.querySelectorAll('.ntab').forEach(function(t){ t.classList.remove('on'); });
+  document.getElementById(id).classList.add('on');
+  btn.classList.add('on');
+  if(id==='quiz') initQuiz();
+  if(id==='scramble') initScramble();
+  if(id==='grammar' && typeof initGramQ !== 'undefined') initGramQ();
+  if(id==='words' && typeof initPosQuiz !== 'undefined') initPosQuiz();
+}
+
+function reveal(el,ans){ el.textContent=ans; el.classList.add('revealed'); }
+function revealAll(){
+  document.querySelectorAll('.blank:not(.revealed)').forEach(function(b){
+    var oc=b.getAttribute('onclick');
+    var m=oc.match(/reveal\(this,'([^']+)'\)/)||oc.match(/reveal\(this,`([^`]+)`\)/);
+    if(m){ b.textContent=m[1]; b.classList.add('revealed'); }
+  });
+}
+function resetBlanks(){
+  document.querySelectorAll('.blank').forEach(function(b){
+    var oc=b.getAttribute('onclick');
+    var m=oc.match(/reveal\(this,'([^']+)'\)/)||oc.match(/reveal\(this,`([^`]+)`\)/);
+    if(m){ b.textContent='_'.repeat(m[1].length); b.classList.remove('revealed'); }
+  });
+}
+
+function initScramble(){
+  var area=document.getElementById('scramble-area');
+  if(!area) return;
+  area.innerHTML='';
+  scrambles.forEach(function(s,i){
+    var sh=s.words.slice();
+    var orig=s.words.join('\t');
+    var attempt=0;
+    do {
+      for(var k=sh.length-1;k>0;k--){
+        var j=Math.floor(Math.random()*(k+1));
+        var tmp=sh[k]; sh[k]=sh[j]; sh[j]=tmp;
+      }
+      attempt++;
+    } while(sh.join('\t')===orig && attempt<20 && s.words.length>1);
+    var div=document.createElement('div');
+    div.className='scramble-box';
+    var chips='';
+    sh.forEach(function(w){
+      chips+='<button class="word-chip" onclick="placeWord('+i+',this)">'+w+'</button>';
+    });
+    div.innerHTML=
+      '<div style="font-size:.8rem;color:var(--sub,#666);margin-bottom:.55rem">'+(i+1)+' &middot; '+s.hint+'</div>'+
+      '<div class="scramble-words" id="chips-'+i+'">'+chips+'</div>'+
+      '<div class="answer-area" id="ans-'+i+'"></div>'+
+      '<div class="scr-btns">'+
+      '<button class="btn-check" onclick="checkScr('+i+')">&#10003; 확인</button>'+
+      '<button class="btn-reset" onclick="resetScr('+i+')">&#8634; 다시</button>'+
+      '</div>'+
+      '<div id="fb-'+i+'" class="scr-fb" style="display:none"></div>';
+    area.appendChild(div);
+    var chipEls=div.querySelectorAll('.word-chip');
+    chipEls.forEach(function(el,j){ el.dataset.w=sh[j]; });
+  });
+}
+
+function placeWord(qi,btn){
+  if(btn.classList.contains('used')) return;
+  btn.classList.add('used');
+  var pc=document.createElement('button');
+  pc.className='placed-chip';
+  pc.textContent=btn.dataset.w;
+  pc.onclick=function(){ btn.classList.remove('used'); pc.remove(); document.getElementById('fb-'+qi).style.display='none'; };
+  document.getElementById('ans-'+qi).appendChild(pc);
+}
+function checkScr(qi){
+  var chips=[].slice.call(document.querySelectorAll('#ans-'+qi+' .placed-chip'));
+  var placed=chips.map(function(c){return c.textContent;}).join(' ');
+  var fb=document.getElementById('fb-'+qi); fb.style.display='block';
+  var norm=function(s){ return s.toLowerCase().replace(/[^a-z0-9\uAC00-\uD7A3]/g,' ').replace(/\s+/g,' ').trim(); };
+  if(norm(placed)===norm(scrambles[qi].answer)){
+    fb.className='scr-fb fb-ok'; fb.textContent='\uD83C\uDF89 \uc815\ub2f5! "'+scrambles[qi].answer+'"';
+  } else {
+    fb.className='scr-fb fb-ng'; fb.textContent='"'+placed+'" \u2192 \ub2e4\uc2dc \uc870\ud569\ud574\ubc10\uc694!';
+  }
+}
+
+function resetScr(qi){
+  document.querySelectorAll('#chips-'+qi+' .word-chip').forEach(function(b){ b.classList.remove('used'); });
+  document.getElementById('ans-'+qi).innerHTML='';
+  document.getElementById('fb-'+qi).style.display='none';
+}
+
+var _qC=0,_qS=0,_qA=false;
+function initQuiz(){ _qC=0; _qS=0; _qA=false; renderQ(); }
+function renderQ(){
+  var a=document.getElementById('quiz-area'), b=document.getElementById('qbar');
+  if(!a||!b) return;
+  b.style.width=(_qC/quizzes.length*100)+'%';
+  if(_qC>=quizzes.length){
+    var p=Math.round(_qS/quizzes.length*100);
+    var e=p>=80?'🎉':p>=50?'😊':'💪';
+    var msg=p>=80?'완벽해요! 훌륭합니다!':p>=50?'잘했어요! 조금만 더 연습해요.':'틀린 표현을 다시 복습해봐요!';
+    a.innerHTML='<div class="result"><div class="res-emoji">'+e+'</div>'+
+      '<div class="res-score">'+_qS+' / '+quizzes.length+'</div>'+
+      '<div class="res-msg">'+msg+'</div>'+
+      '<button class="btn-retry" onclick="initQuiz()">다시 도전하기 🔄</button></div>';
+    b.style.width='100%'; return;
+  }
+  var q=quizzes[_qC];
+  var qtext=q.q.split('\n').join('<br>');
+  var opts=q.opts.map(function(o,i){ return '<button class="opt" onclick="pick('+i+')">'+o+'</button>'; }).join('');
+  a.innerHTML='<div class="quiz-num">'+(_qC+1)+' / '+quizzes.length+' 문제</div>'+
+    '<div class="quiz-q">'+qtext+'</div>'+
+    '<div class="opts">'+opts+'</div>'+
+    '<div class="qfb" id="qfb"></div>'+
+    '<div class="qnav"><div class="qscore">현재 점수 '+_qS+'점</div>'+
+    '<button class="btn-nxt" id="qnxt" onclick="nextQ()">다음 →</button></div>';
+  _qA=false;
+}
+function pick(i){
+  if(_qA) return; _qA=true;
+  var q=quizzes[_qC];
+  document.querySelectorAll('.opt').forEach(function(o,j){
+    o.disabled=true;
+    if(j===q.ans) o.classList.add('ok');
+    else if(j===i) o.classList.add('ng');
+  });
+  var fb=document.getElementById('qfb');
+  if(i===q.ans){ _qS++; fb.className='qfb fb-ok show'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.className='qfb fb-ng show'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  document.getElementById('qnxt').style.display='inline-block';
+}
+function nextQ(){ _qC++; _qA=false; renderQ(); }
+
+function initGramQ(){ _gqI=0; _gqD=false; renderGQ(); }
+function renderGQ(){
+  var area=document.getElementById('gram-q-area');
+  if(!area) return;
+  if(_gqI>=gramQs.length){
+    area.innerHTML='<div class="card" style="text-align:center;padding:1.5rem">'+
+      '<div style="font-size:2rem;margin-bottom:.4rem">🎉</div>'+
+      '<div style="font-family:\'Baloo 2\',sans-serif;font-size:1.3rem;font-weight:800">모두 맞혔어요!</div>'+
+      '<button onclick="initGramQ()" style="margin-top:.8rem;padding:.5rem 1.2rem;cursor:pointer;border-radius:8px;border:1.5px solid #ccc">다시 풀기</button></div>';
+    return;
+  }
+  var q=gramQs[_gqI];
+  var btns=q.opts.map(function(o,i){
+    return '<button onclick="pickGQ('+i+')" style="flex:1;min-width:80px;padding:.6rem .5rem;border:1.5px solid #ccc;border-radius:8px;background:#fff;font-size:.9rem;font-weight:700;cursor:pointer">'+o+'</button>';
+  }).join('');
+  area.innerHTML='<div class="card">'+
+    '<div style="font-size:.78rem;color:#666;margin-bottom:.4rem">'+(_gqI+1)+' / '+gramQs.length+'</div>'+
+    '<div style="font-size:1.05rem;font-weight:700;margin-bottom:1rem">'+q.q+'</div>'+
+    '<div style="display:flex;gap:.5rem;flex-wrap:wrap">'+btns+'</div>'+
+    '<div id="gq-fb" style="display:none;margin-top:.7rem;padding:.6rem .85rem;border-radius:8px;font-size:.83rem"></div></div>';
+  _gqD=false;
+}
+function pickGQ(i){
+  if(_gqD) return; _gqD=true;
+  var q=gramQs[_gqI];
+  document.querySelectorAll('#gram-q-area .card button').forEach(function(b,j){
+    b.disabled=true;
+    if(j===q.ans) b.style.background='#E8F5E9';
+    else if(j===i) b.style.background='#FFEBEE';
+  });
+  var fb=document.getElementById('gq-fb'); fb.style.display='block';
+  if(i===q.ans){ fb.style.background='#E8F5E9'; fb.textContent='✓ 정답! '+q.fb; }
+  else { fb.style.background='#FFEBEE'; fb.textContent='✗ 틀렸어요. '+q.fb; }
+  setTimeout(function(){ _gqI++; renderGQ(); }, 1700);
+}
+
+var words=[
+  {n:1,en:'bad',ko:'안 좋은 나쁜',ico:'😞'},
+  {n:2,en:'badminton',ko:'배드민턴',ico:'🏸'},
+  {n:3,en:'baseball',ko:'야구',ico:'⚾'},
+  {n:4,en:'busy',ko:'바쁜',ico:'😰'},
+  {n:5,en:'let\'s',ko:'~하자',ico:'🙌'},
+  {n:6,en:'pass',ko:'패스하다',ico:'🤲'},
+  {n:7,en:'play',ko:'놀다 경기하다',ico:'🎮'},
+  {n:8,en:'sick',ko:'아픈',ico:'🤒'},
+  {n:9,en:'soccer',ko:'축구',ico:'⚽'},
+  {n:10,en:'sound',ko:'~처럼 들리다',ico:'👂'},
+  {n:11,en:'tennis',ko:'테니스',ico:'🎾'},
+  {n:12,en:'basketball',ko:'농구',ico:'🏀'}
+];
+var vc=document.getElementById('vcards');
+if(vc){ words.forEach(function(w){
+  var d=document.createElement('div'); d.className='vcard';
+  d.innerHTML='<button class="spk-btn" onclick="event.stopPropagation();popSpk(this,\''+w.en+'\')">🔊</button>'
+    +'<span class="num">'+w.n+'</span>'
+    +'<div class="vico">'+w.ico+'</div>'
+    +'<div class="ven">'+w.en+'</div>'
+    +'<div class="vko">'+w.ko+'</div>'
+    +'<div class="vhint">탭 → 뜻 확인</div>';
+  d.onclick=function(){
+    d.classList.toggle('flipped');
+    d.querySelector('.vhint').style.display=d.classList.contains('flipped')?'none':'block';
+    speak(w.en);
+  };
+  vc.appendChild(d);
+}); }
+
+var sportDat=[
+  {ico:'⚽',en:'soccer',ko:'축구'},
+  {ico:'🎾',en:'tennis',ko:'테니스'},
+  {ico:'⚾',en:'baseball',ko:'야구'},
+  {ico:'🏸',en:'badminton',ko:'배드민턴'},
+  {ico:'🏀',en:'basketball',ko:'농구'}
+];
+var sc=document.getElementById('sportcards');
+if(sc){ sportDat.forEach(function(s){
+  var el=document.createElement('div'); el.className='sport-card';
+  el.innerHTML='<div class="sport-ico">'+s.ico+'</div><div class="sport-en">'+s.en+'</div>'
+    +'<div class="sport-lets">Let\'s play '+s.en+'.</div><div class="sport-ko">'+s.ko+' 하자!</div>';
+  el.onclick=function(){ speak("Let's play "+s.en+"."); };
+  sc.appendChild(el);
+}); }
+
+var scrambles=[
+  {words:["Let's",'play','basketball','.'],answer:"Let's play basketball.",hint:'농구 하자.'},
+  {words:['Sorry,','I',"can't",'.'],answer:"Sorry, I can't.",hint:'미안, 안 되겠어.'},
+  {words:['Sounds','good','!'],answer:'Sounds good!',hint:'좋아!'},
+  {words:["That's",'too','bad','.'],answer:"That's too bad.",hint:'안됐구나.'},
+  {words:['Do','you','like','soccer','?'],answer:'Do you like soccer?',hint:'너 축구 좋아해?'},
+  {words:['Yes,','I','do','.'],answer:'Yes, I do.',hint:'응, 좋아해.'}
+];
+var gramQs=[
+  {q:"Let's ___ soccer.",opts:["Let's playing soccer.","Let's played soccer.","Let's plays soccer.","Let's play soccer."],ans:3,fb:"Let's 뒤에 동사 원형 'play'를 써요!"},
+  {q:"함께 공부하자를 영어로?",opts:["Let's studying!","Let's studied!","Let's study!","Let's to study!"],ans:2,fb:"Let's study! 원형 study를 써야 해요!"},
+  {q:"Sorry, I can't에 어울리는 이유는?",opts:['Sounds good.',"I'm busy.","Let's play!","That's good."],ans:1,fb:"거절할 때 이유를 말해요: Sorry, I can't. I'm busy."},
+  {q:"Sounds good의 뜻은?",opts:['안됐구나.','미안해.','좋아!','나는 아파.'],ans:2,fb:"Sounds good은 제안을 받아들일 때 쓰는 좋아예요!"}
+];
+var _gqI=0,_gqD=false;
+var quizzes=[
+  {q:'"야구 하자."를 영어로?',opts:["Let's playing baseball.","Let's play baseball.","Let's played baseball.","Let's to play baseball."],ans:1,fb:"Let's + 동사원형(play)! Let's play baseball."},
+  {q:'제안에 찬성할 때 하는 말은?',opts:["Sorry, I can't.","That's too bad.","Sounds good!","I'm busy."],ans:2,fb:'"Sounds good!"은 제안을 받아들일 때 쓰는 "좋아!"예요.'},
+  {q:'"Sorry, I can\'t."의 뜻은?',opts:['좋아, 하자!','안됐구나.','미안하지만, 안 되겠어.','나는 아파.'],ans:2,fb:'"Sorry, I can\'t."는 거절할 때 쓰는 "미안하지만, 안 되겠어."예요.'},
+  {q:'Fun Talk 1에서 Kate가 배드민턴을 못 하는 이유는?',opts:["I'm sick.","I'm busy.","I'm tired.","I don't like badminton."],ans:2,fb:"Kate: Sorry, I can't. I'm tired. 피곤해서 못 한다고 했어요."},
+  {q:"다음 중 올바른 Let's 문장은?",opts:["Let's studying!","Let's to study!","Let's study!","Let's studied!"],ans:2,fb:"Let's 뒤에는 동사 원형! Let's study!"},
+  {q:'"That\'s too bad."의 뜻은?',opts:['좋아!','잘됐다.','안됐구나.','조심해.'],ans:2,fb:'"That\'s too bad."는 상대방의 상황에 안타까움을 나타내는 "안됐구나."예요.'},
+  {q:'스토리 #1에서 토미가 제안한 운동은?',opts:['soccer','tennis','baseball','basketball'],ans:3,fb:'토미: Let\'s play basketball. 농구를 하자고 했어요!'},
+  {q:'"Do you like soccer?"에 대한 긍정 대답은?',opts:["No, I don't.","Sorry, I can't.","Yes, I do.","That's too bad."],ans:2,fb:'"Yes, I do."로 좋아한다고 대답해요!'},
+  {q:'Fun Talk 2에서 보라가 야구를 못 하는 이유는?',opts:["I'm tired.","I'm busy.","I'm thirsty.","I'm sick."],ans:3,fb:"보라: Sorry, I can't. I'm sick. 아파서 못 한다고 했어요."},
+  {q:"'Let's'는 무엇의 줄임말인가요?",opts:['Let us','Let is','Let has','Lets'],ans:0,fb:"Let's = Let us (우리 ~하자)의 줄임말이에요!"}
+];
+</script>
+</body>
+</html>
